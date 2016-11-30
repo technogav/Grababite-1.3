@@ -1,0 +1,5 @@
+.scroll{height:100%;}
+#map{height:100%; width:100%;}
+form{width:100%; float:left; background:#eee; display:inline-block;}
+#search{width:85%;}
+#submitSearch{width:10%;}

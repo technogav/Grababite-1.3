@@ -1,0 +1,139 @@
+$energized: #FFC72C;
+$assertive: #E03C31;
+$dark: #996699;
+$stable: #857874;
+$link-color: $stable;
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+@import "../www/lib/ionic/scss";
+// This code is required for Angular Google Maps to funciton
+ui-gmap-google-map {
+	height: 100%;
+	width: 100%;
+	display: block;
+	.angular-google-map {
+		height: 100%;
+		.angular-google-map-container {
+			height: 100%;
+		}
+		
+	}
+}
+h1, h2, h3, h4, h5, h6, {
+	font-family: Futura, Futura-Bold, "Futura Bold", "Century Gothic", CenturyGothic, "Apple Gothic", AppleGothic, "URW Gothic L", "Avant Garde", sans-serif;
+}
+
+body {
+	font-family: Futura, Futura-Medium, "Futura Medium", "Century Gothic", CenturyGothic, "Apple Gothic", AppleGothic, "URW Gothic L", "Avant Garde", sans-serif;
+}
+
+.short {
+	width: 80%;
+	/* margin-top: -5px;
+	margin-right: -15px;
+	/*margin-left: -1px;
+	*/}
+.text-short {
+	width: 75%;
+}
+
+.shorter {
+	width: 5%;
+	/* margin-top: -5px;
+	*/
+	    /*margin-right: -5px;
+	*/}
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+	width: 15%;
+}
+
+.textsizetab {
+	font-size: 15px !important;
+	font-weight: bold;
+}
+
+.image {
+	margin-top: -20px;
+}
+
+input: : -webkit-input-placeholder {
+	font-size: 10pt;
+	color: #555;
+}
+
+input: : -moz-placeholder {
+	font-size: 10pt;
+	color: #555;
+}
+
+input: -ms-input-placeholder {
+	font-size: 10pt;
+	color: #555;
+}
+
+input: -moz-placeholder {
+	font-size: 10pt;
+	color: #555;
+}
+
+input.other: : -webkit-input-placeholder {
+	font-size: 10pt;
+	color: red;
+}
+
+input.other: : -moz-placeholder {
+	font-size: 10pt;
+	color: red;
+}
+
+input.other: -ms-input-placeholder {
+	font-size: 10pt;
+	color: red;
+}
+
+input.other: -moz-placeholder {
+	font-size: 10pt;
+	color: red;
+}
+
+.button-centre {
+	margin: auto;
+	display: block;
+}
+
+.list-text {
+	font-size: 20px;
+}
+
+a: link {
+	text-decoration: none;
+}
+
+.bg {
+	background-color: #ffffff;
+}
+
+body.platform-ios {
+	font-family: Raleway, sans-serif;
+}
+
+.ionic-body.platform-ios {
+	font-family: Raleway, sans-serif;
+}
+
+body.platform-android {
+	font-family: Raleway, sans-serif;
+}
+
+.ionic-body.platform-android {
+	font-family: Raleway, sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,.tab-item,input,button,select,textarea {
+	font-family: inherit;
+}
+
