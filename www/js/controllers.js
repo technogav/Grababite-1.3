@@ -31,8 +31,8 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 	$scope.searchbar = "";
 	$scope.restaurants = RestaurantFactory.getRestaurants();
 	$scope.restaurant = $scope.restaurants[0];
-	$scope.lat = "" ;
-	$scope.long = "" ;
+	$scope.lat = "";
+	$scope.long = "";
 	$scope.mapOptions = {
 			zoom: 15		
 	};
@@ -40,7 +40,7 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 //get current coords and bind them to scope/////////////////////////////////////////////////////////////
 	$ionicPlatform.ready(function(){
 
-		var posOptions = {timeout: 10000, enableHighAccuracy: false};
+		var posOptions = {timeout: 10000, enableHighAccuracy: true};
 		$cordovaGeolocation.getCurrentPosition(posOptions)
 			.then(function (position) {
 
