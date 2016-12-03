@@ -28,7 +28,7 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 		main.map = map;
 	});
 	
-	
+	$scope.searchbar = "";
 	$scope.restaurants = RestaurantFactory.getRestaurants();
 	$scope.restaurant = $scope.restaurants[0];
 	$scope.lat = "" ;
@@ -39,14 +39,17 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 	
 //get current coords and bind them to scope/////////////////////////////////////////////////////////////
 	$ionicPlatform.ready(function(){
-		var posOptions = {timeout: 10000, enableHighAccuracy: true};
+
+		var posOptions = {timeout: 10000, enableHighAccuracy: false};
 		$cordovaGeolocation.getCurrentPosition(posOptions)
-			.then(function (position) {		
+			.then(function (position) {
+
 					$scope.lat = position.coords.latitude;console.log($scope.lat);
 					$scope.long = position.coords.longitude;
+
 				
 		}, function(err) {
-			console.log(err);
+			console.log(err.message);
 		});
 		
 	});
@@ -63,13 +66,13 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 		$scope.$watch('long', updateCenter);
 	};
 	
-
 	
 	
 //CHECK INPUT AGAINST DATABASE//////////////////////////////////////////////////////////////////////
 	$scope.searchByName = function(search){
-		//$scope.search = angular.copy(searchbar);
-		for(var i=0;i<$scope.restaurants.length; i++){
+		var search = angular.copy(search);
+		console.log(search);
+		/*for(var i=0;i<$scope.restaurants.length; i++){
 			if((search.toLowerCase()) === ($scope.restaurants[0].name.toLowerCase())){
 				var coords = $scope.restaurants[i].coords;
 				$scope.lat = coords[0];
@@ -78,7 +81,7 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 				break;
 			}	
 		
-		}
+		}*/
 		return false;
 
 	};
@@ -87,21 +90,25 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 //use input address or name to get new coords and apply them to scope//////////////////////////////////////////
 	$scope.repositionMap = function(searchbar){
 		
-		$scope.search = angular.copy(searchbar);
-		
+		var search = angular.copy(searchbar);
+		console.log(search);
 		//call searchbyName function to set coords if name in database////
-		if($scope.searchByName($scope.search)){
+		if($scope.searchByName(search)){
+			console.log('clue');
 			
 		}else{
-			var url = "http://maps.google.com/maps/api/geocode/json?address=" + $scope.search + " ireland";
+			var url = "http://maps.google.com/maps/api/geocode/json?address=" + search + " ireland";
+			console.log('here');
 				$http({
 					method: 'GET',
 					url: url
 				}).then(function successCallback(response) {
 					var releventMapData = response.data.results[0];
+					
+					var searchedreleventMapData_lat = releventMapData.geometry.location.lat;
 					var searched_lat = releventMapData.geometry.location.lat;
 					var searched_long = releventMapData.geometry.location.lng;
-	
+					
 					$scope.lat = searched_lat;
 					$scope.long = searched_long;
 					
@@ -116,9 +123,10 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 
 //show info window/////////////////////////////////////////////////////////////////////////////////////	
 	    $scope.showDetail = function(e, restaurant) { 
-		$scope.restaurant = restaurant;
+			
+			$scope.restaurant = restaurant;
 
-    	main.map.showInfoWindow('iw', restaurant.id);
+			main.map.showInfoWindow('iw', restaurant.id);
 	
 	  };
 	

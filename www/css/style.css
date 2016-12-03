@@ -1,5 +1,9 @@
 .scroll{height:100%;}
 #map{height:100%; width:100%;}
-form{width:100%; float:left; background:#eee; display:inline-block;}
-#search{width:85%;}
-#submitSearch{width:10%;}
+form{width:100%; float:left; background:#fff; display:inline-block;}
+
+#liveDeals-search4{width:74%;}
+#liveDeals-form6{margin-top:20px;margin-bottom:0px;}
+#liveDeals-form7{width:20%;}
+#liveDeals-button5{background: #fff;}
+#submitSearch{background:yellow;}

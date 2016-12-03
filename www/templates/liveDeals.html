@@ -4,10 +4,13 @@
       <div id="liveDeals-container5">
         <form id="liveDeals-form7" class="list">
           <a ui-sref="tabs.refineYourSearch" id="liveDeals-button5" style="border-radius:0px 0px 0px 0px;" class="button button-assertive  button-clear icon-left ion-funnel shorter right"></a>
+            <!--<a style="border-radius:0px 0px 0px 0px;" ng-click="repositionMap(searchbar)" class="button button-assertive  button-clear icon-left ion-paper-airplane shorter right"></a>-->
           <label class="item item-input short" id="liveDeals-search4" name="searchbox">
             <i class="icon ion-search placeholder-icon"></i>
+            
             <input type="search" ng-model="searchbar" placeholder="Search by location or restaurant">
-			</label>  
+			</label> 
+            
             <input type="submit" ng-click="repositionMap(searchbar)" id="submitSearch" value="submit" >
           
         </form>
