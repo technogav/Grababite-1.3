@@ -1,7 +1,9 @@
 angular.module('app.services', [])
 
-.factory('RestaurantFactory', [function(){
+.factory('RestaurantFactory', [function($firebase){
 	var rFactory = this;
+	
+	/*var ref = new Firebase('https://grababite-a6cf9.firebaseio.com/restaurants/');*/
 	
 	var restaurants = [
 			{
@@ -12,21 +14,21 @@ angular.module('app.services', [])
 				"coords": [53.3428848 , -6.2674266]
 				},
 				{
-				"id": 2,
+				"id": "2",
 				"name": "The Brazen Head",
 				"description": "Restaurant with BOLD flavour",
 				"deal": "2 for One dining tonight",
 				"coords": [53.3449312, -6.2763315]
 			},
 		{
-				"id": 3,
+				"id": "3",
 				"name": "St. James",
 				"description": "'Fresh Food' served in the comfort of your own bed (or trolly)",
 				"deal": "2 for One dining tonight",
 				"coords": [53.3400471, -6.2941736]
 				},
 				{
-				"id": 4,
+				"id": "4",
 				"name": "Dicey's",
 				"description": "Roll on up and give us a 'chance'",
 				"deal": "2 for One dining tonight",

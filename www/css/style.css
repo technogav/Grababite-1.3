@@ -7,3 +7,8 @@ form{width:100%; float:left; background:#fff; display:inline-block;}
 #liveDeals-form7{width:20%;}
 #liveDeals-button5{background: #fff;}
 #submitSearch{background:yellow;}
+#searchIcon{padding:5px 15px 5px 15px;font-size: 16px;display:inline-block;float:left;}
+#searchbar{width:75%;display:inline-block;float:left}
+#search{width:100%; padding:10px;}
+#funnelIcon{padding:5px 15px 5px 15px;font-size: 16px;display:inline-block;float:left;}
+

@@ -25,7 +25,7 @@ angular.module('app.routes', [])
     views: {
       'tab2': {
         templateUrl: 'templates/liveDeals.html',
-        controller: 'liveDealsCtrl'
+        controller: 'liveDealsCtrl as main'
       }
     }
   })
@@ -119,7 +119,15 @@ angular.module('app.routes', [])
     templateUrl: 'templates/welcomeToGrababite.html',
     controller: 'welcomeToGrababiteCtrl'
   })
-
+  //RESTAURANT ROUTES////////////////////////////////////////////////////////////////////////
+  
+  .state('restaurantAccount', {
+    url: '/page101',
+    templateUrl: 'templates/restaurantAccount.html',
+    controller: 'restaurantAccountCtrl'
+  })
+  
+  
 $urlRouterProvider.otherwise('/page1/page3')
 
   

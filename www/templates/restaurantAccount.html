@@ -1,0 +1,27 @@
+<ion-view title="My Account" id="page101">
+  <ion-content padding="true" class="has-header">
+    <ion-list>
+      
+		  <ion-item class="stable">
+		  	<input type="text" placeholder="Restaurant Name" ng-model="restaurantName" />
+		  </ion-item>
+		  <ion-item class="stable  item-text-wrap">
+		  	<input type="text" placeholder="Address Line 1, Line 2, 3" ng-model="restaurantAddress" />
+		  </ion-item>
+
+		  <ion-item class="stable  item-text-wrap">
+		  	<input type="text" placeholder="Restaurant Type" ng-model="restaurantDetails" />
+		  </ion-item>
+		  <ion-item class="stable">
+		  	<input type="text" placeholder="Restaurant Email" ng-model="restaurantEmail"/>
+		  </ion-item>
+		  <ion-item class="stable">
+		  	<input type="text" placeholder="Restaurant Phone" ng-model="restaurantPhone"/>
+		  </ion-item>
+		  <ion-item class="stable">
+		  	<input type="text" placeholder="Verification Code / ID" ng-model="restaurantVerify"/>
+		  </ion-item>
+    </ion-list>
+    <button class="button button-assertive  button-block icon ion-android-checkbox" href="#/page2"> Save Changes</button>
+  </ion-content>
+</ion-view>

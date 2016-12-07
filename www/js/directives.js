@@ -1,5 +1,6 @@
 angular.module('app.directives', [])
 
-.directive('blankDirective', [function(){
-
-}]);
+.directive('googleplace', function() {
+    
+});
+//myApp.factory('myService', function() {});

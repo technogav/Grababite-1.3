@@ -23,23 +23,40 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 'use strict';
 	var main = this;
 
-	NgMap.getMap().then(function(map) {
-		//get DOM of map
-		main.map = map;
-	});
 	
-	$scope.searchbar = "";
-	$scope.restaurants = RestaurantFactory.getRestaurants();
+	main.types = "['address']";
+	  main.placeChanged = function() {
+		  console.log('placeChanged()');
+		  
+		main.place = this.getPlace();
+		  console.log('getPlace()');
+		console.log('location', main.place.geometry.location);
+		main.map.setCenter(main.place.geometry.location);
+	  }
+	
+	
+	
+	
+	
+	$scope.chosenPlace = "";
+	$scope.restaurants = "";
 	$scope.restaurant = $scope.restaurants[0];
 	$scope.lat = "";
 	$scope.long = "";
 	$scope.mapOptions = {
-			zoom: 15		
+			zoom: 16		
 	};
+	
+
+	  
+	  
+	  
+	
+	
 	
 //get current coords and bind them to scope/////////////////////////////////////////////////////////////
 	$ionicPlatform.ready(function(){
-
+		$scope.restaurants = RestaurantFactory.getRestaurants();
 		var posOptions = {timeout: 10000, enableHighAccuracy: true};
 		$cordovaGeolocation.getCurrentPosition(posOptions)
 			.then(function (position) {
@@ -67,6 +84,11 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 	};
 	
 	
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+	$scope.$watch(main.address, main.placeChanged);
+	
+	
+	
 	
 //CHECK INPUT AGAINST DATABASE//////////////////////////////////////////////////////////////////////
 	$scope.searchByName = function(search){
@@ -88,16 +110,16 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 	
 	
 //use input address or name to get new coords and apply them to scope//////////////////////////////////////////
-	$scope.repositionMap = function(searchbar){
+	$scope.repositionMap = function(){
 		
-		var search = angular.copy(searchbar);
+		var search = angular.copy($scope.chosenPlace);
 		console.log(search);
 		//call searchbyName function to set coords if name in database////
 		if($scope.searchByName(search)){
-			console.log('clue');
+			console.log(search);
 			
 		}else{
-			var url = "http://maps.google.com/maps/api/geocode/json?address=" + search + " ireland";
+			var url = "http://maps.google.com/maps/api/geocode/json?address=" + search;
 			console.log('here');
 				$http({
 					method: 'GET',
@@ -129,6 +151,11 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 			main.map.showInfoWindow('iw', restaurant.id);
 	
 	  };
+	
+	NgMap.getMap().then(function(map) {
+		//get DOM of map
+		main.map = map;
+	});
 	
 }
 
@@ -211,6 +238,18 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+
+}])
+
+//RESTAURANT CONTROLLERS/////////////////////////////////////////////////////////////////////
+
+.controller('restaurantAccountCtrl', ['$scope', '$stateParams', 
+function ($scope, $stateParams) {
+	$scope.restaurantName = '';
+	$scope.restaurantAddress = '';
+	$scope.restaurantDetails = '';
+	$scope.restaurantEmail = '';
+	$scope.verifyID = '';
 
 }]);
  
