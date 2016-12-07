@@ -24,6 +24,7 @@ function ($scope, $http, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatfor
 	var main = this;
 
 	
+	
 	main.types = "['address']";
 	  main.placeChanged = function() {
 		  console.log('placeChanged()');

@@ -9,6 +9,7 @@ angular.module('app.routes', [])
   $stateProvider
     
   
+  
 
       .state('tabs.myAccount', {
     url: '/page2',
