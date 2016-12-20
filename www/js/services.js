@@ -1,51 +1,51 @@
 angular.module('app.services', [])
 
-.factory('RestaurantFactory', [function($firebase){
+.factory('RestaurantFactory', [function(){
+
+/////////FETCH RESTAURANTS FROM FIREBASE///////////////////////////////////////////////////
+
+//all this could go in the getRestaurants function to avoid console errors
+
+
+////////////////////////////////////////////////////////////////////////////
+
 	var rFactory = this;
-	
-	/*var ref = new Firebase('https://grababite-a6cf9.firebaseio.com/restaurants/');*/
-	
-	var restaurants = [
-			{
-				"id": "foo",
-				"name": "Dublin Castle",
-				"description": "Dublin castle, food fit for a king",
-				"deal": "2 for One dining tonight",
-				"coords": [53.3428848 , -6.2674266]
-				},
-				{
-				"id": "2",
-				"name": "The Brazen Head",
-				"description": "Restaurant with BOLD flavour",
-				"deal": "2 for One dining tonight",
-				"coords": [53.3449312, -6.2763315]
-			},
-		{
-				"id": "3",
-				"name": "St. James",
-				"description": "'Fresh Food' served in the comfort of your own bed (or trolly)",
-				"deal": "2 for One dining tonight",
-				"coords": [53.3400471, -6.2941736]
-				},
-				{
-				"id": "4",
-				"name": "Dicey's",
-				"description": "Roll on up and give us a 'chance'",
-				"deal": "2 for One dining tonight",
-				"coords": [53.3358639, -6.2635589]
-			}
-		];
-	
+
+
+
+
 	rFactory.getRestaurants = function(){
-		
+
+var restaurants = [];
+
 		return restaurants;
 	};
-	
-	rFactory.addRestaurantDetails = function(restaurant){
-		restaurants.push(restaurant);
-	};
+
+	/*rFactory.addRestaurant = function(restaurant){
+		var coords = [53.3358699, -6.2635529];
+		restaurant.id = 67887;
+		restaurant.coords = coords;
+
+		console.log(restaurant.name);
+		restaurants.$add(restaurant);
+	}
+
+	rFactory.updateRestaurant = function(restaurant){
+		restaurants.$save(restaurant);
+	}
+
+	rFactory.delete = function(reataurant){
+		restaurants.$remove(restaurant)
+	}*/
+
+
+
+
+
+
+
 	return rFactory;
-	
+
 }])
 
 .service('BlankService', [function(){

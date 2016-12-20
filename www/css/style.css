@@ -12,3 +12,26 @@ form{width:100%; float:left; background:#fff; display:inline-block;}
 #search{width:100%; padding:10px;}
 #funnelIcon{padding:5px 15px 5px 15px;font-size: 16px;display:inline-block;float:right;}
 
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+  margin-left: -1px;
+  padding-left: 14px;  /* Regular padding-left + 1. */
+  width: 401px;
+}
+
+.pac-container {
+  font-family: Roboto;
+}
+

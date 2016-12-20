@@ -71,7 +71,23 @@
     <script src="js/angular-simple-logger.js"></script>
      
     <!-- Firebase this is not loading quick enough so the app crashes waiting for response, think about spinners-->
-	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+	<script>
+ 	var config = {
+		apiKey: "AIzaSyD4BVnN3FkiAyp7GXtGASmNI65_lNwdfoI",
+		authDomain: "grababite-a6cf9.firebaseapp.com",
+		databaseURL: "https://grababite-a6cf9.firebaseio.com",
+		storageBucket: "grababite-a6cf9.appspot.com",
+		messagingSenderId: "75457488012"
+	  };
+  firebase.initializeApp(config);
+</script>
+	<!--/*<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script>*/-->
+
+	
 
 
 	<!-- AngularFire -->
@@ -114,10 +130,8 @@
     
     
   </ion-side-menus>
-  <myApp-google-autocomplete ng-model="fullAddress" zip="main.model.zipcode"
-				country="main.model.country" state="main.model.state" city="main.model.city"
-				address1="main.model.address_1">
-			</myApp-google-autocomplete>
+  
 </div>
+ 
   </body>
 </html>

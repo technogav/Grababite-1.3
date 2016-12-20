@@ -7,9 +7,6 @@ angular.module('app.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    
-  
-  
 
       .state('tabs.myAccount', {
     url: '/page2',
@@ -121,16 +118,22 @@ angular.module('app.routes', [])
     controller: 'welcomeToGrababiteCtrl'
   })
   //RESTAURANT ROUTES////////////////////////////////////////////////////////////////////////
-  
+
   .state('restaurantAccount', {
     url: '/page101',
     templateUrl: 'templates/restaurantAccount.html',
-    controller: 'restaurantAccountCtrl'
+    controller: 'liveDealsCtrl as main'
   })
-  
-  
-$urlRouterProvider.otherwise('/page1/page3')
 
-  
+  .state('newDeal', {
+    url: '/page102',
+    templateUrl: 'templates/newDeal.html',
+    controller: 'liveDealsCtrl as main'
+  })
+
+
+$urlRouterProvider.otherwise('/page1/page3');
+
+
 
 });

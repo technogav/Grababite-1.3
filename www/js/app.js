@@ -34,6 +34,8 @@ angular.module('app',
   });
 })
 
+
+
 .directive('disableSideMenuDrag', ['$ionicSideMenuDelegate', '$rootScope', function($ionicSideMenuDelegate, $rootScope) {
     return {
         restrict: "A",  
