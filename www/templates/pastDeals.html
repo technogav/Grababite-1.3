@@ -1,13 +1,15 @@
 <ion-view title="Past Deals" id="page103">
   <ion-content padding="true" class="has-header">
+    <div ng-repeat="x in currentDeals"
     <ion-list>
-      <ion-item>Deal Name</ion-item>
-      <ion-item>Date of Deal</ion-item>
-      <ion-item>Time of Deal</ion-item>
-      <ion-item>Quantity of deals available</ion-item>
-      <ion-item>Conditions</ion-item>
+      <ion-item>{{x.deal_name}}</ion-item>
+      <ion-item>{{x.start}}</ion-item>
+      <ion-item>5PM-9PM</ion-item>
+      <ion-item>{{x.numberAvailable}}</ion-item>
+      <ion-item>{{x.conditions}}</ion-item>
     </ion-list>
     <div class="spacer" style="width: 300px; height: 23px;"></div>
     <button style="font-weight:600;" class="button button-energized  button-block icon ion-android-checkbox"> Reactivate Deal</button>
+    <button style="font-weight:600;" class="button button-assertive  button-block icon ion-android-checkbox"> Remove Deal</button>
   </ion-content>
 </ion-view>

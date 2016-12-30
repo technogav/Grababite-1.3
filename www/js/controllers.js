@@ -181,6 +181,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 		$scope.fbRestsObj = $firebaseObject(ref);
 		$scope.fbRestsObj.$loaded().then(function(data) {
 				angular.forEach(data, function(value) {
+					//think of way to target prooperly
 					if(value.id == "2"){
 						console.log(value.deals);
 							value.deals.push(
