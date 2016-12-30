@@ -11,7 +11,7 @@ form{width:100%; float:left; background:#fff; display:inline-block;}
 #searchbar{width:70%;display:inline-block;float:left}
 #search{width:100%; padding:10px;}
 #funnelIcon{padding:5px 15px 5px 15px;font-size: 16px;display:inline-block;float:right;}
-
+.card{padding-top:15px;}
 
 #pac-input {
   background-color: #fff;
@@ -34,4 +34,3 @@ form{width:100%; float:left; background:#fff; display:inline-block;}
 .pac-container {
   font-family: Roboto;
 }
-

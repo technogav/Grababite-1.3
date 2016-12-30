@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *">
     <title></title>
-    
+
 
     <link rel="stylesheet" href="fonts/raleway/css/fonts.css">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
@@ -20,16 +20,16 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 <link rel="manifest" href="manifest.json">
-    
+
     <link href="css/ionic.app.css" rel="stylesheet">
-    
+
 
     <style type="text/css">
       .platform-ios .manual-ios-statusbar-padding{
         padding-top:20px;
       }
       .manual-remove-top-padding{
-        padding-top:0px; 
+        padding-top:0px;
       }
       .manual-remove-top-padding .scroll{
         padding-top:0px !important;
@@ -56,20 +56,20 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/routes.js"></script>
-    
-     
+
+
     <script src="js/directives.js"></script>
-     
+
     <script src="js/services.js"></script>
-     
+
     <script src="https://cdn.jsdelivr.net/lodash/4.15.0/lodash.min.js"></script>
-   
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAIlBmEEBgms_hhbcyU-uNciPRknniNQY&libraries=places"></script>
     <script src="lib/ng-map.min.js"></script>
-	<script src="lib/ng-cordova/dist/ng-cordova.min.js"></script> 
-   
+	<script src="lib/ng-cordova/dist/ng-cordova.min.js"></script>
+
     <script src="js/angular-simple-logger.js"></script>
-     
+
     <!-- Firebase this is not loading quick enough so the app crashes waiting for response, think about spinners-->
 	<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 	<script>
@@ -87,23 +87,23 @@
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script>*/-->
 
-	
+
 
 
 	<!-- AngularFire -->
 	<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
-     
-    
-    
 
-    <!-- Only required for Tab projects w/ pages in multiple tabs 
+
+
+
+    <!-- Only required for Tab projects w/ pages in multiple tabs
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
     -->
 
   </head>
   <body ng-app="app" animation="slide-left-right-ios7">
   <div>
-  
+
   <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
     <ion-side-menu-content>
       <ion-nav-bar class="bar-assertive">
@@ -120,18 +120,21 @@
       </ion-header-bar>
       <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-right has-header ">
         <ion-list id="menu-list3" data-componentid="list3">
-          <ion-item class="item-icon-left assertive" id="menu-list-item1" href="#/page101" data-componentid="list-item1">
-            <i class="icon ion-android-settings"></i>Settings</ion-item>
+          <ion-item class="item-icon-left assertive" id="menu-list-item1" href="#/login" data-componentid="list-item1">
+            <i class="icon ion-android-settings"></i>Login Screen</ion-item>
           <ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page3" data-componentid="list-item2">
-            <i class="icon ion-log-out"></i>Sign Out</ion-item>
+            <i class="icon ion-log-out"></i>customers home</ion-item>
+            <ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page100" data-componentid="list-item2">
+              <i class="icon ion-android-settings"></i>Restaurant home</ion-item>
+
         </ion-list>
       </ion-content>
     </ion-side-menu>
-    
-    
+
+
   </ion-side-menus>
-  
+
 </div>
- 
+
   </body>
 </html>

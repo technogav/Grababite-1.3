@@ -1,22 +1,30 @@
-<ion-view title="Login" id="page9">
-  <ion-content padding="false" class="has-header">
-    <form id="login-form8" class="list">
+<ion-view title="Login" id="login" style="background-color:default;">
+  <ion-content padding="true" class="has-header">
+    <form class="list">
       <div>
-        <img src="img/ZDnvKvYQHuTevuD7cQIy_Logotagline.png" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
+        <img src="https://s3.amazonaws.com/ionic-io-static/n5xqYMxvQ3GM09htPqdf_GrabaBite_logo-SafeArea.svg" style="display: block; width: 55%; height: auto; margin-left: auto; margin-right: auto;">
       </div>
-      <ion-list id="login-list1">
-        <label class="item item-input" id="login-input1">
-          <span class="input-label">Email</span>
+      <div class="spacer" style="height: 15px;"></div>
+      <ion-list>
+        <label class="item item-input">
+          <span class="input-label">Username</span>
           <input type="text" placeholder="">
         </label>
-        <label class="item item-input" id="login-input2">
+        <label class="item item-input">
           <span class="input-label">Password</span>
           <input type="password" placeholder="">
         </label>
       </ion-list>
-      <div class="spacer" style="width: 300px; height: 14px;"></div>
-      <a ui-sref="tabs.liveDeals" id="login-button6" class="button button-assertive  button-block">Log in</a>
-      <a href="#" onclick="window.open('/signup', '_system', 'location=yes'); return false;" id="login-button7" class="button button-positive  button-block button-clear">Or create an account</a>
+      <div class="spacer" style="width: 300px; height: 23px;"></div>
+
+      <a href="#/page1/page3" style="font-weight:600;" class="button button-energized  button-block icon ion-android-checkbox-outline" > Customer</a>
+
+      <div style="text-align:center;" class="show-list-numbers-and-dots">
+        <p style="color:#857874;">
+          <strong>or</strong>
+        </p>
+      </div>
+      <a href="#/page201/page100" style="font-weight:600;" class="button button-assertive  button-block icon ion-android-checkbox-outline"> Restaurant</a>
     </form>
   </ion-content>
 </ion-view>

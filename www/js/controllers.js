@@ -17,29 +17,13 @@ function ($scope, $stateParams) {
 }])
 
 .controller('liveDealsCtrl', ['$scope', '$http', '$location', 'NgMap', '$stateParams', '$cordovaGeolocation', '$ionicPlatform', 'RestaurantFactory',
-'firebase' ,  '$firebaseArray',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+'firebase' ,  '$firebaseArray', '$firebaseObject',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatform, RestaurantFactory, firebase, $firebaseArray) {
+function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatform, RestaurantFactory, firebase, $firebaseArray, $firebaseObject) {
 'use strict'
-
+/*$SCOPE.RESTS GOT LOST SOMEWHERE SO NOW THE MAP MARKERS ARE NOT WORKING*/
 	var main = this;
-
-	/*$scope.disableTap = function(){
-    container = document.getElementsByClassName('pac-container');
-    // disable ionic data tab
-    angular.element(container).attr('data-tap-disabled', 'true');
-    // leave input field if google-address-entry is selected
-    angular.element(container).on("click", function(){
-        document.getElementById('search').blur();
-    });
-  };*/
-
-	main.types = "['address']";
-	  main.placeChanged = function() {
-		  console.log(main.address);
-
-	  }
 
 	$scope.chosenPlace = "";
 	$scope.restaurants = [];
@@ -47,10 +31,31 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 	$scope.lat = "";
 	$scope.long = "";
 	$scope.mapOptions = {zoom: 16};
-	var ref = firebase.database().ref();
-	$scope.rests = $firebaseArray(ref);
-
+	var ref = firebase.database().ref('restaurants/');
+	$scope.fbRestsArr = $firebaseArray(ref);
+	ref.orderByChild("name").equalTo("Burretos")
+			.on("value",function(data){
+						console.log(data.val());
+	})
 	$scope.newRests = {};
+	$scope.newDeal = {};
+	$scope.fbRestsObj = $firebaseObject(ref);
+	$scope.currentDeals = [];
+//FETCH RESTAURANT DATA FROM FIREBASE//////////////////////////////////////////////////////////
+	$scope.rests = [];
+	$scope.fbRestsObj.$loaded().then(function(data) {
+			angular.forEach(data, function(value) {
+
+						$scope.rests.push(value);
+						console.log($scope.rests);
+
+			});
+
+			$scope.currentDeals= $scope.rests[0].deals;
+				console.log($scope.currentDeals.length);
+				//need some logic here to reference the relevant restaurant
+
+	});
 
 //get current coords and bind them to scope/////////////////////////////////////////////////////////////
 	$ionicPlatform.ready(function(){
@@ -125,17 +130,9 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 				});
 		}
 	};
-$scope.l = [];
-	var getCoordsFromAddress = function(address){
-
-
-var y = $scope.returnCoords;
-return y;
-
-	}
 
 //show info window/////////////////////////////////////////////////////////////////////////////////////
-	  $scope.showDetail = function(e, restaurant) {
+	$scope.showDetail = function(e, restaurant) {
 				$scope.restaurant = restaurant;
 				main.map.showInfoWindow('iw', restaurant.id);
 	  };
@@ -145,11 +142,7 @@ return y;
 		main.map = map;
 	});
 
-
-
 //////////////////////////////DUEL CONTROLLER TO BIND TO THE RESTERAUNT ACCOUNT VIEW TEMPLATE//////////////////////////////
-	main.newRestaurant = {id:"", name:"", address:"", type:"", email:"", phone:"", coords:""};
-
 
 	main.addRestaurant = function(){
 
@@ -159,38 +152,82 @@ return y;
 					method: 'GET',
 					url: url
 				}).then(function successCallback(response) {
+										var releventMapData = response.data.results[0];
+										var searchedreleventMapData_lat = releventMapData.geometry.location.lat;
+										var searched_lat = releventMapData.geometry.location.lat;
+										var searched_long = releventMapData.geometry.location.lng;
 
-					var releventMapData = response.data.results[0];
+										$scope.newRests.coords = [searched_lat, searched_long];
+										$scope.newRests.id = "2";
 
-					var searchedreleventMapData_lat = releventMapData.geometry.location.lat;
-					var searched_lat = releventMapData.geometry.location.lat;
-					var searched_long = releventMapData.geometry.location.lng;
-
-					$scope.newRests.coords = [searched_lat, searched_long];
-					$scope.newRests.id = "1";
-					$scope.rests.$add({id:$scope.newRests.id,
+										$scope.fbRestsArr.$add({id:$scope.newRests.id,
 														name:$scope.newRests.name,
 														address:$scope.newRests.address,
 														type:$scope.newRests.type,
 														email:$scope.newRests.email,
 														phone:$scope.newRests.phone,
 														coords:$scope.newRests.coords,
-														deals:[{startDate:"", endDate: "", dealDetails: "", numberOfDeals:"", conditions:"", uptake:""}],
-														images:[{image1:"", image2:"", image3:""}],
+														deals:[{details:"", conditions:"", start:"", end:""}],
+														images:[],
 														currentDeal : true
 													});
-
-
-
 				});
-//////////////////////////////DUEL CONTROLLER TO BIND TO THE RESTERAUNT ACCOUNT VIEW TEMPLATE//////////////////////////////
-$scope.newDeal = {};
-	main.addDeal = function(){
-		console.log("newDeal");
-	}
-				$location.path('/page103');
-		};
 
+		$location.path('/page102');
+	};
+//////////////////////////////DUEL CONTROLLER TO BIND TO THE RESTERAUNT ACCOUNT VIEW TEMPLATE//////////////////////////////
+
+	main.addDeal = function(){
+		$scope.fbRestsObj = $firebaseObject(ref);
+		$scope.fbRestsObj.$loaded().then(function(data) {
+				angular.forEach(data, function(value) {
+					if(value.id == "2"){
+						console.log(value.deals);
+							value.deals.push(
+								{
+								name:"newDeal.name",
+								dealReference:"newDeal.ref",
+								details:"newDeal.details",
+								conditions:"newDeal.conditions",
+								start:"newDeal.start",
+								end:"newDeal.end"
+							}
+							);
+							$scope.fbRestsObj.$save(ref).then(function(){
+
+							console.log("new deal added");
+							})
+					}
+				});
+			});
+
+
+
+	}
+
+
+	//use this for update deals
+
+	/*$scope.fbRestsObj.$loaded().then(function(data) {
+
+		angular.forEach(data, function(value) {
+			if(value.id == "2"){
+				value.deals.dealDetails = "nice deal";
+				value.deals.uptake = "2";
+				console.log(value);
+				console.log(data);
+				$scope.fbRestsObj.$save(ref).then(function(){
+
+					console.log("jwedjkfre");
+				})
+				return;
+			}
+
+
+	 });
+
+
+ });*/
 
 	main.updateRestaurant = function(){
 		//RestaurantFactory.updateRestaurant(restaurant);
@@ -274,10 +311,28 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('welcomeToGrababiteCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('todaysDealsCtrl', ['$scope', '$stateParams', 'firebase', '$firebaseObject', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, firebase, $firebaseObject) {
+		var ref = firebase.database().ref('restaurants/');
+		$scope.deal = {name:"namek"};
+		$scope.fbRestsObj = $firebaseObject(ref);
+		$scope.todaysDeals = {};
+		$scope.fbRestsObj.$loaded().then(function(data) {
+				angular.forEach(data, function(value) {
+console.log(value.name);
+					console.log(value);
+					 for(var i = 0; i < value.deals.length; i++){
+							 //if((value.deals[i].start <= today) && (value.deals[i].end >= today)){
 
+
+							//};
+						 		console.log(value.deals[i].details);
+					 }//for
+				});//foreach
+
+
+		});//loaded
 
 }]);

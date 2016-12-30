@@ -44,6 +44,12 @@ angular.module('app.routes', [])
     abstract:true
   })
 
+  .state('tabs2', {
+    url: '/page201',
+    templateUrl: 'templates/tabs2.html',
+    abstract:true
+  })
+
   .state('tabs.reserveTable', {
     url: '/page7',
     views: {
@@ -65,7 +71,7 @@ angular.module('app.routes', [])
   })
 
   .state('login', {
-    url: '/page9',
+    url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
   })
@@ -118,21 +124,70 @@ angular.module('app.routes', [])
     controller: 'welcomeToGrababiteCtrl'
   })
   //RESTAURANT ROUTES////////////////////////////////////////////////////////////////////////
+  .state('tabs2.TodaysDeals', {
+    url: '/page100',
+    views:{
+      'tab3':{
+    templateUrl: 'templates/todaysDeals.html',
+    controller: 'liveDealsCtrl as main'
+  }
+  }
+  })
 
-  .state('restaurantAccount', {
+  .state('tabs2.restaurantAccount', {
     url: '/page101',
+    views:{
+      'tab1':{
     templateUrl: 'templates/restaurantAccount.html',
     controller: 'liveDealsCtrl as main'
+  }
+  }
   })
 
-  .state('newDeal', {
+  .state('tabs2.newDeal', {
     url: '/page102',
+    views:{
+      'tab1':{
     templateUrl: 'templates/newDeal.html',
     controller: 'liveDealsCtrl as main'
+  }
+  }
+  })
+
+  .state('tabs2.pastDeals', {
+    url: '/page103',
+    views:{
+      'tab1':{
+    templateUrl: 'templates/pastDeals.html',
+    controller: 'liveDealsCtrl as main'
+  }
+  }
+  })
+
+  .state('tabs2.dealInfo', {
+    url: '/page104',
+    views:{
+      'tab1':{
+    templateUrl: 'templates/dealInfo.html',
+    controller: 'liveDealsCtrl as main'
+  }
+  }
+  })
+
+  .state('tabs2.restLiveDeals', {
+    url: '/page105',
+    views:{
+      'tab2':{
+    templateUrl: 'templates/restLiveDeals.html',
+    controller: 'liveDealsCtrl as main'
+  }
+  }
   })
 
 
-$urlRouterProvider.otherwise('/page1/page3');
+
+
+$urlRouterProvider.otherwise('/login');
 
 
 

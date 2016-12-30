@@ -1,38 +1,59 @@
-[
 {
-				"id": "1",
-				"name": "Dublin Castle",
-				"address": "1 Dame Street, Dublin, Ireland",
-				"type": "Dublin castle, food fit for a king",
-				"email": "2@for.One",
-				"phone": "9989",
-				"coords": [53.3428848 , -6.2674266]
-				},
-				{
-				"id": "2",
-				"name": "The Brazen Head",
-				"address": "1 Dame Street, Dublin, Ireland",
-				"type": "Dublin castle, food fit for a king",
-				"email": "2@for.One",
-				"phone": "9989",
-				"coords": [53.3449312, -6.2763315]
-			},
-		{
-				"id": "3",
-				"name": "St. James",
-				"address": "1 Dame Street, Dublin, Ireland",
-				"type": "Dublin castle, food fit for a king",
-				"email": "2@for.One",
-				"phone": "9989",
-				"coords": [53.3400471, -6.2941736]
-				},
-				{
-				"id": "4",
-				"name": "Dicey's",
-				"address": "1 Dame Street, Dublin, Ireland",
-				"type": "Dublin castle, food fit for a king",
-				"email": "2@for.One",
-				"phone": "9989",
-				"coords": [53.3358639, -6.2635589]
-			}
-]
+  "restaurants" : {
+    "-KZXB3RiVkGoDoxPThYa" : {
+      "address" : "11 the woods cnoc na greine kilcullen kildare",
+      "coords" : [ 53.125947, -6.757115 ],
+			"account_name": "Gavin",
+			"restaurantName" : "Bitchin Burretos",
+      "deals" : [ {
+				"deal_name" : "Live 2 4 1 Deal",
+        "conditions" : "deal will only be honered between stated hours and with a vailid Grababite code.",
+        "details" : "Order any two main courses from our earlybird menu and get the cheapest one free",
+        "end" : "30-02-2017",
+        "start" : "01-02-2017",
+				"numberAvailable": "10",
+				"uptake":"0"
+      }, {
+				"deal_name" : "Live 2 4 1 Deal",
+        "conditions" : "deal will only be honered between stated hours and with a vailid Grababite code.",
+        "details" : "Order any meal for two and get a free bottle of house red or white wine",
+        "end" : "30-02-2017",
+        "start" : "01-02-2017",
+				"numberAvailable": "10"
+      } ],
+      "email" : "gavinmurphy00101@gmail.com",
+      "id" : "2",
+      "name" : "Bitchin Burretos",
+      "phone" : "555-3245667",
+      "type" : "italian"
+    },
+
+    "-KZb86rqjgdqQyRkXejx" : {
+      "address" : "dublin ireland",
+      "coords" : [ 53.3498053, -6.2603097 ],
+			"account_name": "Gavin",
+			"restaurantName" : "Burretos",
+			"deals" : [ {
+				"deal_name" : "Live Rival Nextdoor",
+        "conditions" : "deal will only be honered between stated hours and with a vailid Grababite code.",
+        "details" : "We will match any of our competitors vouchers",
+        "end" : "30-02-2017",
+        "start" : "01-02-2017",
+				"numberAvailable": "10",
+				"uptake": "8"
+      }, {
+				"deal_name" : "Live 2 4 1 Deal",
+        "conditions" : "deal will only be honered between stated hours and with a vailid Grababite code.",
+        "details" : "Order any meal for two and get a free bottle of house red or white wine",
+        "end" : "30-02-2017",
+        "start" : "01-02-2017",
+				"numberAvailable": "10"
+      } ],
+      "email" : "k@l.j",
+      "id" : "2",
+      "name" : "Burretos",
+      "phone" : "555-3245667",
+      "type" : "chineese"
+    }
+  }
+}
