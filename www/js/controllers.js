@@ -51,31 +51,31 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 	$scope.newRests = {};
 	$scope.newDeal = {};
 	$scope.fbRestsObj = $firebaseObject(ref);
-$scope.currentDeals = [];
+	$scope.deals = [];
+	$scope.currentDeals = [];
+	$scope.loggedInName = "Burretos";
 //FETCH RESTAURANT DATA FROM FIREBASE//////////////////////////////////////////////////////////
 	$scope.rests = [];
 	$scope.fbRestsObj.$loaded().then(function(data) {
 			angular.forEach(data, function(value) {
-
 						$scope.rests.push(value);
-						console.log($scope.rests);
+						if(value.name === $scope.loggedInName){
+							$scope.deals = value.deals;
+							$scope.loggedInRest = value;
 
+							for(var i = 0; i < $scope.deals.length; i++){
+									var w = $scope.deals[i];
+									console.log(w);
+							}
+						}else{//handle this later
+						}
 			});
 //console.log($scope.rests);
 
-$scope.loggedInName = "Burretos";
-$scope.loggedInRest = y($scope.loggedInName);
-
-for(var i =0; i < $scope.rests.length; i++){
-		if($scope.rests[i].name == "Burretos"){
-				$scope.currentDeals = $scope.rests[i].deals;
-				return
-		}
 
 
 
-}
-				var today = new Date();
+
 				/*for(var i =0; i < $scope.currentDeals.length; i++){
 						var start = new Date($scope.currentDeals[i].start);
 						//console.log("2");

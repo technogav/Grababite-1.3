@@ -47,7 +47,7 @@
 
 
       <marker id="{{r.id}}" position="{{r.coords}}"
-        on-click="showDetail(r)" ng-repeat="r in restaurants"
+        on-click="showDetail(r)" ng-repeat="r in rests"
         >
       </marker>
 
@@ -58,8 +58,8 @@
           <div style="width:60%; display:inline-block; float:left;"> <img src="img/641p0zRjQ8yjLZsTAf0w_housre.png" width="100%" />
           </div>
           <div style="width:40%; display:inline-block; float:left; padding:10px;">
-			  <h4>{{restaurant.name}}</h4>
-				<strong>Live Deal: </strong><br>{{restaurant.deal}}<br><br>
+			  <h4>{{rests.name}}</h4>
+				<strong>Live Deal: </strong><br>{{rests.deal}}<br><br>
 
 			  <a href="#/page1/page7" ng-click="$scope.clicked()">Reserve Deal Now</a>
 			</div>
