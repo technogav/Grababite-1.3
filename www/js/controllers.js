@@ -33,14 +33,25 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 	$scope.mapOptions = {zoom: 16};
 	var ref = firebase.database().ref('restaurants/');
 	$scope.fbRestsArr = $firebaseArray(ref);
-	ref.orderByChild("name").equalTo("Burretos")
-			.on("value",function(data){
-						console.log(data.val());
-	})
+
+
+	var y = function(name){
+		console.log(ref);
+		ref.orderByChild("name").equalTo(name)
+				.on("value",function(data){
+							var x =data.val();
+							console.log(x);
+
+		})
+	}
+
+
+
+
 	$scope.newRests = {};
 	$scope.newDeal = {};
 	$scope.fbRestsObj = $firebaseObject(ref);
-	$scope.currentDeals = [];
+$scope.currentDeals = [];
 //FETCH RESTAURANT DATA FROM FIREBASE//////////////////////////////////////////////////////////
 	$scope.rests = [];
 	$scope.fbRestsObj.$loaded().then(function(data) {
@@ -50,12 +61,42 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 						console.log($scope.rests);
 
 			});
+//console.log($scope.rests);
 
-			$scope.currentDeals= $scope.rests[0].deals;
-				console.log($scope.currentDeals.length);
+$scope.loggedInName = "Burretos";
+$scope.loggedInRest = y($scope.loggedInName);
+
+for(var i =0; i < $scope.rests.length; i++){
+		if($scope.rests[i].name == "Burretos"){
+				$scope.currentDeals = $scope.rests[i].deals;
+				return
+		}
+
+
+
+}
+				var today = new Date();
+				/*for(var i =0; i < $scope.currentDeals.length; i++){
+						var start = new Date($scope.currentDeals[i].start);
+						//console.log("2");
+						if((start >= today) && ($scope.currentDeals[i].uptake !=  $scope.currentDeals[i].numAvailable)){
+							$scope.todaysDeals = $scope.currentDeals[i].deal;
+						}
+				}*/
+
+
+
+				//var dd = d.getDate();
+				//var mm = d.getMonth()+1; //January is 0!
+			//	var yyyy = d.getFullYear();
+//console.log(d.toDateString());
+
 				//need some logic here to reference the relevant restaurant
+				$scope.todaysDeals = "";
 
 	});
+
+
 
 //get current coords and bind them to scope/////////////////////////////////////////////////////////////
 	$ionicPlatform.ready(function(){
@@ -181,19 +222,26 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 		$scope.fbRestsObj = $firebaseObject(ref);
 		$scope.fbRestsObj.$loaded().then(function(data) {
 				angular.forEach(data, function(value) {
-					//think of way to target prooperly
+					//think of way to target prooper
+					console.log(value);
 					if(value.id == "2"){
-						console.log(value.deals);
+						//console.log(value.deals);
+						$scope.newDeal.startDate = $scope.newDeal.startDate.toDateString();
+						$scope.newDeal.startTime = $scope.newDeal.startTime.toTimeString();
+						$scope.newDeal.endTime = $scope.newDeal.endTime.toTimeString();
 							value.deals.push(
 								{
-								name:"newDeal.name",
-								dealReference:"newDeal.ref",
-								details:"newDeal.details",
-								conditions:"newDeal.conditions",
-								start:"newDeal.start",
-								end:"newDeal.end"
+									conditions: $scope.newDeal.conditions,
+									deal_name: $scope.newDeal.name,
+									details:$scope.newDeal.description ,
+									numberAvailable:$scope.newDeal.numOfDeals,
+									startDate:$scope.newDeal.startDate,
+									startTime:$scope.newDeal.startTime,
+									endTime:$scope.newDeal.endTime,
+									uptake:"0"
 							}
 							);
+							//console.log(value.deals);
 							$scope.fbRestsObj.$save(ref).then(function(){
 
 							console.log("new deal added");

@@ -22,7 +22,7 @@
 				"numberAvailable": "10"
       } ],
       "email" : "gavinmurphy00101@gmail.com",
-      "id" : "2",
+      "id" : "1",
       "name" : "Bitchin Burretos",
       "phone" : "555-3245667",
       "type" : "italian"
@@ -34,21 +34,15 @@
 			"account_name": "Gavin",
 			"restaurantName" : "Burretos",
 			"deals" : [ {
-				"deal_name" : "Live Rival Nextdoor",
-        "conditions" : "deal will only be honered between stated hours and with a vailid Grababite code.",
-        "details" : "We will match any of our competitors vouchers",
-        "end" : "30-02-2017",
-        "start" : "01-02-2017",
-				"numberAvailable": "10",
-				"uptake": "8"
-      }, {
-				"deal_name" : "Live 2 4 1 Deal",
-        "conditions" : "deal will only be honered between stated hours and with a vailid Grababite code.",
-        "details" : "Order any meal for two and get a free bottle of house red or white wine",
-        "end" : "30-02-2017",
-        "start" : "01-02-2017",
-				"numberAvailable": "10"
-      } ],
+				"deal_name" : "",
+        "conditions" : "",
+        "details" : "",
+        "startTime":"",
+        "endTime" : "",
+        "startDate" : "",
+				"numberAvailable": ""
+
+      }],
       "email" : "k@l.j",
       "id" : "2",
       "name" : "Burretos",

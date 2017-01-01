@@ -9,13 +9,16 @@
     <div>
       <form class="list" ng-submit="main.addDeal()">
         <h2 style="color:#857874;text-align:center;"></h2>
-
+        <label class="item item-input">
+          <span class="input-label">Deal Name </span>
+          <input type="text" placeholder="" ng-model="newDeal.name" maxlength="26">
+        </label>
           <label class="item item-input">
             <span class="input-label">Deal Description </span>
             <input type="text" placeholder="" ng-model="newDeal.description" maxlength="26">
           </label>
           <label class="item item-input">
-            <span class="input-label">Date</span>
+            <span class="input-label">Start Date</span>
             <input type="date" ng-model="newDeal.startDate" placeholder="">
           </label>
           <label class="item item-input">
@@ -26,20 +29,13 @@
             <span class="input-label">End Time</span>
             <input type="time" ng-model="newDeal.endTime" placeholder="">
           </label>
-          <label class="item item-select 13">
-            <span class="input-label" ng-model="newDeal.numOfDeals">Number of Deals Available</span>
-            <select>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-
-              <option></option>
-            </select>
+          <label class="item item-input">
+            <span class="input-label">Number of Deals Available</span>
+            <input style="float:right;" type="number" ng-model="newDeal.numOfDeals" />
           </label>
           <label class="item item-input">
             <span class="input-label">Conditions of Deal</span>
-              <textarea placeholder="" maxlength="60" ng-model="newDeal.conditions"></textarea></label>
+              <textarea placeholder="" rows="4" ng-model="newDeal.conditions"></textarea></label>
             <button style="font-weight:600;" class="button button-energized  button-block icon ion-android-checkmark-circle"> Save Deal</button>
         </form>
 
