@@ -1,5 +1,8 @@
 <ion-view title="My Account" id="page101">
   <ion-content padding="true" class="has-header">
+    <h3>Add a Reataurant</h3>
+
+
     <ion-list>
 
 
@@ -21,18 +24,19 @@
       		<ion-item class="stable">
       		  	<input type="text" placeholder="Restaurant Phone" ng-model="newRests.phone"/>
       		  </ion-item>
-      		  <button type="submit">Add</button>
-      		  <button type="button" ng-click="main.removeRestarant(restaurant)">Remove Restaurant </button>
+<button class="button button-assertive  button-block icon ion-android-checkbox"> Save Changes</button>
+
+
+
+      		  <!--<button type="button" ng-click="main.removeRestarant(restaurant)">Remove Restaurant </button>-->
+
+
+
       	</div>
+
       </form>
 
-		  <ion-item class="stable">
-		  	<input type="text" placeholder="Verification Code / ID" ng-model="restaurantVerify"/>
-		  </ion-item>
-    </ion-list>
-    <ul>
-    	<li ng-repeat="r in main.restaurants">1</li>
-    </ul>
-    <button class="button button-assertive  button-block icon ion-android-checkbox" href="#/page2"> Save Changes</button>
+
+    <button class="button button-assertive  button-block icon ion-android-checkbox" ng-click="main.skip()"> skip</button>
   </ion-content>
 </ion-view>

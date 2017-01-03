@@ -1,16 +1,16 @@
 <ion-view title="Today" id="page100">
   <ion-content padding="true" class="has-header">
     <div>
-      <!--<img src="https://s3.amazonaws.com/ionic-io-static/n5xqYMxvQ3GM09htPqdf_GrabaBite_logo-SafeArea.svg" style="display: block; width: 55%; height: auto; margin-left: auto; margin-right: auto;">-->
+      <img src="https://s3.amazonaws.com/ionic-io-static/n5xqYMxvQ3GM09htPqdf_GrabaBite_logo-SafeArea.svg" style="display: block; width: 55%; height: auto; margin-left: auto; margin-right: auto;">
     </div>
     <div class="spacer" style="height: 10px;"></div>
     <h4 style="color:#E03C31;font-weight:600;text-align:center;" class="image2">TODAY'S DEALS</h4>
 
 
 <ul>
-    <li ng-repeat="x in deals">
+    <li ng-repeat="x in currentDeals">
       <div class="list card">
-          <h3 style="color:#857874;text-align:center;">{{x.deal_name}}</h3>
+          <h3 class="todaysDealName">{{x.deal_name}}</h3>
           <div style="text-align:center; padding-top:20px;" class="show-list-numbers-and-dots image">
             <p style="color:#E03C31;font-size:13px;">{{x.uptake}} out of {{x.numberAvailable}} deals have been booked</p>
           </div>

@@ -34,3 +34,5 @@ form{width:100%; float:left; background:#fff; display:inline-block;}
 .pac-container {
   font-family: Roboto;
 }
+.card{min-height:230px; padding-top:50px;}
+.todaysDealName{color:#857874; text-align:center; padding-top:20px; padding-bottom:20px;}

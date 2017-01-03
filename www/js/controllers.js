@@ -33,7 +33,9 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 	$scope.mapOptions = {zoom: 16};
 	var ref = firebase.database().ref('restaurants/');
 	$scope.fbRestsArr = $firebaseArray(ref);
+	$scope.fbRestsObj = $firebaseObject(ref);
 
+console.log($scope.fbRestsObj);
 
 	var y = function(name){
 		console.log(ref);
@@ -48,22 +50,38 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 
 
 
+
 	$scope.newRests = {};
 	$scope.newDeal = {};
-	$scope.fbRestsObj = $firebaseObject(ref);
+
 	$scope.deals = [];
 	$scope.currentDeals = [];
-	$scope.loggedInName = "Burretos";
+	$scope.loggedInName = "Gavins Grub";
+
 //FETCH RESTAURANT DATA FROM FIREBASE//////////////////////////////////////////////////////////
 	$scope.rests = [];
+
 	$scope.fbRestsObj.$loaded().then(function(data) {
 			angular.forEach(data, function(value) {
-						$scope.rests.push(value);
+						console.log(value);
 						if(value.name === $scope.loggedInName){
 							$scope.deals = value.deals;
 							$scope.loggedInRest = value;
+							//get all scope vars here for firebase stuff
+							angular.forEach($scope.deals, function(value) {
+							var x = new Date(value.startDate);
+							//console.log(x);
+							var today = new Date();
+							if((today > x) && (value.uptake < value.numberAvailable)){
+									console.log(value);
+									$scope.currentDeals[0] = value;
 
-							for(var i = 0; i < $scope.deals.length; i++){
+							}else{
+
+							}
+						}
+						);
+							for(var i = 0; i > $scope.deals.length; i++){
 									var w = $scope.deals[i];
 									console.log(w);
 							}
@@ -104,7 +122,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 		var posOptions = {timeout: 10000, enableHighAccuracy: true};
 		$cordovaGeolocation.getCurrentPosition(posOptions)
 			.then(function (position) {
-					$scope.lat = position.coords.latitude;console.log($scope.lat);
+					$scope.lat = position.coords.latitude;
 					$scope.long = position.coords.longitude;
 		}, function(err) {
 			console.log(err.message);
@@ -193,59 +211,105 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 					method: 'GET',
 					url: url
 				}).then(function successCallback(response) {
+
 										var releventMapData = response.data.results[0];
 										var searchedreleventMapData_lat = releventMapData.geometry.location.lat;
 										var searched_lat = releventMapData.geometry.location.lat;
 										var searched_long = releventMapData.geometry.location.lng;
 
 										$scope.newRests.coords = [searched_lat, searched_long];
-										$scope.newRests.id = "2";
 
-										$scope.fbRestsArr.$add({id:$scope.newRests.id,
+
+										$scope.fbRestsArr.$add({
 														name:$scope.newRests.name,
+														account_name: $scope.accountName,
 														address:$scope.newRests.address,
 														type:$scope.newRests.type,
 														email:$scope.newRests.email,
 														phone:$scope.newRests.phone,
 														coords:$scope.newRests.coords,
-														deals:[{details:"", conditions:"", start:"", end:""}],
-														images:[],
-														currentDeal : true
+														deals:[{deal_name:"a"}, {deal_name:"a"}],
+														images:[]
 													});
+													alert("restaurant added");
+													$location.path('/page201/page102');
+
 				});
 
-		$location.path('/page102');
+
 	};
-//////////////////////////////DUEL CONTROLLER TO BIND TO THE RESTERAUNT ACCOUNT VIEW TEMPLATE//////////////////////////////
+
+main.skip = function(){
+		$location.path('/page201/page102');
+}
 
 	main.addDeal = function(){
-		$scope.fbRestsObj = $firebaseObject(ref);
-		$scope.fbRestsObj.$loaded().then(function(data) {
+		//console.log($scope.fbRestsObj);
+				$scope.fbRestsObj.$loaded().then(function(data) {
+						angular.forEach(data, function(value) {
+							console.log(value);
+							if(value.name == $scope.loggedInName){
+								var d = new Date();
+								//this will break easily when a deal is deleted
+								//maybe loop tru value.deals to find the highest id then add one
+								var id = value.deals.length;
+								var id = id + 1;
+								$scope.newDeal.startDate = $scope.newDeal.startDate.toString();
+								$scope.newDeal.startTime = $scope.newDeal.startTime.toString();
+								$scope.newDeal.endTime = $scope.newDeal.endTime.toString();
+									value.deals.push(
+										{
+											id: id,
+											conditions: $scope.newDeal.conditions,
+											deal_name: $scope.newDeal.name,
+											details:$scope.newDeal.description,
+											numberAvailable:$scope.newDeal.numOfDeals,
+											startDate:$scope.newDeal.startDate,
+											startTime:$scope.newDeal.startTime,
+											endTime:$scope.newDeal.endTime,
+											uptake:"0"
+									});
+
+									$scope.fbRestsObj.$save(ref).then(function(){
+									console.log("new deal added");
+									$location.path('/page201/page100');
+								});
+							}
+						});
+					});
+			}
+
+
+
+
+
+
+
+
+
+
+		/*$scope.fbRestsObj.$loaded().then(function(data) {
 				angular.forEach(data, function(value) {
 					//think of way to target prooper
 					console.log(value);
-					if(value.id == "2"){
-						//console.log(value.deals);
-						$scope.newDeal.startDate = $scope.newDeal.startDate.toDateString();
-						$scope.newDeal.startTime = $scope.newDeal.startTime.toTimeString();
-						$scope.newDeal.endTime = $scope.newDeal.endTime.toTimeString();
-							value.deals.push(
-								{
-									conditions: $scope.newDeal.conditions,
-									deal_name: $scope.newDeal.name,
-									details:$scope.newDeal.description ,
-									numberAvailable:$scope.newDeal.numOfDeals,
-									startDate:$scope.newDeal.startDate,
-									startTime:$scope.newDeal.startTime,
-									endTime:$scope.newDeal.endTime,
-									uptake:"0"
-							}
-							);
-							//console.log(value.deals);
+
+					if(value.name == "Gavins Grub"){
+
+
+							angular.forEach(value.deals, function(value) {
+								console.log(value);
+								angular.forEach(value,function(value){
+										angular.forEach(value,function(value){
+											console.log(value);
+										})
+								})
+							});
 							$scope.fbRestsObj.$save(ref).then(function(){
 
-							console.log("new deal added");
+						//	console.log("new deal added");
 							})
+					}else{
+						//console.log("not logged in");
 					}
 				});
 			});
@@ -277,7 +341,16 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 
 
  });*/
+	$scope.reactivateDeal = function(deal){
 
+		//use firebaseOBJ to target the restaurant
+		//use restaurant to target deals by some UID maybe name
+		//get snaphot of deal then update with infor below
+			var today = new Date();
+			deal.startDate = today;
+			deal.uptake = 0;
+			var reactivatedDeal = deal;
+	}
 	main.updateRestaurant = function(){
 		//RestaurantFactory.updateRestaurant(restaurant);
 	};
