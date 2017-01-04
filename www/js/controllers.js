@@ -216,10 +216,8 @@ console.log($scope.fbRestsObj);
 										var searchedreleventMapData_lat = releventMapData.geometry.location.lat;
 										var searched_lat = releventMapData.geometry.location.lat;
 										var searched_long = releventMapData.geometry.location.lng;
-
+										$scope.accountName = "Gavin";
 										$scope.newRests.coords = [searched_lat, searched_long];
-
-
 										$scope.fbRestsArr.$add({
 														name:$scope.newRests.name,
 														account_name: $scope.accountName,
@@ -228,11 +226,14 @@ console.log($scope.fbRestsObj);
 														email:$scope.newRests.email,
 														phone:$scope.newRests.phone,
 														coords:$scope.newRests.coords,
-														deals:[{deal_name:"a"}, {deal_name:"a"}],
+														deals:[{deal_name:"a"}, {deal_name:"b"}],
 														images:[]
+													}).then(function(){
+															alert("restaurant added");
+															$location.path('/page201/page102');
+
 													});
-													alert("restaurant added");
-													$location.path('/page201/page102');
+
 
 				});
 
@@ -241,6 +242,9 @@ console.log($scope.fbRestsObj);
 
 main.skip = function(){
 		$location.path('/page201/page102');
+}
+main.skip2 = function(){
+		$location.path('/page201/page100');
 }
 
 	main.addDeal = function(){
@@ -254,9 +258,10 @@ main.skip = function(){
 								//maybe loop tru value.deals to find the highest id then add one
 								var id = value.deals.length;
 								var id = id + 1;
-								$scope.newDeal.startDate = $scope.newDeal.startDate.toString();
-								$scope.newDeal.startTime = $scope.newDeal.startTime.toString();
-								$scope.newDeal.endTime = $scope.newDeal.endTime.toString();
+								$scope.newDeal.startDate = $scope.newDeal.startDate.toDateString();
+								$scope.newDeal.startTime = $scope.newDeal.startTime.toTimeString();
+								$scope.newDeal.endTime = $scope.newDeal.endTime.toTimeString();
+
 									value.deals.push(
 										{
 											id: id,
@@ -341,21 +346,42 @@ main.skip = function(){
 
 
  });*/
-	$scope.reactivateDeal = function(deal){
+ $scope.editDeal = [];
+ $scope.pastDealEdit = function(x){
+	 	$scope.editDeal = x;
+	 	$location.path('/page201/page103');
 
-		//use firebaseOBJ to target the restaurant
-		//use restaurant to target deals by some UID maybe name
-		//get snaphot of deal then update with infor below
-			var today = new Date();
-			deal.startDate = today;
-			deal.uptake = 0;
-			var reactivatedDeal = deal;
-	}
-	main.updateRestaurant = function(){
-		//RestaurantFactory.updateRestaurant(restaurant);
-	};
-	main.removeRestaurant = function(restaurant){
+ }
+ $scope.reactivateDeal = function(deal){
+
+	 //use firebaseOBJ to target the restaurant
+	 //use restaurant to target deals by some UID maybe name
+	 //get snaphot of deal then update with infor below
+		 var today = new Date();
+		 deal.startDate = today;
+		 deal.uptake = 0;
+		 var reactivatedDeal = deal;
+ }
+
+	main.removeDeal = function(deal){
 	//	RestaurantFactory.removeRestaurant(restaurant);
+			$scope.fbRestsObj.$loaded().then(function(data) {
+					angular.forEach(data, function(value) {
+					console.log(value.deals);
+							angular.forEach(value.deals, function(value){
+								if(value.deal_name == deal.deal_name){
+									//console.log(value.deal_name);
+								}
+
+							});
+
+
+
+							//console.log(value.deal_name);
+
+
+				});
+			});
 	};
 }
 
@@ -441,20 +467,6 @@ function ($scope, $stateParams, firebase, $firebaseObject) {
 		$scope.deal = {name:"namek"};
 		$scope.fbRestsObj = $firebaseObject(ref);
 		$scope.todaysDeals = {};
-		$scope.fbRestsObj.$loaded().then(function(data) {
-				angular.forEach(data, function(value) {
-console.log(value.name);
-					console.log(value);
-					 for(var i = 0; i < value.deals.length; i++){
-							 //if((value.deals[i].start <= today) && (value.deals[i].end >= today)){
 
-
-							//};
-						 		console.log(value.deals[i].details);
-					 }//for
-				});//foreach
-
-
-		});//loaded
 
 }]);

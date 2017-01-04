@@ -1,20 +1,20 @@
 <ion-view title="All Deals" id="page103">
   <ion-content padding="true" class="has-header">
-    <div ng-repeat="x in deals">
+    <div>
         <a href=""><div style="margin-bottom:85px;">
             <ion-list>
-              <ion-item style="background:lightgrey"><span>Name:</span><span style="text-align:center;">{{x.deal_name}}</span></ion-item>
-              <ion-item>Start Date:{{x.startDate}}</ion-item>
-              <ion-item>Times Available: {{x.startTime}}PM-{{x.endTime}}PM</ion-item>
-              <ion-item>{{x.numberAvailable}}</ion-item>
-              <ion-item>{{x.conditions}}</ion-item>
+              <ion-item style="background:lightgrey"><span>Name:</span><span style="text-align:center;">{{editDeal.deal_name}}</span></ion-item>
+              <ion-item>Start Date:{{editDeal.startDate}}</ion-item>
+              <ion-item></ion-item>
+              <ion-item></ion-item>
+              <ion-item></ion-item>
             </ion-list>
 
             <div class="spacer" style="width: 300px; height: 23px;"></div>
             <button style="font-weight:600; width:49%;display:inline-block;float:left;margin-right:2%;"
             class="button button-energized  icon ion-android-checkbox" ng-click="reactivateDeal(x)"> Reactivate Deal</button>
             <button style="font-weight:600;width:49%;display:inline-block;float:left;"
-            class="button button-assertive icon ion-android-checkbox"> Remove Deal</button>
+            class="button button-assertive icon ion-android-checkbox" ng-click="main.removeDeal(x)"> Remove Deal</button>
           </ion-content>
       </div>
       </a>

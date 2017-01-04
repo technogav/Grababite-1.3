@@ -154,6 +154,16 @@ angular.module('app.routes', [])
   }
   })
 
+  .state('tabs2.history', {
+    url: '/history',
+    views:{
+      'tab1':{
+    templateUrl: 'templates/history.html',
+    controller: 'liveDealsCtrl as main'
+  }
+  }
+  })
+
   .state('tabs2.pastDeals', {
     url: '/page103',
     views:{
