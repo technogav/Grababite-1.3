@@ -1,19 +1,20 @@
 <ion-view title="History" id="history">
   <ion-content padding="true" class="has-header">
-    <div class="spacer" style="height: 23px;"></div>
-    <div style="text-align:center;" class="show-list-numbers-and-dots">
+    <div class="spacer" style="height: 60px;"></div>
+    <div style="text-align:center;" class="show-list-numbers-and-dots" style="min-height:80px;">
       <p style="color:#857874;">View by Date</p>
     </div>
+    <div class="spacer" style="height: 60px;"></div>
     <form class="list">
-      <label class="item item-input image">
-        <span class="input-label">Input</span>
+      <label class="item item-input image" >
+        <span class="input-label">Search by date</span>
         <input type="date" placeholder="">
       </label>
     </form>
-    <div class="spacer" style="height: 10px;"></div>
+    <div class="spacer" style="height: 60px;"></div>
     <ion-list>
 
-      <ion-item class="item-avatar stable  item-text-wrap list-height today" ng-repeat="x in deals" ng-click="pastDealEdit(x)">
+      <ion-item class="item-avatar stable  item-text-wrap list-height today" style="margin-top:20px;" ng-repeat="x in deals" ng-click="pastDealEdit(x)">
         <img src="https://s3.amazonaws.com/ionic-io-static/EGzQ5CcDS3ODKJcQE11W_Asset 1.png">
         <p style="white-space:normal;">{{x.deal_name}}</p>
       </ion-item>

@@ -127,7 +127,7 @@ angular.module('app.routes', [])
   .state('tabs2.TodaysDeals', {
     url: '/page100',
     views:{
-      'tab3':{
+      'tab1':{
     templateUrl: 'templates/todaysDeals.html',
     controller: 'liveDealsCtrl as main'
   }
@@ -147,7 +147,7 @@ angular.module('app.routes', [])
   .state('tabs2.newDeal', {
     url: '/page102',
     views:{
-      'tab1':{
+      'tab3':{
     templateUrl: 'templates/newDeal.html',
     controller: 'liveDealsCtrl as main'
   }
@@ -157,7 +157,7 @@ angular.module('app.routes', [])
   .state('tabs2.history', {
     url: '/history',
     views:{
-      'tab1':{
+      'tab2':{
     templateUrl: 'templates/history.html',
     controller: 'liveDealsCtrl as main'
   }
@@ -166,25 +166,22 @@ angular.module('app.routes', [])
 
   .state('tabs2.pastDeals', {
     url: '/page103',
-    views:{
-      'tab1':{
+	  
+    
     templateUrl: 'templates/pastDeals.html',
     controller: 'liveDealsCtrl as main'
-  }
-  }
+ 
   })
 
-  .state('tabs2.dealInfo', {
-    url: '/page104',
-    views:{
-      'tab1':{
+  .state('dealInfo', {
+    url: '/dealInfo',
+    
     templateUrl: 'templates/dealInfo.html',
     controller: 'liveDealsCtrl as main'
-  }
-  }
-  })
+ 
+  })/**/
 
-  .state('tabs2.restLiveDeals', {
+  /*.state('tabs2.restLiveDeals', {
     url: '/page105',
     views:{
       'tab2':{
@@ -192,8 +189,39 @@ angular.module('app.routes', [])
     controller: 'liveDealsCtrl as main'
   }
   }
+  })*/
+  
+  .state('tabs2.myDeals', {
+    url: '/myDeals',
+    views:{
+      'tab2':{
+    templateUrl: 'templates/myDeals.html',
+    controller: 'liveDealsCtrl as main'
+  }
+  }
   })
-
+  
+  .state('tabs2.bookings', {
+    url: '/bookings',
+    views:{
+      'tab4':{
+    templateUrl: 'templates/bookings.html',
+    controller: 'liveDealsCtrl as main'
+  }
+  }
+  })
+  
+.state('restaurantBookings', {
+    url: '/restaurantBookings',
+    templateUrl: 'templates/restaurantsBookings.html',
+    controller: 'liveDealsCtrl as main'
+  })
+  
+  .state('analytics', {
+    url: '/analytics',
+    templateUrl: 'templates/analytics.html',
+    controller: 'liveDealsCtrl as main'
+  })
 
 
 

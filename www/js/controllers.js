@@ -47,13 +47,8 @@ console.log($scope.fbRestsObj);
 		})
 	}
 
-
-
-
-
 	$scope.newRests = {};
 	$scope.newDeal = {};
-
 	$scope.deals = [];
 	$scope.currentDeals = [];
 	$scope.loggedInName = "Gavins Grub";
@@ -63,30 +58,30 @@ console.log($scope.fbRestsObj);
 
 	$scope.fbRestsObj.$loaded().then(function(data) {
 			angular.forEach(data, function(value) {
-						console.log(value);
-						if(value.name === $scope.loggedInName){
-							$scope.deals = value.deals;
-							$scope.loggedInRest = value;
-							//get all scope vars here for firebase stuff
-							angular.forEach($scope.deals, function(value) {
-							var x = new Date(value.startDate);
-							//console.log(x);
-							var today = new Date();
-							if((today > x) && (value.uptake < value.numberAvailable)){
-									console.log(value);
-									$scope.currentDeals[0] = value;
+				console.log(value);
+				if(value.name === $scope.loggedInName){
+					$scope.deals = value.deals;
+					$scope.loggedInRest = value;
+					//get all scope vars here for firebase stuff
+					angular.forEach($scope.deals, function(value) {
+					var x = new Date(value.startDate);
+					//console.log(x);
+					var today = new Date();
+					if((today > x) && (value.uptake < value.numberAvailable)){
+							console.log(value);
+							$scope.currentDeals[0] = value;
 
-							}else{
+					}else{
 
-							}
-						}
-						);
-							for(var i = 0; i > $scope.deals.length; i++){
-									var w = $scope.deals[i];
-									console.log(w);
-							}
-						}else{//handle this later
-						}
+					}
+				}
+				);
+					for(var i = 0; i > $scope.deals.length; i++){
+							var w = $scope.deals[i];
+							console.log(w);
+					}
+				}else{//handle this later
+				}
 			});
 //console.log($scope.rests);
 
@@ -346,10 +341,20 @@ main.skip2 = function(){
 
 
  });*/
+	$scope.bookingDetails = function(){
+		$location.path('/restaurantBookings');
+	}
+	
+	$scope.myDeal = function(x){
+		console.log(x);
+		$location.path('/dealInfo');
+		
+	}
+	
  $scope.editDeal = [];
  $scope.pastDealEdit = function(x){
 	 	$scope.editDeal = x;
-	 	$location.path('/page201/page103');
+	 	$location.path('/page103');
 
  }
  $scope.reactivateDeal = function(deal){

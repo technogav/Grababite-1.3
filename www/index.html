@@ -118,14 +118,28 @@
       <ion-header-bar class="bar-assertive">
         <div class="title">Menu</div>
       </ion-header-bar>
+      
       <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-right has-header ">
         <ion-list id="menu-list3" data-componentid="list3">
           <ion-item class="item-icon-left assertive" id="menu-list-item1" href="#/login" data-componentid="list-item1">
-            <i class="icon ion-android-settings"></i>Login Screen</ion-item>
+            <i class="icon ion-home"></i>Login Screen</ion-item>
           <ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page3" data-componentid="list-item2">
-            <i class="icon ion-log-out"></i>customers home</ion-item>
-            <ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page100" data-componentid="list-item2">
-              <i class="icon ion-android-settings"></i>Restaurant home</ion-item>
+            <i class="icon ion-android-person"></i>My Account
+          </ion-item>
+		<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page100" data-componentid="list-item2">
+		  <i class="icon ion-map"></i>Map
+		</ion-item>
+        <ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/analytics" data-componentid="list-item2">
+		  <i class="icon ion-pie-graph"></i>Analytics
+		</ion-item>
+
+        <ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page201/history" data-componentid="list-item2">
+		  <i class="icon ion-eye"></i>History
+		</ion-item>
+		<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page100" data-componentid="list-item2">
+		  <i class="icon ion-log-out"></i>LogOut
+		</ion-item>
+
 
         </ion-list>
       </ion-content>
