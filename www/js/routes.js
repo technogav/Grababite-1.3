@@ -134,14 +134,12 @@ angular.module('app.routes', [])
   }
   })
 
-  .state('tabs2.restaurantAccount', {
+  .state('restaurantAccount', {
     url: '/page101',
-    views:{
-      'tab1':{
+    
     templateUrl: 'templates/restaurantAccount.html',
     controller: 'liveDealsCtrl as main'
-  }
-  }
+ 
   })
 
   .state('tabs2.newDeal', {
@@ -164,10 +162,8 @@ angular.module('app.routes', [])
   }
   })
 
-  .state('tabs2.pastDeals', {
-    url: '/page103',
-	  
-    
+  .state('pastDeals', {
+    url: '/page103', 
     templateUrl: 'templates/pastDeals.html',
     controller: 'liveDealsCtrl as main'
  
@@ -181,15 +177,13 @@ angular.module('app.routes', [])
  
   })/**/
 
-  /*.state('tabs2.restLiveDeals', {
+  .state('restLiveDeals', {
     url: '/page105',
-    views:{
-      'tab2':{
+    
     templateUrl: 'templates/restLiveDeals.html',
     controller: 'liveDealsCtrl as main'
-  }
-  }
-  })*/
+  
+  })
   
   .state('tabs2.myDeals', {
     url: '/myDeals',
@@ -222,6 +216,23 @@ angular.module('app.routes', [])
     templateUrl: 'templates/analytics.html',
     controller: 'liveDealsCtrl as main'
   })
+  
+  .state('analyticsByDealName', {
+    url: '/analyticsByDealName',
+    templateUrl: 'templates/analyticsByDealName.html',
+    controller: 'liveDealsCtrl as main'
+  })
+  .state('analyticsByDateRange', {
+    url: '/analyticsByDateRange',
+    templateUrl: 'templates/analyticsByDateRange.html',
+    controller: 'liveDealsCtrl as main'
+  })
+  .state('analyticsByDate', {
+    url: '/analyticsByDate',
+    templateUrl: 'templates/analyticsByDate.html',
+    controller: 'liveDealsCtrl as main'
+  })
+
 
 
 
