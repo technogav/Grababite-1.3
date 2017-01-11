@@ -7,22 +7,22 @@
     <h4 style="color:#E03C31;font-weight:600;text-align:center;" class="image2">TODAY'S DEALS</h4>
 
 
-<ul>
-    <li ng-repeat="x in currentDeals">
-      <div class="list card">
-          <h3 class="todaysDealName">{{x.deal_name}}</h3>
-          <div style="text-align:center; padding-top:20px;" class="show-list-numbers-and-dots image">
-            <p style="color:#E03C31;font-size:13px;">{{x.uptake}} out of {{x.numberAvailable}} deals have been booked</p>
-          </div>
-          <progress max="100" value="80"> </progress>
-          <div style="text-align:center;padding-top:20px;" class="show-list-numbers-and-dots image">
-            <p style="color:#857874;font-size:14px;">{{x.details}}</p>
-          </div>
+	<ul>
+		<li>
+		  <div class="list card">
+			  <h3 class="todaysDealName">{{currentDeal.deal_name}}</h3>
+			  <div style="text-align:center; padding-top:20px;" class="show-list-numbers-and-dots image">
+				<p style="color:#E03C31;font-size:13px;">{{currentDeal.uptake}} out of {{currentDeal.numberAvailable}} deals have been booked</p>
+			  </div>
+			  <progress max="100" value="80"> </progress>
+			  <div style="text-align:center;padding-top:20px;" class="show-list-numbers-and-dots image">
+				<p style="color:#857874;font-size:14px;">{{currentDeal.details}}</p>
+			  </div>
 
-      </div>
+		  </div>
 
-    </li>
-</ul>
+		</li>
+	</ul>
     <!--<div class="list card" ng-repeat="x in currentDeals">
       <h3 style="color:#857874;text-align:center;">{{x.details}}</h3>
 

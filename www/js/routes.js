@@ -73,7 +73,7 @@ angular.module('app.routes', [])
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
-    controller: 'loginCtrl'
+    controller: 'dealsCtrl'
   })
 
   .state('signup', {
@@ -129,7 +129,7 @@ angular.module('app.routes', [])
     views:{
       'tab1':{
     templateUrl: 'templates/todaysDeals.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'dealsCtrl as main'
   }
   }
   })
@@ -138,7 +138,7 @@ angular.module('app.routes', [])
     url: '/page101',
     
     templateUrl: 'templates/restaurantAccount.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'restaurantAccountCtrl'
  
   })
 
@@ -147,7 +147,7 @@ angular.module('app.routes', [])
     views:{
       'tab3':{
     templateUrl: 'templates/newDeal.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'dealsCtrl'
   }
   }
   })
@@ -157,7 +157,7 @@ angular.module('app.routes', [])
     views:{
       'tab2':{
     templateUrl: 'templates/history.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'dealsCtrl as main'
   }
   }
   })
@@ -165,7 +165,7 @@ angular.module('app.routes', [])
   .state('pastDeals', {
     url: '/page103', 
     templateUrl: 'templates/pastDeals.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'editDealsCtrl'
  
   })
 
@@ -214,7 +214,7 @@ angular.module('app.routes', [])
   .state('analytics', {
     url: '/analytics',
     templateUrl: 'templates/analytics.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'analyticsCtrl'
   })
   
   .state('analyticsByDealName', {

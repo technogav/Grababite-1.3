@@ -8,42 +8,41 @@
       <p style="color:#857874;margin-bottom: 26px">View by Date</p>
     </div>
     <form class="list">
-     	<a href="#/analyticsByDate">
-      <label class="item item-input image">
+     	
+      
         <span class="input-label">Input</span>
-        <input type="date" placeholder="" ><!--ng-blur here however a function will not fire inside a label-->
-      </label>
-		</a>
+        <input type="date" placeholder="" ng-model="searchDate" ng-blur="">
+		
       
       <div class="spacer" style="height: 40px;"></div>
       <div style="text-align:center;" class="show-list-numbers-and-dots">
         <p style="color:#857874;margin-bottom: 26px">View by Date Range</p>
       </div>
       <a href="#/analyticsByDateRange">
-      <label class="item item-input image">
+      
         <span class="input-label">Start Date</span>
-        <input type="date" placeholder=""><!--ng-blur here however a function will not fire inside a label-->
-      </label>
-      <label class="item item-input">
+        <input type="date" ng-model="startDate" placeholder=""><!--ng-blur here however a function will not fire inside a label-->
+      
+      
         <span class="input-label">End Date</span>
-        <input type="date" placeholder="">
-      </label>
+        <input type="date" ng-model="endDate" ng-blur="searchByDateRange()" placeholder="">
+      
 		</a>
       <div class="spacer" style="height: 40px;margin-bottom: 40px"></div>
       <div style="text-align:center;" class="show-list-numbers-and-dots">
         <p style="color:#857874; margin-bottom: 26px">View by Deal</p>
       </div>
       <a href="#/analyticsByDealName">
-      <label class="item item-select image">
+      
         <span class="input-label">Select Deal:</span>
-        <select>
-          <option>Free Wine Friday!! 4pm to 6pm</option>
-          <option>Tuesday Evening Happy Hour. 5pm</option>
-          <option>This is another deal!</option>
+        <select ng-model="dealName" ng-blur="searchByDealName()">
+          <option ng-repeat="x in deals">{{deal_name}}</option>
+          
         </select>
-      </label>
+      
       </a>
     </form>
     <a ui-sref="viewAnalyticsDealName" style="font-weight:600;" class="button button-energized  button-block icon ion-information-circled"> View Data</a>
+    <button ng-click="searchByDate()" class="button button-energized">click</button>
   </ion-content>
 </ion-view>

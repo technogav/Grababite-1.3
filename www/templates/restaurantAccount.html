@@ -6,23 +6,23 @@
     <ion-list>
 
 
-      <form class="form-inline" role="form" novalidate ng-submit="main.addRestaurant()">
+      <form class="form-inline" role="form" novalidate ng-submit="addRestaurant(newRest)">
 
       	<div class="form-group">
       	<!--//note to initalize angular fire and also to sync db with name heer-->
-      		<ion-item class="stable"><input type="text" placeholder="Restaurant Name" ng-model="newRests.name"
+      		<ion-item class="stable"><input type="text" placeholder="Restaurant Name" ng-model="newRest.name"
       									ng-blur="main.updateRestaurant(restaurant)"/></ion-item>
       		<ion-item class="stable  item-text-wrap">
-      		  	<input type="text" placeholder="Address Line 1, Line 2, 3" ng-model="newRests.address" />
+      		  	<input type="text" placeholder="Address Line 1, Line 2, 3" ng-model="newRest.address" />
       		</ion-item>
       		<ion-item class="stable  item-text-wrap">
-      		  	<input type="text" placeholder="Restaurant Type" ng-model="newRests.type" />
+      		  	<input type="text" placeholder="Restaurant Type" ng-model="newRest.type" />
       		  </ion-item>
       		<ion-item class="stable">
-      		  	<input type="text" placeholder="Restaurant Email" ng-model="newRests.email"/>
+      		  	<input type="text" placeholder="Restaurant Email" ng-model="newRest.email"/>
       		  </ion-item>
       		<ion-item class="stable">
-      		  	<input type="text" placeholder="Restaurant Phone" ng-model="newRests.phone"/>
+      		  	<input type="text" placeholder="Restaurant Phone" ng-model="newRest.phone"/>
       		  </ion-item>
 <button class="button button-assertive  button-block icon ion-android-checkbox"> Save Changes</button>
 

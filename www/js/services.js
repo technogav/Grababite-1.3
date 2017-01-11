@@ -1,6 +1,6 @@
-angular.module('app.services', [])
+angular.module('app.services', ['firebase'])
 
-.factory('RestaurantFactory', [function(){
+.factory('RestaurantFactory', ['$firebaseArray', function($firebaseArray){
 
 /////////FETCH RESTAURANTS FROM FIREBASE///////////////////////////////////////////////////
 
@@ -11,14 +11,92 @@ angular.module('app.services', [])
 
 	var rFactory = this;
 
+var ref = firebase.database().ref('restaurants/');//RETURNING OBJECT
+var fbArray = $firebaseArray(ref);
+	var rests = [];
+	var loggedInRestaurant = [];
+	var deals = [];
+	var currentDeal = [];
+	var loggedInName = "Gavins Grub";//this prob needs to be in all controllers
+	
+	fbArray.$loaded().then(function(data) {
+		angular.forEach(data, function(value) {
+			rests.push(value);
+			
+			if(value.name === loggedInName){
+				loggedInRestaurant = value;
+				rFactory.getLoggedInRestaurant = function(){ //this is returning an empty array
+					return loggedInRestaurant;
+				};
+				deals = value.deals;			
+				
+			}
+			
+			angular.forEach(deals, function(value) {
+				var x = new Date(value.startDate);
+				var today = new Date();
+				if((today > x) && (value.uptake < value.numberAvailable)){
+					
+					currentDeal = value;//dealsCtrl
+					//console.log(currentDeals);
+				}
+			});
+			
+			
+		});
+			
+	});
+	var dealsByDate = [];
+	rFactory.setDealAnalyticsByDate = function(deals){
+		console.log(deals);
+		dealsByDate = deals;
+	}
+	rFactory.getDealAnalyticsByDate = function(){
+		return dealsByDate;
+	}
+	
+	var dealsByRange = [];
+	rFactory.setDealAnalyticsByRange = function(deals){
+		console.log(deals);
+		dealsByRange = deals;
+	}
+	
+	var dealsByName = [];
+	rFactory.setDealAnalyticsByName = function(deals){
+		console.log(deals);
+		dealsByName = deals;
+	}
+	
+	var dealToEdit = [];
+	rFactory.setDealToEdit = function(deal){
+		console.log(deal);
+		dealToEdit = deal;
+	};
+	
+	rFactory.setRestaurant = function(restaurant){
+		fbArray.$add(restaurant);
+	};
+	
+	rFactory.getDealToEdit = function(){
+		return dealToEdit;
+	};
+	
+	rFactory.getCurrentDeal = function(){
+		return currentDeal;
+	};
+	
+	
+	
+	rFactory.getDeals = function(){
+		return deals;
+	};
+	
+	rFactory.getLoggedInRestaurant = function(){
+		return loggedInRestaurant;
+	}
 
-
-
-	rFactory.getRestaurants = function(){
-
-var restaurants = [];
-
-		return restaurants;
+	rFactory.getAllRestaurants = function(){
+		return rests;		
 	};
 
 	/*rFactory.addRestaurant = function(restaurant){
