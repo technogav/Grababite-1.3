@@ -13,6 +13,9 @@ angular.module('app.services', ['firebase'])
 
 var ref = firebase.database().ref('restaurants/');//RETURNING OBJECT
 var fbArray = $firebaseArray(ref);
+//cannot create a child reference because of the poxy JSON UID numbers firebase kindly creates!
+	//this is litterly driving me insane coz i cant find any relevant help online
+	
 	var rests = [];
 	var loggedInRestaurant = [];
 	var deals = [];
@@ -20,14 +23,12 @@ var fbArray = $firebaseArray(ref);
 	var loggedInName = "Gavins Grub";//this prob needs to be in all controllers
 	
 	fbArray.$loaded().then(function(data) {
+		console.log(fbArray.$id);
 		angular.forEach(data, function(value) {
 			rests.push(value);
 			
 			if(value.name === loggedInName){
 				loggedInRestaurant = value;
-				rFactory.getLoggedInRestaurant = function(){ //this is returning an empty array
-					return loggedInRestaurant;
-				};
 				deals = value.deals;			
 				
 			}
@@ -35,10 +36,9 @@ var fbArray = $firebaseArray(ref);
 			angular.forEach(deals, function(value) {
 				var x = new Date(value.startDate);
 				var today = new Date();
-				if((today > x) && (value.uptake < value.numberAvailable)){
-					
-					currentDeal = value;//dealsCtrl
-					//console.log(currentDeals);
+				//if deal available set currentDeal
+				if((today > x) && (value.uptake < value.numberAvailable)){		
+					currentDeal = value;
 				}
 			});
 			
@@ -46,6 +46,33 @@ var fbArray = $firebaseArray(ref);
 		});
 			
 	});
+	rFactory.setEditdeal = function(deal){
+
+		angular.forEach(fbArray, function(value,key){
+			
+			if(value.name === loggedInName){
+				
+				angular.forEach(value.deals, function(value,key){
+					
+					if(value.deal_name === deal.deal_name){
+						//console.log(key);//this give the index of the deal
+						
+						value.startDate = new Date();	
+						value.endDate = "Thu Jan 20 2017";
+						value.uptake = 0;
+	
+						
+						//using $add creates a new node on the top level. cannot drill down into the json to write or update
+						fbArray.$save(value).then(function(){
+							console.log("bananas");
+						})
+					}
+				})
+			}
+			
+		})
+	}
+	
 	var dealsByDate = [];
 	rFactory.setDealAnalyticsByDate = function(deals){
 		console.log(deals);
@@ -85,7 +112,9 @@ var fbArray = $firebaseArray(ref);
 		return currentDeal;
 	};
 	
-	
+	rFactory.getLoggedInRestaurant = function(){
+		return loggedInRestaurant;
+	};
 	
 	rFactory.getDeals = function(){
 		return deals;
@@ -98,28 +127,6 @@ var fbArray = $firebaseArray(ref);
 	rFactory.getAllRestaurants = function(){
 		return rests;		
 	};
-
-	/*rFactory.addRestaurant = function(restaurant){
-		var coords = [53.3358699, -6.2635529];
-		restaurant.id = 67887;
-		restaurant.coords = coords;
-
-		console.log(restaurant.name);
-		restaurants.$add(restaurant);
-	}
-
-	rFactory.updateRestaurant = function(restaurant){
-		restaurants.$save(restaurant);
-	}
-
-	rFactory.delete = function(reataurant){
-		restaurants.$remove(restaurant)
-	}*/
-
-
-
-
-
 
 
 	return rFactory;

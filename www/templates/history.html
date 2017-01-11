@@ -14,9 +14,12 @@
     <div class="spacer" style="height: 60px;"></div>
     <ion-list>
 
-      <ion-item class="item-avatar stable  item-text-wrap list-height today" style="margin-top:20px;" ng-repeat="x in deals" ng-click="pastDealEdit(x)">
+      <ion-item class="item-avatar stable  item-text-wrap list-height today" style="margin-top:20px;" 
+       ng-repeat="deal in deals" 
+       ng-click="pastDealEdit(deal)">
+       
         <img src="https://s3.amazonaws.com/ionic-io-static/EGzQ5CcDS3ODKJcQE11W_Asset 1.png">
-        <p style="white-space:normal;">{{x.deal_name}}</p>
+        <p style="white-space:normal;">{{deal.deal_name}}</p>
       </ion-item>
 
     </ion-list>

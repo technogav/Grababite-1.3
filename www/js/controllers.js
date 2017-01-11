@@ -1,166 +1,27 @@
 angular.module('app.controllers', ['firebase'])
 
-.controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
+.controller('menuCtrl', ['$scope', '$stateParams', 
 function ($scope, $stateParams) {
 
 }])
 
-/*.controller('dealsCtrl', ['$scope', '$stateParams', '$location', 'RestaurantFactory', // The following is the constructor 
-function ($scope, $stateParams, RestaurantFactory ,$location) {
-	"use strict";
-	console.log("testing controller");
-	
-	//dont like using this but it returns an empty array because its waiting on data
-	setTimeout(function(){
-		$scope.rests = RestaurantFactory.getAllRestaurants();
-		//console.log($scope.rests);
-		$scope.deals = RestaurantFactory.getDeals();
-		//console.log($scope.deals);
-		$scope.loggedInRestaurant = RestaurantFactory.getLoggedInRestaurant();
-		//console.log($scope.loggedInRestaurant);
-		$scope.currentDeals = RestaurantFactory.getCurrentDeals();
-		//console.log($scope.currentDeals);
-		
-		//RestaurantFactory.setRestaurant();//THIS WORKS
-		
-		
-		
-		
-	}, 800);
-	
-	
-	/*console.log(1);
-	$scope.deals = [];
-	//reference to firebase
-	setTimeout(function(){
-		$scope.deals = RestaurantFactory.getDeals();
-		$scope.loggedInRestaurant = RestaurantFactory.getLoggedInRestaurant();
-		$scope.currentDeals = RestaurantFactory.getCurrentDeals();
-		console.log($scope.currentDeals);
-		
-		//RestaurantFactory.setRestaurant();//THIS WORKS
-		
-		
-		
-		
-	}, 800);
-	$scope.newRests = {};//dealsCtrl
-	$scope.newDeal = {};//dealsCtrl
-
-	
-	main.addDeal = function(){
-		//console.log($scope.fbRestsObj);
-				$scope.fbRestsObj.$loaded().then(function(data) {
-						angular.forEach(data, function(value) {
-							console.log(value);
-							if(value.name == $scope.loggedInName){
-								var d = new Date();
-								//this will break easily when a deal is deleted
-								//maybe loop tru value.deals to find the highest id then add one
-								var id = value.deals.length;
-								var id = id + 1;
-								$scope.newDeal.startDate = $scope.newDeal.startDate.toDateString();
-								$scope.newDeal.startTime = $scope.newDeal.startTime.toTimeString();
-								$scope.newDeal.endTime = $scope.newDeal.endTime.toTimeString();
-
-									value.deals.push(
-										{
-											id: id,
-											conditions: $scope.newDeal.conditions,
-											deal_name: $scope.newDeal.name,
-											details:$scope.newDeal.description,
-											numberAvailable:$scope.newDeal.numOfDeals,
-											startDate:$scope.newDeal.startDate,
-											startTime:$scope.newDeal.startTime,
-											endTime:$scope.newDeal.endTime,
-											uptake:"0"
-									});
-
-									$scope.fbRestsObj.$save(ref).then(function(){
-									console.log("new deal added");
-									$location.path('/page201/page100');
-								});
-							}
-						});
-					});
-			}
-
-
-
-
-}])*/
-
-.controller('liveDealsCtrl', ['$scope', '$http', '$location', 'NgMap', '$stateParams', '$cordovaGeolocation', '$ionicPlatform', 'RestaurantFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
+.controller('liveDealsCtrl', ['$scope', '$http', '$location', 'NgMap', '$stateParams', '$cordovaGeolocation', '$ionicPlatform', 'RestaurantFactory',
+							  
 function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatform, RestaurantFactory) {
 'use strict';
-/*$SCOPE.RESTS GOT LOST SOMEWHERE SO NOW THE MAP MARKERS ARE NOT WORKING*/
+
 	var main = this;
-	//reference to firebase
-	//var ref = firebase.database().ref('restaurants/');
-	//$scope.fbRestsArr = $firebaseArray(ref);
-	//$scope.fbRestsObj = $firebaseObject(ref);
-
-	$scope.chosenPlace = "";//liveDealsCtrl
-	$scope.lat = "";//liveDealsCtrl
-	$scope.long = "";//liveDealsCtrl
+//initalise variables
+	$scope.chosenPlace = "";
+	$scope.lat = "";
+	$scope.long = "";	
+	$scope.deals = RestaurantFactory.getAllRestaurants();
+	$scope.loggedInName = "Gavins Grub";
 	
+//fetch all restaurants from firebase
+	$scope.rests = RestaurantFactory.getAllRestaurants();
 
-	/*var y = function(name){
-		console.log(ref);
-		ref.orderByChild("name").equalTo(name)
-				.on("value",function(data){
-							var x =data.val();
-							console.log(x);
-
-		})
-	}
-*/
-	$scope.newRests = {};//dealsCtrl
-	$scope.newDeal = {};//dealsCtrl
-	$scope.deals = RestaurantFactory.getAllRestaurants();//dealsCtrl
-	$scope.currentDeals = [];//dealsCtrl
-	$scope.loggedInName = "Gavins Grub";//this prob needs to be in all controllers
-
-	
-//FETCH RESTAURANT DATA FROM FIREBASE//////////////////////////////////////////////////////////
-	$scope.rests = RestaurantFactory.getAllRestaurants();//dealsCtrl
-
-	/*$scope.fbRestsObj.$loaded().then(function(data) {
-			angular.forEach(data, function(value) {
-				
-				if(value.name === $scope.loggedInName){
-					$scope.deals = value.deals;//dealsCtrl
-					$scope.loggedInRest = value;//dealsCtrl
-					//get all scope vars here for firebase stuff
-					angular.forEach($scope.deals, function(value) {
-					var x = new Date(value.startDate);
-					//console.log(x);
-					var today = new Date();
-					if((today > x) && (value.uptake < value.numberAvailable)){
-							console.log(value);
-							$scope.currentDeals[0] = value;//dealsCtrl
-
-					}else{
-
-					}
-				}
-				);
-					
-			}else{//handle this later
-			}
-		});
-
-
-	
-	});*/
-
-
-
-//get current coords and bind them to scope/////////////////////////////////////////////////////////////
+//FUNCTION: get current coords and bind them to scope/////////////////////////////////////////////////////////////
 	$ionicPlatform.ready(function(){
 		var posOptions = {timeout: 10000, enableHighAccuracy: true};
 		$cordovaGeolocation.getCurrentPosition(posOptions)
@@ -173,7 +34,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 
 	});
 
-//when coords change panTo the new center//////////////////////////////////////////////////
+//FUNCTION : when coords change panTo the new center/////////////////////////////////////////////////////////////
 	$scope.onMapIdle = function() {
 			var updateCenter = function() {
 			var ll = new google.maps.LatLng($scope.lat, $scope.long);
@@ -184,7 +45,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 		$scope.$watch('long', updateCenter);
 	};
 
-//CHECK INPUT AGAINST DATABASE//////////////////////////////////////////////////////////////////////
+//FUNCTION: check input against database/////////////////////////////////////////////////////////////////////////
 	$scope.searchByName = function(search){
 		//var search = angular.copy(search);
 		console.log(search);
@@ -202,11 +63,11 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 
 	};
 
-//use input address or name to get new coords and apply them to scope//////////////////////////////////////////
+//FUNCTION: use input address or name to get new coords//////////////////////////////////////////
 	$scope.repositionMap = function(){
 
 		var search = angular.copy($scope.chosenPlace);
-		console.log(search);
+		
 		//call searchbyName function to set coords if name in database////
 		if($scope.searchByName(search)){
 			console.log(search);
@@ -223,7 +84,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 					var searchedreleventMapData_lat = releventMapData.geometry.location.lat;
 					var searched_lat = releventMapData.geometry.location.lat;
 					var searched_long = releventMapData.geometry.location.lng;
-
+					//scope lat and long are watched, so when they are changed a function will recenter the map
 					$scope.lat = searched_lat;
 					$scope.long = searched_long;
 
@@ -244,9 +105,9 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 		main.map = map;
 	});
 
-//////////////////////////////DUEL CONTROLLER TO BIND TO THE RESTERAUNT ACCOUNT VIEW TEMPLATE//////////////////////////////
+//////////////////////////////random functions that need to be moved//////////////////////////////
 
-	
+/*	
 
 	main.skip = function(){
 			$location.path('/page201/page102');
@@ -266,22 +127,13 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 		
 	}
 	
- $scope.editDeal = [];
- $scope.pastDealEdit = function(x){
-	 	$scope.editDeal = x;
-	 	$location.path('/page103');
+	 $scope.editDeal = [];
+	 $scope.pastDealEdit = function(x){
+			$scope.editDeal = x;
+			$location.path('/page103');
 
- }
- $scope.reactivateDeal = function(deal){
-
-	 //use firebaseOBJ to target the restaurant
-	 //use restaurant to target deals by some UID maybe name
-	 //get snaphot of deal then update with infor below
-		 var today = new Date();
-		 deal.startDate = today;
-		 deal.uptake = 0;
-		 var reactivatedDeal = deal;
- }
+	 }
+	 
 
 	main.removeDeal = function(deal){
 	//	RestaurantFactory.removeRestaurant(restaurant);
@@ -302,36 +154,35 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 
 				});
 			});
-	};
+	};*/
 
 
 }])
 
-.controller('myReservationsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('dealsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
+function ($scope, $stateParams, RestaurantFactory, $location) {
+	"use strict";
+	console.log("dealsCtrl controller");
+	//initalise variables
+	$scope.deals =[];
+	$scope.loggedInRestaurant=[];
+	$scope.currentDeal = [];
 
-
+	$scope.deals = RestaurantFactory.getDeals();//console.log($scope.deals);	
+	$scope.loggedInRestaurant = RestaurantFactory.getLoggedInRestaurant();//cosole.log($scope.loggedInRestaurant);
+	$scope.currentDeal = RestaurantFactory.getCurrentDeal();//console.log($scope.currentDeal);
+	
+	
+	//PROBLEM WITH DATA NOT UPDATING ON THE VIEW REF: templates/history.html
+	$scope.pastDealEdit = function(deal){
+		//set the deal to the service 
+		RestaurantFactory.setDealToEdit(deal);
+		$location.path('/page103');
+	}
+		
+		
+	
 }])
-
-.controller('reserveTableCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-
-
-}])
-
-.controller('refineYourSearchCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-
-
-}])
-
-
 
 .controller('analyticsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
@@ -418,54 +269,35 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location) {
 
 }])
 
-.controller('dealsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
-function ($scope, $stateParams, RestaurantFactory, $location) {
-	"use strict";
-	console.log("dealsCtrl controller");
-	$scope.deals =[];
-	$scope.loggedInRestaurant=[];
-	$scope.currentDeal = [];
-	//data is not persistant on refresh or back button
 
-		$scope.deals = RestaurantFactory.getDeals();
-		//console.log($scope.deals);
-		$scope.loggedInRestaurant = RestaurantFactory.getLoggedInRestaurant();
-		//cosole.log($scope.loggedInRestaurant);
-		$scope.currentDeal = RestaurantFactory.getCurrentDeal();
-		//console.log($scope.currentDeal);
-
-	//$scope.editDeal = [];
-		$scope.pastDealEdit = function(deal){
-			//set the deal to the service
-			RestaurantFactory.setDealToEdit(deal);
-			//$scope.editDeal = deal;
-			//console.log($scope.editDeal);
-			$location.path('/page103');
-
-
-	 	}
-		
-		
-	
-}])
 
 .controller('editDealsCtrl', ['$scope', '$stateParams', 'RestaurantFactory',
 function ($scope, $stateParams, RestaurantFactory) {
 	"use strict";
 	
 	$scope.dealToEdit = RestaurantFactory.getDealToEdit();
+	//THE VIEW IS FAILING TO UPDATE WITH NEW DETAILS WHEN NEW DEAL IS CLICKED ON THE DEALS CONTROLLER (PREVIOUS PAGE)
+	//HOWEVER THE CONSOLE.LOG IS REFLECTING THE CHANGES CORRECTLY
 	console.log($scope.dealToEdit);
+	
+	
+	//FUNCTION: reactivate current deal by updateing the start date/ end date and resetting uptake to zero
+	$scope.reactivateDeal = function(deal){
+		console.log(deal);
+		RestaurantFactory.setEditdeal(deal);
+		
+ 	};
 	
 
 }])
 
 .controller('newDealsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', 
 function ($scope, $stateParams, RestaurantFactory) {
+	
 	"use strict";
 	$scope.loggedInRestaurant = RestaurantFactory.getLoggedInRestaurant();
-		console.log($scope.loggedInRestaurant);
-	
-	
+	console.log($scope.loggedInRestaurant);
+
 	$scope.addNewDeal = function(newDeal){
 		
 		
@@ -566,3 +398,5 @@ function ($scope, $stateParams, RestaurantFactory) {
 		
 		
 }]);
+
+

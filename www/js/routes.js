@@ -8,12 +8,24 @@ angular.module('app.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-      .state('tabs.myAccount', {
+   .state('tabs', {
+    url: '/page1',
+    templateUrl: 'templates/tabs.html',
+    abstract:true
+  })
+
+  .state('tabs2', {
+    url: '/page201',
+    templateUrl: 'templates/tabs2.html',
+    abstract:true
+  })
+  
+.state('tabs.myAccount', {
     url: '/page2',
     views: {
       'tab1': {
         templateUrl: 'templates/myAccount.html',
-        controller: 'myAccountCtrl'
+        controller: 'liveDealsCtrl'
       }
     }
   })
@@ -33,29 +45,19 @@ angular.module('app.routes', [])
     views: {
       'tab3': {
         templateUrl: 'templates/myReservations.html',
-        controller: 'myReservationsCtrl'
+        controller: 'liveDealsCtrl'
       }
     }
   })
 
-  .state('tabs', {
-    url: '/page1',
-    templateUrl: 'templates/tabs.html',
-    abstract:true
-  })
-
-  .state('tabs2', {
-    url: '/page201',
-    templateUrl: 'templates/tabs2.html',
-    abstract:true
-  })
+ 
 
   .state('tabs.reserveTable', {
     url: '/page7',
     views: {
       'tab2': {
         templateUrl: 'templates/reserveTable.html',
-        controller: 'reserveTableCtrl'
+        controller: 'liveDealsCtrl'
       }
     }
   })
@@ -65,7 +67,7 @@ angular.module('app.routes', [])
     views: {
       'tab2': {
         templateUrl: 'templates/refineYourSearch.html',
-        controller: 'refineYourSearchCtrl'
+        controller: 'liveDealsCtrl'
       }
     }
   })
@@ -147,7 +149,7 @@ angular.module('app.routes', [])
     views:{
       'tab3':{
     templateUrl: 'templates/newDeal.html',
-    controller: 'dealsCtrl'
+    controller: 'newDealsCtrl'
   }
   }
   })

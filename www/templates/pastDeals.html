@@ -5,6 +5,7 @@
             <ion-list>
               <ion-item style="background:lightgrey"><span>Name:</span><span style="text-align:center;">{{dealToEdit.deal_name}}</span></ion-item>
               <ion-item>Start Date: {{dealToEdit.startDate}}</ion-item>
+              <ion-item>End Date: {{dealToEdit.endDate}}</ion-item>
               <ion-item>Start Time: {{dealToEdit.startTime}}</ion-item>
               <ion-item>End Time: {{dealToEdit.endTime}}</ion-item>
               <ion-item>Number Available:  {{dealToEdit.numberAvailable}}</ion-item>
@@ -12,9 +13,9 @@
 
             <div class="spacer" style="width: 300px; height: 23px;"></div>
             <button style="font-weight:600; width:49%;display:inline-block;float:left;margin-right:2%;"
-            class="button button-energized  icon ion-android-checkbox" ng-click="reactivateDeal(x)"> Reactivate Deal</button>
+            class="button button-energized  icon ion-android-checkbox" ng-click="reactivateDeal(dealToEdit)"> Reactivate Deal</button>
             <button style="font-weight:600;width:49%;display:inline-block;float:left;"
-            class="button button-assertive icon ion-android-checkbox" ng-click="main.removeDeal(x)"> Remove Deal</button>
+            class="button button-assertive icon ion-android-checkbox" ng-click="main.removeDeal(dealToEdit)"> Remove Deal</button>
           </ion-content>
       </div>
       </a>
