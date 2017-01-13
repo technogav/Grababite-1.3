@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['firebase'])
+angular.module('app.controllers', ['firebase'])//may not need to inject firebase here
 
 .controller('menuCtrl', ['$scope', '$stateParams', 
 function ($scope, $stateParams) {
@@ -255,38 +255,39 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location) {
 				
 				$scope.sendToService($scope.newRest);
 			});
-
-
 	};
-	
 	
 	$scope.sendToService = function(newRest){
 		
 		RestaurantFactory.setRestaurant(newRest);//THIS WORKS
-		alert("restaurant added");
+		alert("restaurant added"); //however it is brittle because there is no way to check if restaurant is actually added
 		$location.path('/page201/page102');
-	}
+	};
 
 }])
-
-
 
 .controller('editDealsCtrl', ['$scope', '$stateParams', 'RestaurantFactory',
 function ($scope, $stateParams, RestaurantFactory) {
 	"use strict";
-	
-	$scope.dealToEdit = RestaurantFactory.getDealToEdit();
-	//THE VIEW IS FAILING TO UPDATE WITH NEW DETAILS WHEN NEW DEAL IS CLICKED ON THE DEALS CONTROLLER (PREVIOUS PAGE)
-	//HOWEVER THE CONSOLE.LOG IS REFLECTING THE CHANGES CORRECTLY
-	console.log($scope.dealToEdit);
-	
-	
+
+	$scope.$on("$ionicView.beforeEnter", function(){
+	   
+	   $scope.dealToEdit = RestaurantFactory.getDealToEdit();
+
+	});
+
 	//FUNCTION: reactivate current deal by updateing the start date/ end date and resetting uptake to zero
 	$scope.reactivateDeal = function(deal){
-		console.log(deal);
 		RestaurantFactory.setEditdeal(deal);
-		
  	};
+	
+	$scope.removeDeal = function(deal){
+		RestaurantFactory.setRemoveDeal(deal);
+	};
+	
+	$scope.editDeal = function(deal){
+		
+	}
 	
 
 }])
@@ -295,106 +296,13 @@ function ($scope, $stateParams, RestaurantFactory) {
 function ($scope, $stateParams, RestaurantFactory) {
 	
 	"use strict";
-	$scope.loggedInRestaurant = RestaurantFactory.getLoggedInRestaurant();
-	console.log($scope.loggedInRestaurant);
 
 	$scope.addNewDeal = function(newDeal){
-		
-		
+		console.log(newDeal);
+		RestaurantFactory.setAddNewDeal(newDeal);
 	}
 	
-	/*main.addDeal = function(){
-		//console.log($scope.fbRestsObj);
-				$scope.fbRestsObj.$loaded().then(function(data) {
-						angular.forEach(data, function(value) {
-							console.log(value);
-							
-							
-							if(value.name == $scope.loggedInName){
-								var d = new Date();
-								//this will break easily when a deal is deleted
-								//maybe loop tru value.deals to find the highest id then add one
-								var id = value.deals.length;
-								var id = id + 1;
-								$scope.newDeal.startDate = $scope.newDeal.startDate.toDateString();
-								$scope.newDeal.startTime = $scope.newDeal.startTime.toTimeString();
-								$scope.newDeal.endTime = $scope.newDeal.endTime.toTimeString();
-
-									value.deals.push(
-										{
-											id: id,
-											conditions: $scope.newDeal.conditions,
-											deal_name: $scope.newDeal.name,
-											details:$scope.newDeal.description,
-											numberAvailable:$scope.newDeal.numOfDeals,
-											startDate:$scope.newDeal.startDate,
-											startTime:$scope.newDeal.startTime,
-											endTime:$scope.newDeal.endTime,
-											uptake:"0"
-									});
-
-									$scope.fbRestsObj.$save(ref).then(function(){
-									console.log("new deal added");
-									$location.path('/page201/page100');
-								});
-							}
-						});
-					});
-			}*/
-
-		/*$scope.fbRestsObj.$loaded().then(function(data) {
-				angular.forEach(data, function(value) {
-					//think of way to target prooper
-					console.log(value);
-
-					if(value.name == "Gavins Grub"){
-
-
-							angular.forEach(value.deals, function(value) {
-								console.log(value);
-								angular.forEach(value,function(value){
-										angular.forEach(value,function(value){
-											console.log(value);
-										})
-								})
-							});
-							$scope.fbRestsObj.$save(ref).then(function(){
-
-						//	console.log("new deal added");
-							})
-					}else{
-						//console.log("not logged in");
-					}
-				});
-			});
-
-
-
-	}
-
-
-	//use this for update deals
-
-	/*$scope.fbRestsObj.$loaded().then(function(data) {
-
-		angular.forEach(data, function(value) {
-			if(value.id == "2"){
-				value.deals.dealDetails = "nice deal";
-				value.deals.uptake = "2";
-				console.log(value);
-				console.log(data);
-				$scope.fbRestsObj.$save(ref).then(function(){
-
-					console.log("jwedjkfre");
-				})
-				return;
-			}
-
-
-	 });
-
-
- });*/
+	
 		
 		
 }]);
