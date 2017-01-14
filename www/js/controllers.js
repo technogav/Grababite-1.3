@@ -164,10 +164,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	"use strict";
 	console.log("dealsCtrl controller");
 	//initalise variables
-	$scope.deals =[];
-	$scope.loggedInRestaurant=[];
-	$scope.currentDeal = [];
-
+	
 	$scope.deals = RestaurantFactory.getDeals();//console.log($scope.deals);	
 	$scope.loggedInRestaurant = RestaurantFactory.getLoggedInRestaurant();//cosole.log($scope.loggedInRestaurant);
 	$scope.currentDeal = RestaurantFactory.getCurrentDeal();//console.log($scope.currentDeal);
@@ -186,6 +183,12 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 
 .controller('analyticsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
+	$scope.searchDate = {};//problem
+	$scope.x = function(searchDate){
+		console.log(searchDate);
+		$scope.analyticsSearchDate = RestaurantFactory.analyticsSearchDate(searchDate);
+		console.log($scope.analyticsSearchDate);
+	}
 	
 	$scope.deals = RestaurantFactory.getDeals();
 	$scope.dealsByDate = [];
@@ -266,10 +269,11 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location) {
 
 }])
 
-.controller('editDealsCtrl', ['$scope', '$stateParams', 'RestaurantFactory',
-function ($scope, $stateParams, RestaurantFactory) {
+.controller('editDealsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
+function ($scope, $stateParams, RestaurantFactory, $location) {
 	"use strict";
-
+	
+	
 	$scope.$on("$ionicView.beforeEnter", function(){
 	   
 	   $scope.dealToEdit = RestaurantFactory.getDealToEdit();
@@ -277,6 +281,10 @@ function ($scope, $stateParams, RestaurantFactory) {
 	});
 
 	//FUNCTION: reactivate current deal by updateing the start date/ end date and resetting uptake to zero
+	$scope.liveDeals = RestaurantFactory.getLiveDeals();
+	
+	console.log($scope.liveDeals);
+	
 	$scope.reactivateDeal = function(deal){
 		RestaurantFactory.setEditdeal(deal);
  	};
@@ -289,6 +297,16 @@ function ($scope, $stateParams, RestaurantFactory) {
 		
 	}
 	
+	$scope.pastDealsEdit = function(deal){
+		//set the deal to the service 
+		RestaurantFactory.setDealToEdit(deal);
+		$location.path('/editLiveDeal');
+	}
+	
+	$scope.saveEdit = function(deal){
+		console.log(deal);
+		RestaurantFactory.setSaveDeal(deal);
+	};
 
 }])
 

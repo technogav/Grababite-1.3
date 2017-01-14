@@ -12,26 +12,43 @@ angular.module('app.services', ['firebase'])
 	var loggedInRestaurant = [];
 	var deals = [];
 	var currentDeal = [];
+	var liveDeals = [];
 	var loggedInName = "Gavins Grub";
+	var restaurantIndex = 8;
+	var today = new Date();
 	
 	fbArray.$loaded().then(function(data) {
-		console.log(fbArray.$id);
-		angular.forEach(data, function(value) {
+		//console.log(fbArray.$id);
+		
+		angular.forEach(data, function(value,key) {
 			rests.push(value);
 			
 			if(value.name === loggedInName){
+				restaurantIndex = key;
 				loggedInRestaurant = value;
-				deals = value.deals;					
+				deals = value.deals;
+				
+				
+				
+				angular.forEach(deals, function(value) {
+				
+				var end = new Date(value.endDate);
+				
+				//if deal available set currentDeal
+				if((today > start) && (today < end) && (value.uptake < value.numberAvailable)){		
+					currentDeal = value; //brittle coz no way of making sure only one deal is withing the params so only last deal gets saved
+					//also end date is not taken into account
+				}
+				if(end > today){
+					liveDeals.push(value);
+				}
+				
+				
+			});	
+				
 			}
 			
-			angular.forEach(deals, function(value) {
-				var x = new Date(value.startDate);
-				var today = new Date();
-				//if deal available set currentDeal
-				if((today > x) && (value.uptake < value.numberAvailable)){		
-					currentDeal = value;
-				}
-			});	
+			
 		});		
 	});
 	rFactory.setEditdeal = function(deal){		
@@ -44,7 +61,7 @@ angular.module('app.services', ['firebase'])
 						var dealIndex = key;
 						var resetUptake = 0;
 						//get todays date and end date (30 days after today)
-						var today = new Date();
+						
 						var newEndDate = new Date();
 						newEndDate.setDate(today.getDate()+30);
 						//convert dates to string
@@ -118,7 +135,7 @@ angular.module('app.services', ['firebase'])
 
 
 				fbArray.$save(restaurantIndex).then(function(){
-					alert("Deal Added. You can edit deal at any time in the control panel.");
+					alert("Deal Added. You can edit deal at any time in the control panel");
 					console.log("Deal now added"); //updateing databse but not updateing the $scope
 				});
 
@@ -224,10 +241,27 @@ angular.module('app.services', ['firebase'])
 	
 	
 	
+	rFactory.setSaveDeal = function(deal){
+		fbArray.$save(restaurantIndex).then(function(){
+			alert("deal changed in the database succesfully"); //updateing databse but not updateing the $scope
+			
+		});
+	}
 	
 	
-	
-	
+	rFactory.analyticsSearchDate = function(search){
+		var analyticsSearchByDate = [];
+		if(search < today){
+			angular.forEach(deals,function(value){
+				var start = new Date(value.startDate);
+				if(start < search){
+					 analyticsSearchByDate.push(value);
+					console.log(analyticsSearchByDate);
+					return analyticsSearchByDate
+				}
+			});
+		}
+	}
 	
 	
 	var dealsByDate = [];
@@ -262,6 +296,11 @@ angular.module('app.services', ['firebase'])
 	};
 	
 	rFactory.getDealToEdit = function(){
+		
+		//for(var i =0; i <dealToEdit.length; i++){
+			//dealToEdit = dealToEdit.startTime.substr(0,8);
+			//dealToEdit = dealToEdit.endTime.substr(0,8);
+		//}
 		return dealToEdit;
 	};
 	
@@ -279,6 +318,10 @@ angular.module('app.services', ['firebase'])
 	
 	rFactory.getLoggedInRestaurant = function(){
 		return loggedInRestaurant;
+	}
+	
+	rFactory.getLiveDeals = function(){
+		return liveDeals;
 	}
 
 	rFactory.getAllRestaurants = function(){

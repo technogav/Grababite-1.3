@@ -1,0 +1,22 @@
+<ion-view title="Edit Live Deal" id="editLiveDeal">
+  <ion-content padding="true" class="has-header">
+    <div>
+        <a href=""><div style="margin-bottom:85px;">
+            <ion-list>
+              <ion-item style="background:lightgrey"><span>Name:</span><span style="text-align:center;">{{dealToEdit.deal_name}}</span></ion-item>
+              <ion-item>Start Date: <input class="editDeal" type="text" ng-model="dealToEdit.startDate"/></ion-item>
+              <ion-item>End Date: <input class="editDeal" type="text" ng-model="dealToEdit.endDate"/></ion-item>
+              <ion-item>Start Time: <input class="editDeal" type="text" ng-model="dealToEdit.startTime"/></ion-item>
+              <ion-item>End Time: <input class="editDeal" type="text" ng-model="dealToEdit.endTime"/></ion-item>
+              <ion-item>Number Available:  <input class="editDeal" type="text" ng-model="dealToEdit.numberAvailable"/></ion-item>
+              <ion-item>Uptake on Deal:  <input class="editDeal" type="text" ng-model="dealToEdit.uptake"/></ion-item>
+            </ion-list>
+
+            <div class="spacer" style="width: 300px; height: 23px;"></div>
+            <button style="font-weight:600; width:96%;display:inline-block;float:left;margin-right:2%;"
+            class="button button-energized  icon ion-android-checkbox" ng-click="saveEdit(dealToEdit)">Save Changes</button>
+            
+          </ion-content>
+      </div>
+      </a>
+</ion-view>

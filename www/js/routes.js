@@ -170,6 +170,13 @@ angular.module('app.routes', [])
     controller: 'editDealsCtrl'
  
   })
+  
+  .state('editLiveDeal', {
+    url: '/editLiveDeal', 
+    templateUrl: 'templates/editLiveDeal.html',
+    controller: 'editDealsCtrl'
+ 
+  })
 
   .state('dealInfo', {
     url: '/dealInfo',
@@ -192,7 +199,7 @@ angular.module('app.routes', [])
     views:{
       'tab2':{
     templateUrl: 'templates/myDeals.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'editDealsCtrl'
   }
   }
   })

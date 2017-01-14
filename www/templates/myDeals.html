@@ -9,8 +9,11 @@
       <div class="spacer" style="height: 60px;"></div>
     </div>
     <ion-list>
-      <ion-item class="item-icon-right stable  item-text-wrap" ui-sref="tABS.dealInformation" ng-repeat="x in deals" ng-click="myDeal(x)">
-       {{x.deal_name}}
+      <ion-item class="item-icon-right stable  item-text-wrap" ng-repeat="deal in liveDeals track by $index" 
+      
+      ng-click="pastDealsEdit(deal)">
+      
+       {{deal.deal_name}}
         <i class="icon ion-eye icon-accessory"></i>
       </ion-item>
       
