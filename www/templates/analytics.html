@@ -18,16 +18,16 @@
       <div style="text-align:center;" class="show-list-numbers-and-dots">
         <p style="color:#857874;margin-bottom: 26px">View by Date Range</p>
       </div>
-      <a href="#/analyticsByDateRange">
+      <!--<a href="#/analyticsByDateRange">-->
       
         <span class="input-label">Start Date</span>
-        <input type="date" ng-model="startDate" placeholder=""><!--ng-blur here however a function will not fire inside a label-->
+        <input type="date" placeholder="" ng-model="start" ng-change="setStart(start)"><!--ng-blur here however a function will not fire inside a label-->
       
       
         <span class="input-label">End Date</span>
-        <input type="date" ng-model="endDate" ng-blur="searchByDateRange()" placeholder="">
+        <input type="date" ng-model="end" ng-change="setEnd(end)">
       
-		</a>
+		<!--</a>-->
       <div class="spacer" style="height: 40px;margin-bottom: 40px"></div>
       <div style="text-align:center;" class="show-list-numbers-and-dots">
         <p style="color:#857874; margin-bottom: 26px">View by Deal</p>
@@ -36,7 +36,7 @@
       
         <span class="input-label">Select Deal:</span>
         <select ng-model="dealName" ng-blur="searchByDealName()">
-          <option ng-repeat="x in deals">{{deal_name}}</option>
+          <option ng-repeat="x in deals">{{x.deal_name}}</option>
           
         </select>
       

@@ -163,10 +163,18 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 function ($scope, $stateParams, RestaurantFactory, $location) {
 	"use strict";
 	console.log("dealsCtrl controller");
+	
+	$scope.$on("$ionicView.beforeEnter", function(){
+	   
+	   $scope.historicalDeal = RestaurantFactory.getHistoricalDeals();console.log($scope.historicalDeal);
+
+	});
 	//initalise variables
 	
-	$scope.deals = RestaurantFactory.getDeals();//console.log($scope.deals);	
-	$scope.loggedInRestaurant = RestaurantFactory.getLoggedInRestaurant();//cosole.log($scope.loggedInRestaurant);
+	$scope.deals = RestaurantFactory.getDeals();//console.log($scope.deals);
+	
+	
+	$scope.loggedInRestaurant = RestaurantFactory.getLoggedInRestaurant();//console.log($scope.loggedInRestaurant);
 	$scope.currentDeal = RestaurantFactory.getCurrentDeal();//console.log($scope.currentDeal);
 	
 	
@@ -183,11 +191,57 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 
 .controller('analyticsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
-	$scope.searchDate = {};//problem
+	
 	$scope.x = function(searchDate){
-		console.log(searchDate);
-		$scope.analyticsSearchDate = RestaurantFactory.analyticsSearchDate(searchDate);
-		console.log($scope.analyticsSearchDate);
+		
+		$scope.analyticsSearchDate = RestaurantFactory.setAnalyticsSearchDate(searchDate);
+		//console.log($scope.analyticsSearchDate); set
+	
+	}
+	
+	$scope.deals = RestaurantFactory.getDeals();//console.log($scope.deals);
+	
+	$scope.start = "";
+	$scope.searchByDateRange = function(){
+		console.log("$scope.start");
+		console.log("$scope.end");
+		if(($scope.start != null) && ($scope.end != null)){
+			var range = [$scope.startOfRange,$scope.endOfRange];
+			$scope.analyticsByDateRange = RestaurantFactory.setAnalyticsByDateRange(range);
+		}else{ 
+			alert("please enter both start and end dates to search by date RANGE");
+			
+		}
+		
+	}
+	
+	$scope.startOfRange = null;
+	$scope.endOfRange = null;
+	
+	$scope.setStart=function(start){
+		$scope.startOfRange = start;
+		if(($scope.startOfRange != null) && ($scope.endOfRange != null)){
+			var range = [$scope.startOfRange,$scope.endOfRange];
+			$scope.analyticsByDateRange = RestaurantFactory.setAnalyticsByDateRange(range);
+			console.log($scope.startOfRange + "is set");
+			
+		}else{
+			alert("please ensure you have picked the end date for the range");
+		}
+			
+		
+	}
+	$scope.setEnd = function(end){
+		$scope.endOfRange = end;
+		
+		if(($scope.startOfRange != null) && ($scope.endOfRange != null)){
+			var range = [$scope.startOfRange,$scope.endOfRange];
+			$scope.analyticsByDateRange = RestaurantFactory.setAnalyticsByDateRange(range);
+			console.log($scope.startOfRange + "is set");
+			
+		}else{
+			alert("please ensure you have picked the end date for the range");
+		}
 	}
 	
 	$scope.deals = RestaurantFactory.getDeals();
@@ -197,7 +251,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	
 		//console.log($scope.deals);
 	$scope.searchByDate = function(){
-		console.log($scope.deals);
+		console.log("$scope.deals");
 		angular.forEach($scope.deals, function(value){
 			console.log(value);
 			if(value.startDate >= $scope.searchDate){

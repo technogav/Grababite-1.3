@@ -3,13 +3,50 @@
     <div>
         <a href=""><div style="margin-bottom:85px;">
             <ion-list>
-              <ion-item style="background:lightgrey"><span>Name:</span><span style="text-align:center;">{{dealToEdit.deal_name}}</span></ion-item>
-              <ion-item>Start Date: <input class="editDeal" type="text" ng-model="dealToEdit.startDate"/></ion-item>
-              <ion-item>End Date: <input class="editDeal" type="text" ng-model="dealToEdit.endDate"/></ion-item>
-              <ion-item>Start Time: <input class="editDeal" type="text" ng-model="dealToEdit.startTime"/></ion-item>
-              <ion-item>End Time: <input class="editDeal" type="text" ng-model="dealToEdit.endTime"/></ion-item>
-              <ion-item>Number Available:  <input class="editDeal" type="text" ng-model="dealToEdit.numberAvailable"/></ion-item>
-              <ion-item>Uptake on Deal:  <input class="editDeal" type="text" ng-model="dealToEdit.uptake"/></ion-item>
+             
+             	<ion-item>
+				 <label class="item item-input">
+					  <span class="input-label">Name: </span>
+					  <input type="text" ng-model="dealToEdit.deal_name">
+					</label>
+				 </ion-item>
+				 <ion-item>
+					<label class="item item-input">
+					  <span class="input-label">Start Date: </span>
+					  <input type="text" ng-model="dealToEdit.startDate">
+					</label>
+				 </ion-item>
+				 <ion-item>
+					<label class="item item-input">
+					  <span class="input-label">End Date: </span>
+					  <input type="text" ng-model="dealToEdit.endDate">
+					</label>
+				 </ion-item>
+				 <ion-item>
+					<label class="item item-input">
+					  <span class="input-label">Start Time: </span>
+					  <input type="text" ng-model="dealToEdit.startTime">
+					</label>
+				 </ion-item>
+				 <ion-item>
+					<label class="item item-input">
+					  <span class="input-label">End Time: </span>
+					  <input type="text" ng-model="dealToEdit.endTime">
+					</label>
+				 </ion-item>
+				 <ion-item>
+					<label class="item item-input">
+					  <span class="input-label">Number Available: </span>
+					  <input type="text" ng-model="dealToEdit.numberAvailable">
+					</label>
+				 </ion-item>
+				 <ion-item>
+					<label class="item item-input">
+					  <span class="input-label">Uptake on Deal: </span>
+					  <input type="text" ng-model="dealToEdit.uptake">
+					</label>
+				 </ion-item>
+  
             </ion-list>
 
             <div class="spacer" style="width: 300px; height: 23px;"></div>

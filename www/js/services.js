@@ -16,7 +16,7 @@ angular.module('app.services', ['firebase'])
 	var loggedInName = "Gavins Grub";
 	var restaurantIndex = 8;
 	var today = new Date();
-	
+	var historicalDeals = [];
 	fbArray.$loaded().then(function(data) {
 		//console.log(fbArray.$id);
 		
@@ -27,19 +27,37 @@ angular.module('app.services', ['firebase'])
 				restaurantIndex = key;
 				loggedInRestaurant = value;
 				deals = value.deals;
-				
-				
-				
+						
+			
 				angular.forEach(deals, function(value) {
-				
+					//console.log(value);
 				var end = new Date(value.endDate);
-				
+					//console.log(end);
+				var start = new Date(value.startDate);
+					//console.log(start);
 				//if deal available set currentDeal
-				if((today > start) && (today < end) && (value.uptake < value.numberAvailable)){		
-					currentDeal = value; //brittle coz no way of making sure only one deal is withing the params so only last deal gets saved
+					
+				if((today <= end) && (value.uptake < value.numberAvailable)) {	
+					//console.log(true);
+					currentDeal.push(value);
+					
+					if(currentDeal.length > 1){
+						alert("You currently have two deals or more active for today. This can cause trouble, please deactivate one in the dashboard.")
+					}
+					
+					
+					//brittle coz no way of making sure only one deal is withing the params so only last deal gets saved
 					//also end date is not taken into account
 				}
-				if(end > today){
+					
+				if((today >= end) || (value.uptake >= value.numberAvailable)){	
+						//console.log(true);
+						
+							historicalDeals.push(value);
+							
+					}	
+					
+				if(end >today){
 					liveDeals.push(value);
 				}
 				
@@ -249,18 +267,43 @@ angular.module('app.services', ['firebase'])
 	}
 	
 	
-	rFactory.analyticsSearchDate = function(search){
-		var analyticsSearchByDate = [];
-		if(search < today){
-			angular.forEach(deals,function(value){
-				var start = new Date(value.startDate);
-				if(start < search){
-					 analyticsSearchByDate.push(value);
-					console.log(analyticsSearchByDate);
-					return analyticsSearchByDate
+	
+	rFactory.setAnalyticsSearchDate = function(search){
+		
+		var analyticsSearchByDate = new Date(search);
+		//console.log(analyticsSearchByDate);
+		
+		var result = [];					   
+		angular.forEach(deals,function(value){
+			//console.log(value.startDate);
+			var start = new Date(value.startDate);
+			if(analyticsSearchByDate < start){				
+				result.push(value);
+			};
+		});
+		console.log(result);
+		return result;
+	}
+		
+	rFactory.setAnalyticsByDateRange = function(range){
+		var result = [];
+		var st = new Date(range[0]);
+		var en = new Date(range[1]);
+		
+		angular.forEach(deals,function(value){
+			var start = new Date(value.startDate);
+			var end = new Date(value.endDate);
+			/*console.log(value.deal_name);
+			console.log(start);
+			console.log(end);*/
+			if(st < start){	
+				console.log(value);
+				if(!en >= end){
+					console.log(value);
 				}
-			});
-		}
+			}
+		});
+		return result;
 	}
 	
 	
@@ -327,6 +370,11 @@ angular.module('app.services', ['firebase'])
 	rFactory.getAllRestaurants = function(){
 		return rests;		
 	};
+	
+	rFactory.getHistoricalDeals = function(){
+		console.log(historicalDeals);
+		return historicalDeals;
+	}
 
 
 	return rFactory;
