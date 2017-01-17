@@ -404,10 +404,17 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	$scope.newCust = [];
 
 	$scope.newCustomer = function(newCust){
-		console.log("newCust");
-		RestaurantFactory.setCustomer(newCust);//THIS WORKS
+		console.log(newCust);
+		if(newCust.password1 === newCust.password2){
+			RestaurantFactory.setCustomer(newCust);//THIS WORKS
 		
-		$location.path('/page1/page3');
+			$location.path('/page1/page3');
+		}else{
+			newCust.password1 = "";
+			newCust.password2 = "";
+			alert("passwords did not match. Please enter again.")
+		}
+		
 	}
 		
 		

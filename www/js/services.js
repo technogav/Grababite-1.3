@@ -344,6 +344,7 @@ angular.module('app.services', ['firebase'])
 	};
 	
 	rFactory.setCustomer = function(customer){
+		
 		fbCustomerArray.$add(customer).then(function(){
 			alert('customer added');
 		});
