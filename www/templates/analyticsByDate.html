@@ -4,33 +4,24 @@
     <div style="text-align:center;" class="show-list-numbers-and-dots">
       <p style="color:#857874;">You are viewing data for</p>
     </div>
-    <h4 style="color:#E03C31;font-weight:600;text-align:center;" class="image2">Jan 27th 2017</h4>
+    <h4 style="color:#E03C31;font-weight:600;text-align:center;" class="image2">{{dateFor | date : fullDate}}</h4>
     <table>
       <tbody>
-        <tr>
-          <th>Date</th>
-          <th>Deal Name</th>
-          <th>Deals Sold</th>
+        <tr style="border-top: 1px solid red; height:60px; border-bottom: 3px solid red;">
+          <th style="width:40%; text-align:left;"><strong>Date</strong></th>
+          <th style="width:40%; text-align:left;"><strong>Deal Name</strong></th>
+          <th style="width:30%; text-align:left;"><strong>Deals Sold</strong></th>
 
         </tr>
-        <tr>
-          <td>{{dealsByDate}}</td>
-          <td> FREE Wine Friday! 5pm to 7pm</td>
-          <td>10/15</td>
+        <div class="spacer" style="height: 23px;"></div>
+        <!--change the dates on the deals to date objects if possible-->
+        <tr ng-repeat="deal in analByDate" style="height:40px; margin-bottom:540px; border-bottom: 1px solid lightgrey;">
+          <td>{{deal.startDate | date : short}}</td>
+          <td>{{deal.deal_name | date : short}} </td>
+          <td>{{deal.uptake}}/{{deal.numberAvailable}}</td>
 
         </tr>
-        <tr class="even">
-          <td>8/1/17</td>
-          <td>Fish of the day. 50% 12pm to 1pm</td>
-          <td>10/10</td>
-
-        </tr>
-        <tr>
-          <td>8/1/17</td>
-          <td>Best steak this side of the Liffey! Love it or get your money back!! 12345 (60 Characters max)</td>
-          <td>5/10</td>
-
-        </tr>
+        
         <tr class="end">
 
           <td></td>

@@ -192,11 +192,14 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 .controller('analyticsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
 	
-	$scope.x = function(searchDate){
-		
-		$scope.analyticsSearchDate = RestaurantFactory.setAnalyticsSearchDate(searchDate);
-		//console.log($scope.analyticsSearchDate); set
+	console.log("mad world");
 	
+	$scope.x = function(searchDate){
+		//console.log("fire");
+		$scope.analyticsSearchDate = RestaurantFactory.setAnalyticsSearchDate(searchDate);
+		
+		$location.path('/analyticsByDate');
+		
 	}
 	
 	$scope.deals = RestaurantFactory.getDeals();//console.log($scope.deals);
@@ -262,7 +265,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		});
 		//$scope.dealsByDate = RestaurantFactory.getDealAnalyticsByDate();
 	console.log($scope.dealsByDate);
-		$location.path('/analyticsByDate');
+		
 	};
 	
 	$scope.searchByDateRange = function(){
@@ -285,6 +288,20 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		
 	};
 	
+	
+}])
+
+.controller('analyticsByDateCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
+function ($scope, $stateParams, RestaurantFactory, $location) {
+	"use strict";
+	console.log("the dreams in which im dying are the best ive ever had");
+	
+	$scope.$on("$ionicView.beforeEnter", function(){
+	   
+	   $scope.analByDate = RestaurantFactory.getDealAnalyticsByDate();
+		$scope.dateFor = RestaurantFactory.getDateFor();
+	
+	});
 	
 }])
 
@@ -375,6 +392,23 @@ function ($scope, $stateParams, RestaurantFactory) {
 	}
 	
 	
+		
+		
+}])
+
+.controller('customerSignUpCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
+function ($scope, $stateParams, RestaurantFactory, $location) {
+	
+	console.log("customerSignUpCtrl");
+		
+	$scope.newCust = [];
+
+	$scope.newCustomer = function(newCust){
+		console.log("newCust");
+		RestaurantFactory.setCustomer(newCust);//THIS WORKS
+		
+		$location.path('/page1/page3');
+	}
 		
 		
 }]);

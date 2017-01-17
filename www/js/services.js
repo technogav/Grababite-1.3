@@ -5,9 +5,10 @@ angular.module('app.services', ['firebase'])
 	var rFactory = this;
 
 	var ref = firebase.database().ref('restaurants/');
+	var custRef = firebase.database().ref('customers/');
 	var fbArray = $firebaseArray(ref);
-	var fbObj = $firebaseObject(ref);
-	
+	var fbCustomerArray = $firebaseArray(custRef);
+	console.log(fbCustomerArray);
 	var rests = [];
 	var loggedInRestaurant = [];
 	var deals = [];
@@ -267,22 +268,26 @@ angular.module('app.services', ['firebase'])
 	}
 	
 	
-	
+	var searchByDateArray = [];
+	var searchDate = [];
 	rFactory.setAnalyticsSearchDate = function(search){
 		
 		var analyticsSearchByDate = new Date(search);
 		//console.log(analyticsSearchByDate);
-		
-		var result = [];					   
+		searchDate = search;
+							   
 		angular.forEach(deals,function(value){
 			//console.log(value.startDate);
 			var start = new Date(value.startDate);
-			if(analyticsSearchByDate < start){				
-				result.push(value);
+			if(analyticsSearchByDate < start){
+				searchByDateArray.push(value);
 			};
 		});
-		console.log(result);
-		return result;
+		console.log(searchByDateArray);
+		return searchByDateArray;
+	}
+	rFactory.getDateFor = function(){
+		return searchDate;
 	}
 		
 	rFactory.setAnalyticsByDateRange = function(range){
@@ -313,7 +318,7 @@ angular.module('app.services', ['firebase'])
 		dealsByDate = deals;
 	}
 	rFactory.getDealAnalyticsByDate = function(){
-		return dealsByDate;
+		return searchByDateArray;
 	}
 	
 	var dealsByRange = [];
@@ -338,6 +343,12 @@ angular.module('app.services', ['firebase'])
 		fbArray.$add(restaurant);
 	};
 	
+	rFactory.setCustomer = function(customer){
+		fbCustomerArray.$add(customer).then(function(){
+			alert('customer added');
+		});
+	}
+	
 	rFactory.getDealToEdit = function(){
 		
 		//for(var i =0; i <dealToEdit.length; i++){
@@ -346,6 +357,8 @@ angular.module('app.services', ['firebase'])
 		//}
 		return dealToEdit;
 	};
+	
+	
 	
 	rFactory.getCurrentDeal = function(){
 		return currentDeal;

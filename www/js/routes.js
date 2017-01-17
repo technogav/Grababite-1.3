@@ -229,7 +229,7 @@ angular.module('app.routes', [])
   .state('analyticsByDealName', {
     url: '/analyticsByDealName',
     templateUrl: 'templates/analyticsByDealName.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'analyticsCtrl'
   })
   .state('analyticsByDateRange', {
     url: '/analyticsByDateRange',
@@ -237,11 +237,17 @@ angular.module('app.routes', [])
     controller: 'liveDealsCtrl as main'
   })
   .state('analyticsByDate', {
+	
     url: '/analyticsByDate',
     templateUrl: 'templates/analyticsByDate.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'analyticsByDateCtrl'
   })
-
+  .state('customerSignUp', {
+	
+    url: '/customerSignUp',
+    templateUrl: 'templates/customerSignUp.html',
+    controller: 'customerSignUpCtrl'
+  })
 
 
 
