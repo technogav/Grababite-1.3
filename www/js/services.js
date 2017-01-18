@@ -44,11 +44,17 @@ angular.module('app.services', ['firebase'])
 					
 					if(currentDeal.length > 1){
 						alert("You currently have two deals or more active for today. This can cause trouble, please deactivate one in the dashboard.")
+					}else{
+						console.log(currentDeal);
+						fbArray[restaurantIndex].current_deal = currentDeal[0];
+						fbArray.$save(restaurantIndex).then(function(){
+							 //updating databse
+							//needs a fence put around for when deal becomes in active
+							//at the moment the restaurant needs to log in for deal to update itself
+							//but fine for prototype purposes
+						});
 					}
 					
-					
-					//brittle coz no way of making sure only one deal is withing the params so only last deal gets saved
-					//also end date is not taken into account
 				}
 					
 				if((today >= end) || (value.uptake >= value.numberAvailable)){	
@@ -388,6 +394,32 @@ angular.module('app.services', ['firebase'])
 	rFactory.getHistoricalDeals = function(){
 		console.log(historicalDeals);
 		return historicalDeals;
+	}
+	var reserveDeal = [];
+	rFactory.getReserveDeal = function(){
+		return reserveDeal;
+	}
+	
+	 var reserveTableUID = "";
+	
+	rFactory.setReserveDeal = function(deal, restaurant){
+		reserveTableUID = restaurant;
+		reserveDeal = deal;
+	}
+	
+	rFactory.setReservationDeal = function(deal){
+		//target customer properly later
+		var dealIndex = 0;
+		for(var i = 0; i<deals; i++){
+			if(deal.deal_name === deals[i].deal_name){
+				dealIndex=i;
+				break;
+			}
+		}
+		fbArray[reserveTableUID].deals[dealIndex] = deal;
+		fbArray.$save(reserveTableUID).then(function(){
+			alert("deal now saved");
+		})
 	}
 
 

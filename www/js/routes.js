@@ -52,16 +52,7 @@ angular.module('app.routes', [])
 
  
 
-  .state('tabs.reserveTable', {
-    url: '/page7',
-    views: {
-      'tab2': {
-        templateUrl: 'templates/reserveTable.html',
-        controller: 'liveDealsCtrl'
-      }
-    }
-  })
-
+  
   .state('tabs.refineYourSearch', {
     url: '/page8',
     views: {
@@ -247,6 +238,15 @@ angular.module('app.routes', [])
     url: '/customerSignUp',
     templateUrl: 'templates/customerSignUp.html',
     controller: 'customerSignUpCtrl'
+  })
+
+  
+  .state('reserveTable', {
+    url: '/reserveTable',
+    
+	templateUrl: 'templates/reserveTable.html',
+	controller: 'reserveTableCtrl'
+      
   })
 
 

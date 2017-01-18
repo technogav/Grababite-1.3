@@ -60,13 +60,13 @@
                     <div style="width:60%; display:inline-block; float:left;">
                       <img src="img/641p0zRjQ8yjLZsTAf0w_housre.png" width="100%" />
                     </div>
-                    
+                    find
                     
                     <div style="width:40%; display:inline-block; float:left; padding:10px;">
-			                   <h4>{{rests.name}}</h4>
-				                 <strong>Live Deal: </strong><br>{{rests.deal}}<br><br>
+			                   <h4>{{main.rest.current_deal.id}}</h4>
+				                 <strong>Live Deal: </strong><br>{{main.rest.current_deal.deal_name}}<br><br>
 
-			                    <a href="#/page1/page7" ng-click="$scope.clicked()">Reserve Deal Now</a>
+			                    <a href="#/reserveTable" ng-click="reserve(main.rest.current_deal, main.rest.$id)">Reserve Deal Now</a>
 			              </div>
 
               </div>

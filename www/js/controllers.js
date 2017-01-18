@@ -20,7 +20,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 	
 //fetch all restaurants from firebase
 	$scope.rests = RestaurantFactory.getAllRestaurants();
-
+main.rest = $scope.rests[0];
 //FUNCTION: get current coords and bind them to scope/////////////////////////////////////////////////////////////
 	$ionicPlatform.ready(function(){
 		var posOptions = {timeout: 10000, enableHighAccuracy: true};
@@ -96,7 +96,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 
 //show info window/////////////////////////////////////////////////////////////////////////////////////
 	$scope.showDetail = function(e, restaurant) {
-				$scope.restaurant = restaurant;
+				main.rest = restaurant;
 				main.map.showInfoWindow('iw', restaurant.id);
 	  };
 
@@ -105,7 +105,16 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 		main.map = map;
 	});
 
-//////////////////////////////random functions that need to be moved//////////////////////////////
+	$scope.reserve = function(deal, restaurant){
+		console.log(restaurant);	
+
+		RestaurantFactory.setReserveDeal(deal, restaurant);
+		
+		//next make new object and add time and reservation number
+		//send to service where we can update the restaurant[index].deals[index] with new object //fbArray.$save(index)
+		//send to service where we can update the customer logged in
+		$location.path("/reserveTable");
+	};
 
 /*	
 
@@ -404,7 +413,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	$scope.newCust = [];
 
 	$scope.newCustomer = function(newCust){
-		console.log(newCust);
+		
 		if(newCust.password1 === newCust.password2){
 			RestaurantFactory.setCustomer(newCust);//THIS WORKS
 		
@@ -418,6 +427,28 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	}
 		
 		
+}])
+
+.controller('reserveTableCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
+function ($scope, $stateParams, RestaurantFactory, $location) {
+	console.log("reserveTable");
+	$scope.$on("$ionicView.beforeEnter", function(){
+	   
+	   $scope.reserveDeal = RestaurantFactory.getReserveDeal();
+
+	});
+	console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);console.log($scope.reserveDeal);
+	
+	
+	/*$scope.reserveDeal.bookings = [{customer_name:"", 
+									phone: "",
+								   email: "",
+								   time: $scope.time,
+								   date: $scope.date,
+								   reservationNum: "123"}];
+	
+	RestaurantFactory.setReservationDeal($scope.reserveDeal);
+	*/	
 }]);
 
 
