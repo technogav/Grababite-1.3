@@ -25,7 +25,7 @@ angular.module('app.routes', [])
     views: {
       'tab1': {
         templateUrl: 'templates/myAccount.html',
-        controller: 'liveDealsCtrl'
+        controller: 'liveDealsController'
       }
     }
   })
@@ -35,7 +35,7 @@ angular.module('app.routes', [])
     views: {
       'tab2': {
         templateUrl: 'templates/liveDeals.html',
-        controller: 'liveDealsCtrl as main'
+        controller: 'liveDealsController as main'
       }
     }
   })
@@ -45,7 +45,7 @@ angular.module('app.routes', [])
     views: {
       'tab3': {
         templateUrl: 'templates/myReservations.html',
-        controller: 'liveDealsCtrl'
+        controller: 'liveDealsController'
       }
     }
   })
@@ -58,7 +58,7 @@ angular.module('app.routes', [])
     views: {
       'tab2': {
         templateUrl: 'templates/refineYourSearch.html',
-        controller: 'liveDealsCtrl'
+        controller: 'liveDealsController'
       }
     }
   })
@@ -145,14 +145,12 @@ angular.module('app.routes', [])
   }
   })
 
-  .state('tabs2.history', {
+  .state('history', {
     url: '/history',
-    views:{
-      'tab2':{
+    
     templateUrl: 'templates/history.html',
     controller: 'dealsCtrl as main'
-  }
-  }
+  
   })
 
   .state('pastDeals', {
@@ -173,7 +171,7 @@ angular.module('app.routes', [])
     url: '/dealInfo',
     
     templateUrl: 'templates/dealInfo.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'liveDealsController as main'
  
   })/**/
 
@@ -181,7 +179,7 @@ angular.module('app.routes', [])
     url: '/page105',
     
     templateUrl: 'templates/restLiveDeals.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'liveDealsController as main'
   
   })
   
@@ -200,7 +198,7 @@ angular.module('app.routes', [])
     views:{
       'tab4':{
     templateUrl: 'templates/bookings.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'liveDealsController as main'
   }
   }
   })
@@ -208,7 +206,7 @@ angular.module('app.routes', [])
 .state('restaurantBookings', {
     url: '/restaurantBookings',
     templateUrl: 'templates/restaurantsBookings.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'liveDealsController as main'
   })
   
   .state('analytics', {
@@ -225,7 +223,7 @@ angular.module('app.routes', [])
   .state('analyticsByDateRange', {
     url: '/analyticsByDateRange',
     templateUrl: 'templates/analyticsByDateRange.html',
-    controller: 'liveDealsCtrl as main'
+    controller: 'liveDealsController as main'
   })
   .state('analyticsByDate', {
 	
