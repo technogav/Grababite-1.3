@@ -8,24 +8,29 @@
       <ion-list>
         <label class="item item-input">
           <span class="input-label">Username</span>
-          <input type="text" placeholder="">
+          <input type="text" ng-model="data.username">
         </label>
+        
         <label class="item item-input">
           <span class="input-label">Password</span>
-          <input type="password" placeholder="">
+          <input type="password" ng-model="data.password">
         </label>
       </ion-list>
       <div class="spacer" style="width: 300px; height: 23px;"></div>
 
-      <a href="#/customerSignUp" style="font-weight:600;" class="button button-energized  button-block icon ion-android-checkbox-outline" > Customer</a>
+      <button style="font-weight:600;" class="button button-energized  button-block icon ion-android-checkbox-outline" 
+      ng-click="y(data)"> Login</button>
 
       <div style="text-align:center;" class="show-list-numbers-and-dots">
         <p style="color:#857874;">
-          <strong>or</strong>
+          <a href="#/custOrRest">Create New Account?</a>
+          
+          
+          
         </p>
       </div>
-      <a href="#/page201/page100" style="font-weight:600;" class="button button-assertive  button-block icon ion-android-checkbox-outline"> Restaurant</a>
+      
     </form>
-    <button ng-click="h()">dfgg</button>
+    
   </ion-content>
 </ion-view>

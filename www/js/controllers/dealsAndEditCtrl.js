@@ -24,7 +24,7 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 		//set the deal to the service 
 		dealsAndEditFactory.setDealToEdit(deal);
 		$location.path('/page103');
-	}
+	};
 		
 		
 	

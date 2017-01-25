@@ -46,9 +46,24 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	console.log("customerSignUpCtrl");
 		
 	$scope.newCust = [];
+	var account_type = "";
+	
+	$scope.customer = function(){
+		account_type = "customer";
+		RestaurantFactory.setAccountType(account_type);
+		$location.path('/customerSignUp');//nobody is signed in when redirected to map after sign up
+	};
+	$scope.restaurant = function(){
+		account_type = "restaurant";
+		RestaurantFactory.setAccountType(account_type);
+		$location.path('/page101');
+	};
+	
 
 	$scope.newCustomer = function(newCust){
 		
+		var account_type = RestaurantFactory.getAccountType();
+		console.log(account_type);
 		if(newCust.password1 === newCust.password2){
 			RestaurantFactory.setCustomer(newCust);//THIS WORKS
 		
@@ -60,20 +75,34 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		}
 		
 	}
+	
+	//have the custOrRest page here too
 		
 		
 }])
 
 .controller('reserveTableCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
+	"use strict";
 	console.log("reserveTable");
-	$scope.$on("$ionicView.beforeEnter", function(){
-	   
-	   $scope.reserveDeal = RestaurantFactory.getReserveDeal();
-
-	});
 	
-	console.log($scope.reserveDeal);
+	var details = RestaurantFactory.getReserveDeal();
+	console.log(details);
+	$scope.reserveDeal = details[0];//console.log($scope.reserveDeal);
+	$scope.restaurant = details[1];console.log($scope.restaurant);
+	$scope.UID = details[1];
+	
+	
+	
+	
+	
+	
+	/*$scope.$on("$ionicView.beforeEnter", function(){
+	   
+	   
+	});*/
+	
+	
 	
 	/*$scope.reserveDeal.bookings = [{customer_name:"", 
 									phone: "",

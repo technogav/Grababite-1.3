@@ -6,8 +6,8 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('app', 
-			   ['ionic', 'app.controllers', 'liveDealsController', 'dealsAndEditController', 'analyticsController', 'app.routes', 
-				'app.directives','app.services', 'mainFactory', 'dealsAndEditFactory', 'ngMap', 
+			   ['ionic', 'app.controllers', 'liveDealsController', 'dealsAndEditController', 'LoginCtrl', 'analyticsController', 'app.routes', 
+				'app.directives','app.services', 'mainFactory', 'dealsAndEditFactory', 'accountFactory', 'ngMap', 
 				'ngCordova', 'firebase'])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider){

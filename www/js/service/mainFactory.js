@@ -9,51 +9,75 @@ angular.module('mainFactory', ['firebase'])
 	var fbCustomerArray = $firebaseArray(custRef);
 	var rests = [];
 	var deals = [];
+	var custs = [];
 	var currentDeal = [];
 	var historicalDeals = [];
 	var restaurantIndex = 0;
-	var loggedInName = "Gavins Grub"; // login controller will link heer
+	
+	//LoginCtrl => accountFactory{if customer.account_name == restaurant.accountName then loggedinname = restaurant.acountName}
+	
 	var loggedInRestaurant = [];
 	var liveDeals = [];
 	var today = new Date();
+	var loggedInName = "";
+	
+	
+	//put this into a function that is called when login is clicked : only init vars when login is clicked
 	//set vars
-	fbArray.$loaded().then(function(data) {
+	mainFactory.initVars = function(account_name){
+		loggedInName = account_name;
+		console.log(account_name);
+			fbArray.$loaded().then(function(data) {
+			angular.forEach(data, function(value,key) {
+				rests.push(value);//**SET**//
+
+				if(value.name === account_name){
+					restaurantIndex = key; //**SET**//
+					//console.log(restaurantIndex);
+					loggedInRestaurant = value; //**SET**//
+					deals = value.deals; //**SET**//
+
+					angular.forEach(deals, function(value) {
+						var end = new Date(value.endDate);
+						var start = new Date(value.startDate);
+
+						if((today <= end) && (value.uptake < value.numberAvailable)) {	
+							currentDeal.push(value);		
+							if(currentDeal.length > 1){
+								alert("You currently have two deals or more active for today!");
+							}else{
+								fbArray[restaurantIndex].current_deal = currentDeal[0];
+								fbArray.$save(restaurantIndex).then(function(){
+								});
+							}	
+						}
+						//if todays date is bigger then the end date or uptake is greater than available	
+						if((today >= end) || (value.uptake >= value.numberAvailable)){	
+							historicalDeals.push(value);//**SET**//			
+						};
+
+						if(end >today){
+							liveDeals.push(value); //**SET**//
+						};
+
+					});					
+				};//if logged in 	
+			});		
+		});
+	};
+	
+	fbCustomerArray.$loaded().then(function(data){
 		angular.forEach(data, function(value,key) {
-			rests.push(value);//**SET**//
 			
-			if(value.name === loggedInName){
-				restaurantIndex = key; //**SET**//
-				console.log(restaurantIndex);
-				loggedInRestaurant = value; //**SET**//
-				deals = value.deals; //**SET**//
-						
-				angular.forEach(deals, function(value) {
-					var end = new Date(value.endDate);
-					var start = new Date(value.startDate);
-					
-					if((today <= end) && (value.uptake < value.numberAvailable)) {	
-						currentDeal.push(value);		
-						if(currentDeal.length > 1){
-							alert("You currently have two deals or more active for today!");
-						}else{
-							fbArray[restaurantIndex].current_deal = currentDeal[0];
-							fbArray.$save(restaurantIndex).then(function(){
-							});
-						}	
-					}
-					//if todays date is bigger then the end date or uptake is greater than available	
-					if((today >= end) || (value.uptake >= value.numberAvailable)){	
-						historicalDeals.push(value);//**SET**//			
-					};
-					
-					if(end >today){
-						liveDeals.push(value); //**SET**//
-					};
-					
-				});					
-			};//if logged in 	
-		});		
+			custs.push(value);
+			//console.log(custs);
+		});
 	});
+	
+	mainFactory.setLoggedInName = function(account_name){
+		loggedInName = account_name;
+	}
+	
 	mainFactory.getRestaurantIndex = function(){
 		console.log(restaurantIndex);
 		return restaurantIndex;
@@ -110,6 +134,12 @@ angular.module('mainFactory', ['firebase'])
 	mainFactory.getFbRestaurantArr = function(){
 		return fbArray;
 	}
+	
+	mainFactory.getCusts = function(){
+		
+		return custs;
+	}
+	
 	return mainFactory;
 
 }])

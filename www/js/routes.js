@@ -66,7 +66,7 @@ angular.module('app.routes', [])
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
-    controller: 'dealsCtrl'
+    controller: 'LoginCtrl'
   })
 
   .state('signup', {
@@ -244,6 +244,13 @@ angular.module('app.routes', [])
     
 	templateUrl: 'templates/reserveTable.html',
 	controller: 'reserveTableCtrl'
+      
+  })
+  
+  .state('custOrRest', {
+    url: '/custOrRest',
+	templateUrl: 'templates/custOrRest.html',
+	controller: 'customerSignUpCtrl'
       
   })
 

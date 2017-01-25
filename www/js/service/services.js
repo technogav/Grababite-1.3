@@ -15,8 +15,15 @@ angular.module('app.services', ['firebase'])
 	var loggedInRestaurant = mainFactory.getLoggedInRestaurant();
 	var restaurantIndex = 8;
 	var today = mainFactory.getToday();
+	var account_type = "";
 	
-	
+								   
+	rFactory.setAccountType = function(acc_type){
+		account_type = acc_type;
+	}
+	rFactory.getAccountType = function(){
+		return account_type;
+	}
 	/*rFactory.setEditdeal = function(deal){		
 		angular.forEach(fbArray, function(value,key){
 			
@@ -320,9 +327,7 @@ angular.module('app.services', ['firebase'])
 		return deals;
 	};
 	
-	rFactory.getLoggedInRestaurant = function(){
-		return loggedInRestaurant;
-	}
+	
 	
 	rFactory.getLiveDeals = function(){
 		return liveDeals;
@@ -336,16 +341,22 @@ angular.module('app.services', ['firebase'])
 		console.log(historicalDeals);
 		return historicalDeals;
 	}
+	
+	
+	
 	var reserveDeal = [];
+	rFactory.setReserveDeal = function(deal, restaurantUID, restaurant){
+		reserveTableUID = restaurantUID;
+		/*console.log(deal);
+		console.log(restaurantUID);
+		console.log(restaurant);*/
+		reserveDeal = [deal,restaurant,restaurantUID];
+	};
+	
+	
 	rFactory.getReserveDeal = function(){
+		//console.log(reserveDeal);
 		return reserveDeal;
-	}
-	
-	 var reserveTableUID = "";
-	
-	rFactory.setReserveDeal = function(deal, restaurant){
-		reserveTableUID = restaurant;
-		reserveDeal = deal;
 	}
 	
 	rFactory.setReservationDeal = function(deal){

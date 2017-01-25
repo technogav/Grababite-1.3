@@ -100,10 +100,10 @@ main.rest = $scope.rests[0];
 		main.map = map;
 	});
 
-	$scope.reserve = function(deal, restaurant){
-		console.log(restaurant);	
+	$scope.reserve = function(deal, restaurantUID, restaurant){
+		//console.log(restaurant);	
 
-		RestaurantFactory.setReserveDeal(deal, restaurant);
+		RestaurantFactory.setReserveDeal(deal, restaurantUID, restaurant);
 		
 		//next make new object and add time and reservation number
 		//send to service where we can update the restaurant[index].deals[index] with new object //fbArray.$save(index)

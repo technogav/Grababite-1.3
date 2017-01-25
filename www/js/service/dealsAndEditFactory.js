@@ -83,14 +83,7 @@ angular.module('dealsAndEditFactory', ['firebase'])
 			
 		});
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	dealFactory.getLoggedInRestaurant = function(){
 		return loggedInRestaurant;
 	}
