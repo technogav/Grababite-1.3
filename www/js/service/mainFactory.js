@@ -20,16 +20,19 @@ angular.module('mainFactory', ['firebase'])
 	var liveDeals = [];
 	var today = new Date();
 	var loggedInName = "";
-	
-	
+	fbArray.$loaded().then(function(data) {
+		angular.forEach(data, function(value,key) {
+					rests.push(value);//**SET**//
+		});
+	});
 	//put this into a function that is called when login is clicked : only init vars when login is clicked
 	//set vars
 	mainFactory.initVars = function(account_name){
 		loggedInName = account_name;
-		console.log(account_name);
+		//console.log(account_name);
 			fbArray.$loaded().then(function(data) {
 			angular.forEach(data, function(value,key) {
-				rests.push(value);//**SET**//
+				//rests.push(value);//**SET**//
 
 				if(value.name === account_name){
 					restaurantIndex = key; //**SET**//

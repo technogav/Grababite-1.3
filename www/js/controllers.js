@@ -63,7 +63,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	$scope.newCustomer = function(newCust){
 		
 		var account_type = RestaurantFactory.getAccountType();
-		console.log(account_type);
+		newCust.account_type = account_type;
 		if(newCust.password1 === newCust.password2){
 			RestaurantFactory.setCustomer(newCust);//THIS WORKS
 		
@@ -74,7 +74,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 			alert("passwords did not match. Please enter again.")
 		}
 		
-	}
+	};
 	
 	//have the custOrRest page here too
 		
