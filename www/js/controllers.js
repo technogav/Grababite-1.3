@@ -35,7 +35,7 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location) {
 		
 		RestaurantFactory.setRestaurant(newRest);//THIS WORKS
 		alert("restaurant added"); //however it is brittle because there is no way to check if restaurant is actually added
-		$location.path('/page201/page102');
+		$location.path('/page201/page100');
 	};
 
 }])
@@ -56,18 +56,40 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	$scope.restaurant = function(){
 		account_type = "restaurant";
 		RestaurantFactory.setAccountType(account_type);
-		$location.path('/page101');
+		$location.path('/customerSignUpRestEd');//page101
 	};
 	
 
 	$scope.newCustomer = function(newCust){
 		
 		var account_type = RestaurantFactory.getAccountType();
-		newCust.account_type = account_type;
+		
 		if(newCust.password1 === newCust.password2){
+			newCust.account_type = account_type;
+			console.log(account_type);
+			console.log(newCust);
 			RestaurantFactory.setCustomer(newCust);//THIS WORKS
 		
 			$location.path('/page1/page3');
+		}else{
+			newCust.password1 = "";
+			newCust.password2 = "";
+			alert("passwords did not match. Please enter again.")
+		};
+		
+	};
+	
+	$scope.newCustomerRest = function(newCust){
+		
+		var account_type = RestaurantFactory.getAccountType();
+		
+		if(newCust.password1 === newCust.password2){
+			newCust.account_type = account_type;
+			console.log(account_type);
+			console.log(newCust);
+			RestaurantFactory.setCustomer(newCust);//THIS WORKS
+		
+			$location.path('/page101');
 		}else{
 			newCust.password1 = "";
 			newCust.password2 = "";

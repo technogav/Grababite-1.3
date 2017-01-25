@@ -1,0 +1,30 @@
+<ion-view title="Sign Up" id="customerSignUpRestEd">
+  <ion-content padding="true" class="has-header">
+    <div>
+      <img src="https://s3.amazonaws.com/ionic-io-static/B97yA00jRnaULSsq7bxP_GrabaBite_logo-SafeArea.svg" style="display: block; width: 55%; height: 55%; margin-left: auto; margin-right: auto;">
+    </div>
+    <form class="list">
+      <label class="item item-input">
+        <span class="input-label">Name</span>
+        <input type="text" ng-model="newCust.account_name">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Email</span>
+        <input type="email" ng-model="newCust.email">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Phone Number</span>
+        <input type="tel" ng-model="newCust.phone">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Password</span>
+        <input type="password" ng-model="newCust.password1">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Password</span>
+        <input type="password" ng-model="newCust.password2">
+      </label>
+      <button style="font-weight:600;" ng-click="newCustomerRest(newCust)" class="button button-energized  button-block icon ion-android-checkbox-outline"> Sign Up</button>
+    </form>
+  </ion-content>
+</ion-view>

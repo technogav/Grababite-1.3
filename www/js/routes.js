@@ -231,8 +231,13 @@ angular.module('app.routes', [])
     templateUrl: 'templates/analyticsByDate.html',
     controller: 'analyticsByDateCtrl'
   })
+  .state('customerSignUpRestEd', {
+    url: '/customerSignUpRestEd',
+    templateUrl: 'templates/customerSignUpRestEd.html',
+    controller: 'customerSignUpCtrl'
+  })
+  
   .state('customerSignUp', {
-	
     url: '/customerSignUp',
     templateUrl: 'templates/customerSignUp.html',
     controller: 'customerSignUpCtrl'
