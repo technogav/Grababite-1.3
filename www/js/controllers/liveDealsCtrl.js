@@ -4,15 +4,17 @@ angular.module('liveDealsController', ['firebase'])
 							  
 function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatform, RestaurantFactory) {
 'use strict';
-console.log("liveDealsController");
+//console.log("liveDealsController");
 	var main = this;
 //initalise variables
 	$scope.chosenPlace = "";
 	$scope.lat = "";
 	$scope.long = "";	
 	$scope.deals = RestaurantFactory.getAllRestaurants();
-	$scope.loggedInName = "Gavins Grub";
 	
+	$scope.user = RestaurantFactory.getCurrentUser();
+
+	main.user = $scope.user;
 //fetch all restaurants from firebase
 	$scope.rests = RestaurantFactory.getAllRestaurants();
 main.rest = $scope.rests[0];

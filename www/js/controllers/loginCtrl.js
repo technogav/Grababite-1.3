@@ -6,37 +6,45 @@ function ($scope, $stateParams, accountFactory, $location) {
 	console.log("login controller");
 	
 	
-	$scope.y = function(data){
-		
-		if(accountFactory.initVariables(data.username)){
-			console.log(true);
-		}
-		$scope.customers = accountFactory.getCustomers();
-		//console.log($scope.customers);
+	$scope.checkLogin = function(data){
+				
 		$scope.user = [];
 		
-		for(var i = 0; i < $scope.customers.length; i++){
-			//console.log($scope.customers[i].account_name);
-			
-			if((data.username = $scope.customers[i].account_name) && (data.password === $scope.customers[i].password1)){
-				$scope.user = $scope.customers[i];
-				//console.log($scope.user);
-				//set current user to the accountFactory
+		var checkUsername = function(data){
+			$scope.customers = accountFactory.getCustomers();
+			//console.log($scope.customers);
+			for(var i = 0; i < $scope.customers.length; i++){				
+				if(data.username === $scope.customers[i].account_name){
+					//console.log($scope.customers[i].account_name);		
+					$scope.user = $scope.customers[i];
+					break;				
+				}
+			}
+		};
+		
+		checkUsername(data);
+		
+		var checkPassword = function(data){
+
+			if($scope.user.password1 === data.password){			
 				accountFactory.setCurrentUser($scope.user);
-				
-				break;
+				if($scope.user.account_type == 'restaurant'){
+					//send username to create deals, current deal etc if user is a restaurant
+					if(accountFactory.initVariables(data.username)){
+						console.log("vars inited for restaurant account");
+					}	
+					$location.path('/page201/page100');
+				}else{
+					$location.path('/page1/page3');
+				}
 			}else{
 				alert("sorry password did not match. Try again or make new account? (links to new account view)");
+				
 			}
-		}
 		//console.log($scope.user.account_type);
-		if($scope.user.account_type == 'restaurant'){
-			//console.log('here');
-			$location.path('/page201/page100');
-		}else{
-			$location.path('/page1/page3');
 		}
-	
+		
+		checkPassword(data);
 	}
 	
 	$scope.accountType = function(){

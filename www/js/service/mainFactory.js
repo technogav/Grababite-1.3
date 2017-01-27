@@ -20,6 +20,7 @@ angular.module('mainFactory', ['firebase'])
 	var liveDeals = [];
 	var today = new Date();
 	var loggedInName = "";
+	var currentUser = [];
 	fbArray.$loaded().then(function(data) {
 		angular.forEach(data, function(value,key) {
 					rests.push(value);//**SET**//
@@ -81,9 +82,17 @@ angular.module('mainFactory', ['firebase'])
 		loggedInName = account_name;
 	}
 	
+	mainFactory.setCurrentUser = function(user){
+		currentUser = user;
+	}
+	
 	mainFactory.getRestaurantIndex = function(){
 		console.log(restaurantIndex);
 		return restaurantIndex;
+	}
+	
+	mainFactory.getCurrentUser = function(){
+		return currentUser;
 	}
 	
 	mainFactory.getToday = function(){
@@ -92,6 +101,7 @@ angular.module('mainFactory', ['firebase'])
 	
 	mainFactory.getLiveDeals = function(){
 		return liveDeals;
+		
 	}
 	
 	mainFactory.getLoggedInRestaurant = function(){

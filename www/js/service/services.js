@@ -210,11 +210,24 @@ angular.module('app.services', ['firebase'])
  });*/
 	
 	
+	rFactory.addNewRestaurantBooking = function(restaurant, UID){
+		console.log(fbArray.$getRecord(UID));
+		console.log(fbArray);
+		
+		fbArray.$save(UID).then(function(){
+			alert("Restaurant has been updated with new booking");
+		})
+		/*fbArray.$loaded().then(function(data) {
+			angular.forEach(data, function(value) {
+				console.log(value);
+			});
+		});*/
+		/**/
+	}
 	
 	
 	
-	
-	rFactory.setSaveDeal = function(deal){
+	rFactory.setSaveDeal = function(deal){//where is deal being used hmmmm?
 		fbArray.$save(restaurantIndex).then(function(){
 			alert("deal changed in the database succesfully"); //updateing databse but not updateing the $scope
 			
@@ -342,8 +355,6 @@ angular.module('app.services', ['firebase'])
 		return historicalDeals;
 	}
 	
-	
-	
 	var reserveDeal = [];
 	rFactory.setReserveDeal = function(deal, restaurantUID, restaurant){
 		reserveTableUID = restaurantUID;
@@ -357,6 +368,12 @@ angular.module('app.services', ['firebase'])
 	rFactory.getReserveDeal = function(){
 		//console.log(reserveDeal);
 		return reserveDeal;
+	}
+	
+	rFactory.getCurrentUser = function(){
+		var currentUser = mainFactory.getCurrentUser();
+		//console.log(currentUser);
+		return currentUser;
 	}
 	
 	rFactory.setReservationDeal = function(deal){

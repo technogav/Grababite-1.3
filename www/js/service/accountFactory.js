@@ -9,16 +9,19 @@ angular.module('accountFactory', ['firebase'])
 	accountFactory.initVariables = function(account_name){
 		mainFactory.initVars(account_name);
 	}
-	
+	//VARIABLES//
 	var customers = mainFactory.getCusts();
 	var currentUser = [];
 	
-	
+	//SETTERS//
 	accountFactory.setCurrentUser = function(user){
 		currentUser = user;
-		console.log(currentUser);
+		//console.log(currentUser);
+		mainFactory.setCurrentUser(user);
 	}
 	
+	
+	//GETTERS//
 	accountFactory.getCustomers = function(){
 		return customers;
 	}

@@ -109,13 +109,53 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	console.log("reserveTable");
 	
 	var details = RestaurantFactory.getReserveDeal();
-	console.log(details);
+	//console.log(details);
+	var customerDetails = RestaurantFactory.getCurrentUser();
+	//console.log(customerDetails);
 	$scope.reserveDeal = details[0];//console.log($scope.reserveDeal);
-	$scope.restaurant = details[1];console.log($scope.restaurant);
-	$scope.UID = details[1];
+	$scope.restaurant = details[1];//console.log($scope.restaurant);
+	$scope.UID = details[2];
+	
+	$scope.makeReservation = function(){//no ng click yet
+		//Untested code plus factory method not yet made!!! but should work
+		var newRestaurantBooking = function(){
+			if($scope.restaurant.bookings == undefined){
+				//create restaurant object with the new booking
+				$scope.restaurant.bookings = [];
+				$scope.restaurant.bookings.push($scope.reserveDeal);
+				//console.log($scope.restaurant);
+				//send to the factory along with the UID number to fbArray.$save
+				RestaurantFactory.addNewRestaurantBooking($scope.restaurant, $scope.UID)
+			}else{
+				$scope.restaurant.bookings.push($scope.reserveDeal);
+
+			}
+		};
+		newRestaurantBooking();
+		
+		var newCustomerBooking = function(){
+			if(customerDetails.bookings == undefined){
+				//create restaurant object with the new booking
+				customerDetails.bookings = [];
+				customerDetails.bookings.push($scope.reserveDeal);
+				//console.log($scope.restaurant.bookings);
+				//send to the factory along with the UID number to fbArray.$save
+				RestaurantFactory.addNewCustomerBooking(customerDetails, customerDetails.$id)
+			}else{
+				customerDetails.bookings.push($scope.reserveDeal);
+
+			}
+		};
+		//newCustomerBooking();
+		
+	}
 	
 	
+		
 	
+	
+	//create new customer object with the new booking
+		//send to the factory along with the UID number to fbArray.$save
 	
 	
 	

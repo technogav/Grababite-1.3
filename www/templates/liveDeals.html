@@ -36,10 +36,9 @@
 		  </div>
 
 
-		  {{$scope.address}}
-
-		</div>-->
+		</div>
 	<a href="#/page1/page8"><i id="funnelIcon" class="ion-funnel"></i></a>
+	Welcome {{main.user.account_name}}
 <div class="image"><!--data-tap-disable="true"
        disable-default-u-i="true"-->
         <ng-map style="display: block; width: 100%; height: 620px; margin-left: auto; margin-right: auto;" center="[{{lat}}, {{long}}]"
@@ -57,18 +56,19 @@
       <info-window id="iw">
         <div ng-non-bindable="">
               <div style="width: 240px; height:auto;">
+                   <h4>{{main.rest.name}}</h4>
                     <div style="width:60%; display:inline-block; float:left;">
                       <img src="img/641p0zRjQ8yjLZsTAf0w_housre.png" width="100%" />
                     </div>
-                    find
                     
-                    <div style="width:40%; display:inline-block; float:left; padding:10px;">
-			                   <h4>{{main.rest.current_deal.id}}</h4>
+                <div style="width:40%; display:inline-block; float:left; padding:10px;">
+			                   
 				                 <strong>Live Deal: </strong><br>{{main.rest.current_deal.deal_name}}<br><br>
-
-			                    <a href="#/reserveTable" ng-click="reserve(main.rest.current_deal, main.rest.$id, main.rest)">Reserve Deal Now</a>
-			              </div>
-
+					</div>
+                    <div>
+                    	<button><a href="#/reserveTable" ng-click="reserve(main.rest.current_deal, main.rest.$id, main.rest)">Deal Details
+                    	</a></button>
+                    </div>
               </div>
         </div>
 
