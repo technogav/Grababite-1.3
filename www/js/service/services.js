@@ -211,9 +211,17 @@ angular.module('app.services', ['firebase'])
 	
 	
 	rFactory.addNewRestaurantBooking = function(restaurant, UID){
-		console.log(fbArray.$getRecord(UID));
-		console.log(fbArray);
-		
+		//console.log(fbArray.$getRecord(UID));
+		//console.log(fbArray);
+		angular.forEach(fbArray, function(value,key){
+			if(value.$id === UID){
+				value = restaurant;
+				fbArray.$save(key).then(function(){
+					alert("deal changed in the database succesfully"); //updateing databse but not updateing the $scope
+
+				});
+			}
+		});
 		fbArray.$save(UID).then(function(){
 			alert("Restaurant has been updated with new booking");
 		})
@@ -223,9 +231,30 @@ angular.module('app.services', ['firebase'])
 			});
 		});*/
 		/**/
-	}
+	};
 	
-	
+	rFactory.addNewCustomerBooking = function(customer, UID){
+		console.log(UID);
+		console.log(customer);
+		angular.forEach(fbCustomerArray, function(value,key){
+			if(value.$id === UID){
+				value = customer;
+				fbCustomerArray.$save(key).then(function(){
+					alert("deal chang in the database succesfully"); //updateing databse but not updateing the $scope
+
+				});
+			}
+		});
+		fbCustomerArray.$save(UID).then(function(){
+			alert("Customer has been updated with new booking");
+		})
+		/*fbArray.$loaded().then(function(data) {
+			angular.forEach(data, function(value) {
+				console.log(value);
+			});
+		});*/
+		/**/
+	};
 	
 	rFactory.setSaveDeal = function(deal){//where is deal being used hmmmm?
 		fbArray.$save(restaurantIndex).then(function(){

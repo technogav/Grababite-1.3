@@ -115,38 +115,67 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	$scope.reserveDeal = details[0];//console.log($scope.reserveDeal);
 	$scope.restaurant = details[1];//console.log($scope.restaurant);
 	$scope.UID = details[2];
+	$scope.reservationTime = [];
+	$scope.reservationDate = [];
 	
-	$scope.makeReservation = function(){//no ng click yet
-		//Untested code plus factory method not yet made!!! but should work
+	$scope.newCustomerReseravtion = [];
+	
+	
+	$scope.makeReservation = function(reserve){//no ng click yet
+		console.log(reserve);
+		var xdate = reserve.date.toDateString();
+		var xtime = reserve.time.toDateString();
+		var reseravtionObj = [{
+								name: customerDetails.account_name,
+								email: customerDetails.email,
+								phone: customerDetails.phone,
+								date: xdate,
+								time: xtime,
+								deal_name : $scope.reserveDeal.deal_name,
+								details : $scope.reserveDeal.details,
+								conditions: $scope.reserveDeal.conditions,
+								start_date: $scope.reserveDeal.startDate,
+								end_date: $scope.reserveDeal.endDate,
+								start_time: $scope.reserveDeal.startTime,
+								end_time: $scope.reserveDeal.endTime
+								}];
+	
+		
 		var newRestaurantBooking = function(){
 			if($scope.restaurant.bookings == undefined){
+				console.log("undefined motha fuca");
 				//create restaurant object with the new booking
 				$scope.restaurant.bookings = [];
-				$scope.restaurant.bookings.push($scope.reserveDeal);
+			
+				$scope.restaurant.bookings.push(reseravtionObj);
 				//console.log($scope.restaurant);
 				//send to the factory along with the UID number to fbArray.$save
-				RestaurantFactory.addNewRestaurantBooking($scope.restaurant, $scope.UID)
+				RestaurantFactory.addNewRestaurantBooking($scope.restaurant, $scope.UID);
 			}else{
-				$scope.restaurant.bookings.push($scope.reserveDeal);
-
-			}
+				
+				$scope.restaurant.bookings.push(reseravtionObj);
+				RestaurantFactory.addNewRestaurantBooking($scope.restaurant, $scope.UID);
+			};
 		};
 		newRestaurantBooking();
 		
+		
 		var newCustomerBooking = function(){
 			if(customerDetails.bookings == undefined){
+				console.log("undefined");
 				//create restaurant object with the new booking
 				customerDetails.bookings = [];
-				customerDetails.bookings.push($scope.reserveDeal);
+				customerDetails.bookings.push(reseravtionObj);
 				//console.log($scope.restaurant.bookings);
 				//send to the factory along with the UID number to fbArray.$save
 				RestaurantFactory.addNewCustomerBooking(customerDetails, customerDetails.$id)
 			}else{
-				customerDetails.bookings.push($scope.reserveDeal);
-
+				
+				customerDetails.bookings.push(reseravtionObj);
+				RestaurantFactory.addNewCustomerBooking(customerDetails, customerDetails.$id)
 			}
 		};
-		//newCustomerBooking();
+		newCustomerBooking();
 		
 	}
 	

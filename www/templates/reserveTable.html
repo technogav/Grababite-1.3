@@ -14,17 +14,17 @@
       <div class="spacer" style="width: 300px; height: 10px;"></div>
       <label class="item item-input" id="reserveTable-input9">
         <span class="input-label">Select a Date</span>
-        <input type="date" ng-model="date">
+        <input type="date" ng-model="reserve.date">
       </label>
       <h4>Please choose a time between {{reserveDeal.startTime}} and {{reserveDeal.endTime}}, otherwise the deal will not be valid</h4>
       <div class="spacer" style="width: 300px; height: 10px;"></div>
       <label class="item item-input" id="reserveTable-input9">
         <span class="input-label">Select a Time</span>
-        <input type="time" placeholder="12.00" ng-model="time">
+        <input type="time" placeholder="12.00" ng-model="reserve.time">
       </label>
     </form>
     <div class="spacer" style="width: 300px; height: 10px;"></div>
-    <button id="reserveTable-button9" ng-click="makeReservation()" class="button button-assertive  button-block icon ion-android-checkbox-outline"> Reserve Table</button>
+    <button id="reserveTable-button9" ng-click="makeReservation(reserve)" class="button button-assertive  button-block icon ion-android-checkbox-outline"> Reserve Table</button>
     <div id="reserveTable-markdown22" style="text-align:center;" class="show-list-numbers-and-dots">
       <p style="color:#857874;">or</p>
     </div>
