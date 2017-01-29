@@ -9,11 +9,12 @@ angular.module('dealsAndEditFactory', ['firebase'])
 	var liveDeals = mainFactory.getLiveDeals();
 	var today = mainFactory.getToday();
 	var restaurantIndex = mainFactory.getRestaurantIndex();
-	console.log(restaurantIndex);
+	//console.log(restaurantIndex);
 	var historicalDeals = mainFactory.getHistoricalDeals();
 	var currentDeal = mainFactory.getCurrentDeal();
 	var loggedInRestaurant = mainFactory.getLoggedInRestaurant();
 	var loggedInName = mainFactory.getLoggedInName();
+	
 	
 	dealFactory.setDealToEdit = function(deal){
 		console.log(deal);
@@ -83,7 +84,12 @@ angular.module('dealsAndEditFactory', ['firebase'])
 			
 		});
 	}
-
+	
+	dealFactory.getCurrentUser = function(){
+		var currentUser = mainFactory.getCurrentUser();
+		console.log(currentUser);
+		return currentUser;
+	}
 	dealFactory.getLoggedInRestaurant = function(){
 		return loggedInRestaurant;
 	}

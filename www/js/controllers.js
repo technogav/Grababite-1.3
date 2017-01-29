@@ -7,11 +7,14 @@ function ($scope, $stateParams) {
 
 .controller('restaurantAccountCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$http', '$location',
 function ($scope, $stateParams, RestaurantFactory, $http, $location) {
+	console.log("restaurantAccountCtrl");
 	$scope.newRest = [];
 	
+	$scope.currentUser = RestaurantFactory.getSignUpCustomer();
+		//console.log($scope.currentUser);
 	
 	$scope.addRestaurant = function(){
-
+	
 		var url = "http://maps.google.com/maps/api/geocode/json?address=" + $scope.newRest.address;
 
 			$http({
@@ -23,9 +26,10 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location) {
 				var searchedreleventMapData_lat = releventMapData.geometry.location.lat;
 				var searched_lat = releventMapData.geometry.location.lat;
 				var searched_long = releventMapData.geometry.location.lng;
-				$scope.newRest.accountName = "Gavin";
+				$scope.newRest.account_name = $scope.currentUser.account_name;
 				$scope.newRest.coords = [searched_lat, searched_long];
-				$scope.newRest.deals = [{deal_name:"a"}];
+				$scope.newRest.id = $scope.newRest.account_name + searched_lat;
+				//$scope.newRest.deals = [{deal_name:"a"}];
 				
 				$scope.sendToService($scope.newRest);
 			});
@@ -42,10 +46,10 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location) {
 
 .controller('customerSignUpCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
-	
+	var main = this;
 	console.log("customerSignUpCtrl");
 		
-	$scope.newCust = [];
+	main.newCust = [];
 	var account_type = "";
 	
 	$scope.customer = function(){
@@ -85,8 +89,8 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		
 		if(newCust.password1 === newCust.password2){
 			newCust.account_type = account_type;
-			console.log(account_type);
-			console.log(newCust);
+			//console.log(account_type);
+			//console.log(newCust);
 			RestaurantFactory.setCustomer(newCust);//THIS WORKS
 		
 			$location.path('/page101');

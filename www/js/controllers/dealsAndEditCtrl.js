@@ -4,11 +4,12 @@ angular.module('dealsAndEditController', ['firebase'])//may not need to inject f
 function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	"use strict";
 	console.log("dealsCtrl controller");
+	$scope.currentUser = dealsAndEditFactory.getCurrentUser();
 	
 	$scope.$on("$ionicView.beforeEnter", function(){
 	   
 	   $scope.historicalDeal = dealsAndEditFactory.getHistoricalDeals();//console.log($scope.historicalDeal);
-		console.log($scope.historicalDeal);
+		//console.log($scope.historicalDeal);
 	});
 	//initalise variables
 	

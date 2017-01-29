@@ -6,25 +6,25 @@
     <form class="list">
       <label class="item item-input">
         <span class="input-label">Name</span>
-        <input type="text" ng-model="newCust.account_name">
+        <input type="text" ng-model="main.newCust.account_name">
       </label>
       <label class="item item-input">
         <span class="input-label">Email</span>
-        <input type="email" ng-model="newCust.email">
+        <input type="email" ng-model="main.newCust.email">
       </label>
       <label class="item item-input">
         <span class="input-label">Phone Number</span>
-        <input type="tel" ng-model="newCust.phone">
+        <input type="tel" ng-model="main.newCust.phone">
       </label>
       <label class="item item-input">
         <span class="input-label">Password</span>
-        <input type="password" ng-model="newCust.password1">
+        <input type="password" ng-model="main.newCust.password1">
       </label>
       <label class="item item-input">
         <span class="input-label">Password</span>
-        <input type="password" ng-model="newCust.password2">
+        <input type="password" ng-model="main.newCust.password2">
       </label>
-      <button style="font-weight:600;" ng-click="newCustomerRest(newCust)" class="button button-energized  button-block icon ion-android-checkbox-outline"> Sign Up</button>
+      <button style="font-weight:600;" ng-click="newCustomerRest(main.newCust)" class="button button-energized  button-block icon ion-android-checkbox-outline"> Sign Up</button>
     </form>
   </ion-content>
 </ion-view>

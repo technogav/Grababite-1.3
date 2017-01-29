@@ -339,8 +339,13 @@ angular.module('app.services', ['firebase'])
 		fbArray.$add(restaurant);
 	};
 	
+	var signUpCustomer = [];
+								   
+	rFactory.getSignUpCustomer = function(){
+		return signUpCustomer;
+	}							   
 	rFactory.setCustomer = function(customer){
-		
+		signUpCustomer = customer;
 		fbCustomerArray.$add(customer).then(function(){
 			alert('customer added');
 		});
@@ -401,7 +406,7 @@ angular.module('app.services', ['firebase'])
 	
 	rFactory.getCurrentUser = function(){
 		var currentUser = mainFactory.getCurrentUser();
-		//console.log(currentUser);
+		console.log(currentUser);
 		return currentUser;
 	}
 	
