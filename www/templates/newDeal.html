@@ -11,15 +11,19 @@
         <h2 style="color:#857874;text-align:center;"></h2>
         <label class="item item-input">
           <span class="input-label">Deal Name </span>
-          <input type="text" placeholder="" ng-model="newDeal.name" maxlength="26">
+          <input type="text" placeholder="" ng-model="newDeal.name">
         </label>
           <label class="item item-input">
             <span class="input-label">Deal Description </span>
-            <input type="text" placeholder="" ng-model="newDeal.description" maxlength="26">
+            <input type="text" placeholder="" ng-model="newDeal.description">
           </label>
           <label class="item item-input">
             <span class="input-label">Start Date</span>
             <input type="date" ng-model="newDeal.startDate" placeholder="">
+          </label>
+          <label class="item item-input">
+            <span class="input-label">End Date</span>
+            <input type="date" ng-model="newDeal.endDate" placeholder="">
           </label>
           <label class="item item-input">
             <span class="input-label">Start Time</span>
@@ -39,7 +43,7 @@
             <button style="font-weight:600;" class="button button-energized  button-block icon ion-android-checkmark-circle"> Save Deal</button>
         </form>
 
-        <button class="button button-assertive  button-block icon ion-android-checkbox" ng-click="main.skip2()"> skip</button>
+       
 
 
     </div>

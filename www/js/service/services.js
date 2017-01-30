@@ -78,44 +78,63 @@ angular.module('app.services', ['firebase'])
 		});
 	}*/
 	
-	rFactory.setAddNewDeal = function(deal){
-		//console.log(deal);
+	/*rFactory.setAddNewDeal = function(deal){
+		console.log(deal);
+		console.log(loggedInName);
+		
 		angular.forEach(fbArray, function(value,key){
-			
-			if(value.name === loggedInName){
-				console.log(deal);
+			//console.log(value.account_name);
+			if(value.account_name === loggedInName){
+				//console.log(value);
 				var restaurantIndex = key;
 			
-				var id = value.deals.length;
-				id = id + 1;
+				var id = 0;
 				
 				var startDate = deal.startDate.toDateString();
+				var endDate = deal.endDate.toDateString();
 				var startTime = deal.startTime.toTimeString();
 				var endTime = deal.endTime.toTimeString();
+				var dealsObject = [{id: id,
+									conditions: deal.conditions,
+									deal_name: deal.name,
+									details: deal.description,
+									numberAvailable: deal.numOfDeals,
+									startDate: startDate,
+									endDate: endDate,
+									startTime: startTime,
+									endTime: endTime,
+									uptake:"0"}];
+				
+				
+				if(value.deals == undefined){
+					
+					value.deals = dealsObject;
+				}else{
+					value.deals.push({id: id,
+									conditions: deal.conditions,
+									deal_name: deal.name,
+									details: deal.description,
+									numberAvailable: deal.numOfDeals,
+									startDate: startDate,
+									endDate: endDate,
+									startTime: startTime,
+									endTime: endTime,
+									uptake:"0"});
+				}
 
-				value.deals.push(
-					{
-						id: id,
-						conditions: deal.conditions,
-						deal_name: deal.name,
-						details: deal.description,
-						numberAvailable: deal.numOfDeals,
-						startDate: startDate,
-						startTime: startTime,
-						endTime: endTime,
-						uptake:"0"
-				});
+				
+					
 
 
 				fbArray.$save(restaurantIndex).then(function(){
 					alert("Deal Added. You can edit deal at any time in the control panel");
-					console.log("Deal now added"); //updateing databse but not updateing the $scope
+					
 				});
 
 				
 			}
 		});
-	}
+	}*/
 	/*main.addDeal = function(){
 		//console.log($scope.fbRestsObj);
 				$scope.fbRestsObj.$loaded().then(function(data) {
@@ -342,6 +361,7 @@ angular.module('app.services', ['firebase'])
 	var signUpCustomer = [];
 								   
 	rFactory.getSignUpCustomer = function(){
+		mainFactory.setSignUpCustomer(signUpCustomer);
 		return signUpCustomer;
 	}							   
 	rFactory.setCustomer = function(customer){

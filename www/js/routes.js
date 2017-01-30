@@ -129,7 +129,6 @@ angular.module('app.routes', [])
 
   .state('restaurantAccount', {
     url: '/page101',
-    
     templateUrl: 'templates/restaurantAccount.html',
     controller: 'restaurantAccountCtrl'
  

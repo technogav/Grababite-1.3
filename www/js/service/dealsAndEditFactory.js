@@ -21,6 +21,64 @@ angular.module('dealsAndEditFactory', ['firebase'])
 		dealToEdit = deal;
 	};
 	
+	dealFactory.setAddNewDeal = function(deal){
+		console.log(deal);
+		console.log(loggedInName);
+		
+		angular.forEach(fbArray, function(value,key){
+			//console.log(value.account_name);
+			if(value.account_name === loggedInName){
+				//console.log(value);
+				var restaurantIndex = key;
+			
+				var id = 0;
+				
+				var startDate = deal.startDate.toDateString();
+				var endDate = deal.endDate.toDateString();
+				var startTime = deal.startTime.toTimeString();
+				var endTime = deal.endTime.toTimeString();
+				var dealsObject = [{id: id,
+									conditions: deal.conditions,
+									deal_name: deal.name,
+									details: deal.description,
+									numberAvailable: deal.numOfDeals,
+									startDate: startDate,
+									endDate: endDate,
+									startTime: startTime,
+									endTime: endTime,
+									uptake:"0"}];
+				
+				
+				if(value.deals == undefined){
+					
+					value.deals = dealsObject;
+				}else{
+					value.deals.push({id: id,
+									conditions: deal.conditions,
+									deal_name: deal.name,
+									details: deal.description,
+									numberAvailable: deal.numOfDeals,
+									startDate: startDate,
+									endDate: endDate,
+									startTime: startTime,
+									endTime: endTime,
+									uptake:"0"});
+				}
+
+				
+					
+
+
+				fbArray.$save(restaurantIndex).then(function(){
+					alert("Deal Added. You can edit deal at any time in the control panel");
+					
+				});
+
+				
+			}
+		});
+	}
+	
 	dealFactory.setReactivateDeal = function(deal){		
 		angular.forEach(fbArray, function(value,key){
 			
@@ -87,14 +145,17 @@ angular.module('dealsAndEditFactory', ['firebase'])
 	
 	dealFactory.getCurrentUser = function(){
 		var currentUser = mainFactory.getCurrentUser();
-		console.log(currentUser);
+		//console.log(currentUser);
 		return currentUser;
 	}
 	dealFactory.getLoggedInRestaurant = function(){
 		return loggedInRestaurant;
 	}
 	
-	
+	dealFactory.getSignUpCustomer = function(){
+		var signUpCustomer = mainFactory.getSignUpCustomer();
+		return signUpCustomer;
+	}
 	dealFactory.getDeals = function(){
 		return deals;
 	}

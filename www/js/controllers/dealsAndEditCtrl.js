@@ -4,15 +4,17 @@ angular.module('dealsAndEditController', ['firebase'])//may not need to inject f
 function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	"use strict";
 	console.log("dealsCtrl controller");
-	$scope.currentUser = dealsAndEditFactory.getCurrentUser();
+	
 	
 	$scope.$on("$ionicView.beforeEnter", function(){
 	   
 	   $scope.historicalDeal = dealsAndEditFactory.getHistoricalDeals();//console.log($scope.historicalDeal);
-		//console.log($scope.historicalDeal);
+		console.log($scope.historicalDeal);
+		
 	});
 	//initalise variables
-	
+	$scope.signUpCustomer = dealsAndEditFactory.getSignUpCustomer();
+	console.log($scope.signUpCustomer);
 	$scope.deals = dealsAndEditFactory.getDeals();//console.log($scope.deals);
 	
 	
@@ -69,17 +71,17 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 
 }])
 
-/*.controller('newDealsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', 
-function ($scope, $stateParams, RestaurantFactory) {
+.controller('newDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', 
+function ($scope, $stateParams, dealsAndEditFactory) {
 	
 	"use strict";
 
 	$scope.addNewDeal = function(newDeal){
 		console.log(newDeal);
-		RestaurantFactory.setAddNewDeal(newDeal);
+		dealsAndEditFactory.setAddNewDeal(newDeal);
 	}
 	
 	
 		
 		
-}])*/;
+}]);

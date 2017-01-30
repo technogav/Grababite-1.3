@@ -29,22 +29,22 @@ angular.module('mainFactory', ['firebase'])
 	//put this into a function that is called when login is clicked : only init vars when login is clicked
 	//set vars
 	mainFactory.initVars = function(account_name){
-		loggedInName = account_name;
-		//console.log(account_name);
+		//INIT VARS BASED ON THE USERNAEM INPUT ON THE LOGIN VIEW
+
 			fbArray.$loaded().then(function(data) {
 			angular.forEach(data, function(value,key) {
 				//rests.push(value);//**SET**//
-
-				if(value.name === account_name){
+				//IF BASED ON THE ACCOUNT NAME; BRITTLE CODE IF SOMEONE HAS THE SAME NAME
+				if(value.account_name === account_name){
 					restaurantIndex = key; //**SET**//
-					//console.log(restaurantIndex);
+					//console.log(value.deals);
 					loggedInRestaurant = value; //**SET**//
 					deals = value.deals; //**SET**//
 
 					angular.forEach(deals, function(value) {
 						var end = new Date(value.endDate);
 						var start = new Date(value.startDate);
-
+console.log(start);
 						if((today <= end) && (value.uptake < value.numberAvailable)) {	
 							currentDeal.push(value);		
 							if(currentDeal.length > 1){
@@ -78,6 +78,14 @@ angular.module('mainFactory', ['firebase'])
 		});
 	});
 	
+	var signUpCustomer = [];
+	mainFactory.setSignUpCustomer = function(customer){
+		signUpCustomer = customer;
+	}
+	
+	mainFactory.getSignUpCustomer = function(){
+		return signUpCustomer;
+	}
 	mainFactory.setLoggedInName = function(account_name){
 		loggedInName = account_name;
 	}
