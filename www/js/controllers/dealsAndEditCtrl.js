@@ -14,12 +14,12 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	});
 	//initalise variables
 	$scope.signUpCustomer = dealsAndEditFactory.getSignUpCustomer();
-	console.log($scope.signUpCustomer);
+	//console.log($scope.signUpCustomer);
 	$scope.deals = dealsAndEditFactory.getDeals();//console.log($scope.deals);
+	console.log($scope.signUpCustomer);
 	
-	
-	$scope.loggedInRestaurant = dealsAndEditFactory.getLoggedInRestaurant();//console.log($scope.loggedInRestaurant);
-	$scope.currentDeal = dealsAndEditFactory.getCurrentDeal();//console.log($scope.currentDeal);
+	$scope.loggedInRestaurant = dealsAndEditFactory.getLoggedInRestaurant();console.log($scope.loggedInRestaurant);
+	$scope.currentDeal = dealsAndEditFactory.getCurrentDeal();console.log($scope.currentDeal);
 	
 	
 	//PROBLEM WITH DATA NOT UPDATING ON THE VIEW REF: templates/history.html

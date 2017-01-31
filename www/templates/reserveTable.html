@@ -1,34 +1,34 @@
 <ion-view title="Reserve Table" id="reserveTable">
-  <ion-content padding="true" class="has-header">
-    <h1 id="reserveTable-heading14" style="color:#857874;text-align:center;">{{restaurant.type}}</h1>
-    <div id="reserveTable-markdown4" style="text-align:center;" class="show-list-numbers-and-dots image">
-      <p style="color:#857874;">{{restaurant.address}}</p>
-    </div>
-    <div style="margin-left: -10px; width: calc(100% + 20px);">
-      <img src="img/U3wlA19mScqQL893gAnv_champneys.png" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
-    </div>
-    <form id="reserveTable-form11" class="list">
-      <div class="spacer" style="width: 300px; height: 10px;"></div>
-      <h2 id="reserveTable-heading2" style="color:#857874;font-weight:600;text-align:center;">{{reserveDeal.deal_name}}</h2>
-      <h4>Please choose a date between {{reserveDeal.startDate}} and {{reserveDeal.endDate}}, otherwise the deal will not be valid</h4>
-      <div class="spacer" style="width: 300px; height: 10px;"></div>
-      <label class="item item-input" id="reserveTable-input9">
-        <span class="input-label">Select a Date</span>
-        <input type="date" ng-model="reserve.date">
-      </label>
-      <h4>Please choose a time between {{reserveDeal.startTime}} and {{reserveDeal.endTime}}, otherwise the deal will not be valid</h4>
-      <div class="spacer" style="width: 300px; height: 10px;"></div>
-      <label class="item item-input" id="reserveTable-input9">
-        <span class="input-label">Select a Time</span>
-        <input type="time" placeholder="12.00" ng-model="reserve.time">
-      </label>
-    </form>
-    <div class="spacer" style="width: 300px; height: 10px;"></div>
-    <button id="reserveTable-button9" ng-click="makeReservation(reserve)" class="button button-assertive  button-block icon ion-android-checkbox-outline"> Reserve Table</button>
-    <div id="reserveTable-markdown22" style="text-align:center;" class="show-list-numbers-and-dots">
-      <p style="color:#857874;">or</p>
-    </div>
-    <a ui-sref="tabs.refineYourSearch" id="reserveTable-button10" class="button button-energized  button-block icon ion-funnel button-centre"> Refine Search</a>
-    <div class="spacer" style="width: 300px; height: 10px;"></div>
-  </ion-content>
+	<ion-content padding="true" class="has-header">
+		<h1 id="reserveTable-heading14" style="color:#857874;text-align:center;">{{restaurant.type}}</h1>
+		<div id="reserveTable-markdown4" style="text-align:center;" class="show-list-numbers-and-dots image">
+			<p style="color:#857874;">{{restaurant.address}}</p>
+		</div>
+		<div style="margin-left: -10px; width: calc(100% + 20px);">
+			<img src="img/U3wlA19mScqQL893gAnv_champneys.png" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
+		</div>
+		<form id="reserveTable-form11" class="list">
+			<div class="spacer" style="width: 300px; height: 10px;"></div>
+			<h2 id="reserveTable-heading2" style="color:#857874;font-weight:600;text-align:center;">{{reserveDeal.deal_name}}</h2>
+			<h4>Please choose a date between {{displayStartDate | date:'MMM d, y'}} and {{dispalyEndDate | date:'MMM d, y'}}, otherwise the deal will not be valid</h4>
+			<div class="spacer" style="width: 300px; height: 10px;"></div>
+			<label class="item item-input" id="reserveTable-input9">
+				<span class="input-label">Select a Date</span>
+				<input type="date" ng-model="reserve.date">
+			</label>
+			<h4>Please choose a time between {{displayStartTime}} and , {{displayEndTime}} otherwise the deal will not be valid</h4>
+			<div class="spacer" style="width: 300px; height: 10px;"></div>
+			<label class="item item-input" id="reserveTable-input9">
+				<span class="input-label">Select a Time</span>
+				<input type="time" placeholder="12.00" ng-model="reserve.time">
+			</label>
+		</form>
+		<div class="spacer" style="width: 300px; height: 10px;"></div>
+		<button id="reserveTable-button9" ng-click="makeReservation(reserve)" class="button button-assertive  button-block icon ion-android-checkbox-outline"> Reserve Table</button>
+		<div id="reserveTable-markdown22" style="text-align:center;" class="show-list-numbers-and-dots">
+			<p style="color:#857874;">or</p>
+		</div>
+		<a ui-sref="tabs.refineYourSearch" id="reserveTable-button10" class="button button-energized  button-block icon ion-funnel button-centre"> Refine Search</a>
+		<div class="spacer" style="width: 300px; height: 10px;"></div>
+	</ion-content>
 </ion-view>

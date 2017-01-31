@@ -1,36 +1,41 @@
-angular.module('liveDealsController', ['firebase'])
+angular.module('liveDealsController', ['firebase', 'ngMap'])
 
 .controller('liveDealsController', ['$scope', '$http', '$location', 'NgMap', '$stateParams', '$cordovaGeolocation', '$ionicPlatform', 'RestaurantFactory',
 							  
 function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatform, RestaurantFactory) {
 'use strict';
 //console.log("liveDealsController");
+	
+	
 	var main = this;
 //initalise variables
-	$scope.chosenPlace = "";
+	/*$scope.chosenPlace = "";
 	$scope.lat = "";
-	$scope.long = "";	
+	$scope.long = "";*/	
 	$scope.deals = RestaurantFactory.getAllRestaurants();
-	
+	$scope.rests = [];
 	$scope.user = RestaurantFactory.getCurrentUser();
 
 	main.user = $scope.user;
 //fetch all restaurants from firebase
 	$scope.rests = RestaurantFactory.getAllRestaurants();
-main.rest = $scope.rests[0];
+	//console.log($scope.rests);
+	main.rest = $scope.rests[0];
 //FUNCTION: get current coords and bind them to scope/////////////////////////////////////////////////////////////
 	$ionicPlatform.ready(function(){
-		var posOptions = {timeout: 10000, enableHighAccuracy: true};
+		var posOptions = {maximumAge:60000,timeout:3000,enableHighAccuracy:true};
 		$cordovaGeolocation.getCurrentPosition(posOptions)
 			.then(function (position) {
 					$scope.lat = position.coords.latitude;
 					$scope.long = position.coords.longitude;
+			$scope.rests = RestaurantFactory.getAllRestaurants();
+			//console.log($scope.rests);
 		}, function(err) {
 			console.log(err.message);
 		});
 
 	});
-
+/*
 //FUNCTION : when coords change panTo the new center/////////////////////////////////////////////////////////////
 	$scope.onMapIdle = function() {
 			var updateCenter = function() {
@@ -56,9 +61,9 @@ main.rest = $scope.rests[0];
 			}
 
 		}*/
-		return false;
+		//return false;
 
-	};
+	/*};
 
 //FUNCTION: use input address or name to get new coords//////////////////////////////////////////
 	$scope.repositionMap = function(){
@@ -101,7 +106,7 @@ main.rest = $scope.rests[0];
 		//get DOM of map
 		main.map = map;
 	});
-
+*/
 	$scope.reserve = function(deal, restaurantUID, restaurant){
 		//console.log(restaurant);	
 
@@ -113,54 +118,21 @@ main.rest = $scope.rests[0];
 		$location.path("/reserveTable");
 	};
 
-/*	
-
-	main.skip = function(){
-			$location.path('/page201/page102');
-	}
-	main.skip2 = function(){
-			$location.path('/page201/page100');
-	}
-
-	
-	$scope.bookingDetails = function(){
-		$location.path('/restaurantBookings');
-	}
-	
-	$scope.myDeal = function(x){
-		console.log(x);
-		$location.path('/dealInfo');
+	$scope.showDetail = function(e, restaurant) {
+		main.rest = restaurant;
+		main.map.showInfoWindow('iw', restaurant.id);
+	};
+	main.types = "['address']";
 		
+	main.placeChanged = function() {
+			main.place = this.getPlace();
+			//console.log(main.place);
+			main.map.setCenter(main.place.geometry.location);
 	}
-	
-	 $scope.editDeal = [];
-	 $scope.pastDealEdit = function(x){
-			$scope.editDeal = x;
-			$location.path('/page103');
+  
+	NgMap.getMap().then(function(map) {
+			main.map = map;
+	});
+ 
 
-	 }
-	 
-
-	main.removeDeal = function(deal){
-	//	RestaurantFactory.removeRestaurant(restaurant);
-			$scope.fbRestsObj.$loaded().then(function(data) {
-					angular.forEach(data, function(value) {
-					console.log(value.deals);
-							angular.forEach(value.deals, function(value){
-								if(value.deal_name == deal.deal_name){
-									//console.log(value.deal_name);
-								}
-
-							});
-
-
-
-							//console.log(value.deal_name);
-
-
-				});
-			});
-	};*/
-
-
-}])// JavaScript Document
+}]);

@@ -234,16 +234,15 @@ angular.module('app.services', ['firebase'])
 		//console.log(fbArray);
 		angular.forEach(fbArray, function(value,key){
 			if(value.$id === UID){
+				console.log(fbArray);
 				value = restaurant;
+				//wont fuckin save anymore ahhhhh!!!!!! ;-)
 				fbArray.$save(key).then(function(){
-					alert("deal changed in the database succesfully"); //updateing databse but not updateing the $scope
-
+					alert("Restaurant has been updated with new booking");
 				});
 			}
 		});
-		fbArray.$save(UID).then(function(){
-			alert("Restaurant has been updated with new booking");
-		})
+		
 		/*fbArray.$loaded().then(function(data) {
 			angular.forEach(data, function(value) {
 				console.log(value);
@@ -254,19 +253,19 @@ angular.module('app.services', ['firebase'])
 	
 	rFactory.addNewCustomerBooking = function(customer, UID){
 		console.log(UID);
-		console.log(customer);
+		//console.log(customer);
 		angular.forEach(fbCustomerArray, function(value,key){
+			
 			if(value.$id === UID){
+				console.log("value");
+				console.log(value.account_name);
 				value = customer;
 				fbCustomerArray.$save(key).then(function(){
-					alert("deal chang in the database succesfully"); //updateing databse but not updateing the $scope
-
+					alert("Customer has been updated with new booking");
 				});
 			}
 		});
-		fbCustomerArray.$save(UID).then(function(){
-			alert("Customer has been updated with new booking");
-		})
+		
 		/*fbArray.$loaded().then(function(data) {
 			angular.forEach(data, function(value) {
 				console.log(value);
@@ -426,7 +425,7 @@ angular.module('app.services', ['firebase'])
 	
 	rFactory.getCurrentUser = function(){
 		var currentUser = mainFactory.getCurrentUser();
-		console.log(currentUser);
+		//console.log(currentUser);
 		return currentUser;
 	}
 	

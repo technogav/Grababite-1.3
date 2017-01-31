@@ -113,15 +113,19 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	console.log("reserveTable");
 	
 	var details = RestaurantFactory.getReserveDeal();
-	//console.log(details);
+	console.log(details);
 	var customerDetails = RestaurantFactory.getCurrentUser();
-	//console.log(customerDetails);
+	console.log(customerDetails);
 	$scope.reserveDeal = details[0];//console.log($scope.reserveDeal);
+	console.log($scope.reserveDeal);
 	$scope.restaurant = details[1];//console.log($scope.restaurant);
 	$scope.UID = details[2];
 	$scope.reservationTime = [];
 	$scope.reservationDate = [];
-	
+	$scope.displayStartDate = new Date($scope.reserveDeal.startDate);
+	$scope.displayEndDate = new Date($scope.reserveDeal.endDate);
+	$scope.displayStartTime = $scope.reserveDeal.startTime.substr(0,5);
+	$scope.displayEndTime = $scope.reserveDeal.endTime.substr(0,5);
 	$scope.newCustomerReseravtion = [];
 	
 	

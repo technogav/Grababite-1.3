@@ -1,7 +1,7 @@
 .scroll{height:100%;}
 #map{height:100%; width:100%;}
 form{width:100%; float:left; background:#fff; display:inline-block;}
-
+ng-map{min-height:450px;height:100%;}
 #liveDeals-search4{width:74%;}
 #liveDeals-form6{margin-top:20px;margin-bottom:0px;}
 #liveDeals-form7{width:20%;}

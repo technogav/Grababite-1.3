@@ -22,6 +22,7 @@ angular.module('mainFactory', ['firebase'])
 	var loggedInName = "";
 	var currentUser = [];
 	fbArray.$loaded().then(function(data) {
+		console.log("loadede");
 		angular.forEach(data, function(value,key) {
 					rests.push(value);//**SET**//
 		});
@@ -133,6 +134,7 @@ console.log(start);
 	}
 	
 	mainFactory.getRests = function(){
+		//console.log(rests);
 		return rests;
 	}
 	
