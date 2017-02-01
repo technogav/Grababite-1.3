@@ -1,8 +1,15 @@
 angular.module('customerFactory', ['firebase'])
 
-.factory('customerFactory', ['$firebaseArray', '$firebaseObject', function($firebaseArray, $firebaseObject){
+.factory('customerFactory', ['$firebaseArray', '$firebaseObject', 'mainFactory',
+							 function($firebaseArray, $firebaseObject, mainFactory){
 
-	var rFactory = this;
+	var cFactory = this;
+		var currentUser = [];
+								 
+		cFactory.getCurrentUser = function(){
+			console.log("currentUser");
+			return currentUser;
+		}
 	
 	return rFactory;
 

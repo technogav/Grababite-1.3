@@ -1,3 +1,4 @@
+
 angular.module('liveDealsController', ['firebase', 'ngMap'])
 
 .controller('liveDealsController', ['$scope', '$http', '$location', 'NgMap', '$stateParams', '$cordovaGeolocation', '$ionicPlatform', 'RestaurantFactory',
@@ -35,6 +36,17 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 		});
 
 	});
+	
+	
+	$scope.disableTap = function(){
+		container = document.getElementsByClassName('pac-container');
+		// disable ionic data tab
+		angular.element(container).attr('data-tap-disabled', 'true');
+		// leave input field if google-address-entry is selected
+		angular.element(container).on("click", function(){
+			document.getElementById('searchbar').blur();
+		});
+	};
 /*
 //FUNCTION : when coords change panTo the new center/////////////////////////////////////////////////////////////
 	$scope.onMapIdle = function() {

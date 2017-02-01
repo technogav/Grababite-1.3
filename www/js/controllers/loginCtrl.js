@@ -5,7 +5,12 @@ function ($scope, $stateParams, accountFactory, $location) {
 	"use strict";
 	console.log("login controller");
 	
+	/*$ionicSideMenuDelegate.canDragContent(false);
 	
+	$scope.$on('$ionicView.leave', function () { 
+		$ionicSideMenuDelegate.canDragContent(true); 
+	}); */
+
 	$scope.checkLogin = function(data){
 				
 		$scope.user = [];

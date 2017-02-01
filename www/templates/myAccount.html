@@ -3,18 +3,16 @@
     <div class="list card" id="myAccount-card24">
       <div class="item item-body" id="myAccount-list-item-container9">
         <ion-list id="myAccount-list6">
-          <ion-item class="item-icon-right stable" id="myAccount-list-item38">Joanne Burke
+          <ion-item class="item-icon-right stable" id="myAccount-list-item38">{{currentUser.account_user}}
             <i class="icon ion-edit icon-accessory"></i>
           </ion-item>
-          <ion-item class="item-icon-right stable" id="myAccount-list-item83">Ballyjamesduff
+          
+          <ion-item class="item-icon-right" id="myAccount-list-item39">{{currentUser.email}}
             <i class="icon ion-edit icon-accessory"></i>
-          </ion-item>
-          <ion-item class="item-icon-right" id="myAccount-list-item39">joanne.burke@email.com
-            <i class="icon ion-edit icon-accessory"></i>
-            <ion-option-button class="button-positive">fhfhg</ion-option-button>
+            <ion-option-button class="button-positive"></ion-option-button>
             <ion-option-button class="button-positive"></ion-option-button>
           </ion-item>
-          <ion-item class="item-icon-right" id="myAccount-list-item40">087 123 4678
+          <ion-item class="item-icon-right" id="myAccount-list-item40">{{currentUser.phone}}
             <i class="icon ion-edit icon-accessory"></i>
           </ion-item>
         </ion-list>

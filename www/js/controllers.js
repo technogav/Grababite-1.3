@@ -44,6 +44,12 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location) {
 
 }])
 
+.controller('customerAccountCtrl', ['$scope', '$stateParams', 'customerFactory', '$http', '$location',
+function ($scope, $stateParams, customerFactory, $http, $location) {
+	$scope.currentUser = customerFactory.getCurrentUser();
+	
+}])
+
 .controller('customerSignUpCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
 	var main = this;
@@ -113,12 +119,13 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	console.log("reserveTable");
 	
 	var details = RestaurantFactory.getReserveDeal();
-	console.log(details);
+	//console.log(details);
 	var customerDetails = RestaurantFactory.getCurrentUser();
 	console.log(customerDetails);
 	$scope.reserveDeal = details[0];//console.log($scope.reserveDeal);
 	console.log($scope.reserveDeal);
 	$scope.restaurant = details[1];//console.log($scope.restaurant);
+	console.log($scope.restaurant);
 	$scope.UID = details[2];
 	$scope.reservationTime = [];
 	$scope.reservationDate = [];
@@ -133,9 +140,9 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		console.log(reserve);
 		var xdate = reserve.date.toDateString();
 		var xtime = reserve.time.toDateString();
-		var reseravtionObj = [{
+		var reseravtionObj = {
 								name: customerDetails.account_name,
-								email: customerDetails.email,
+								/*email: customerDetails.email,*/
 								phone: customerDetails.phone,
 								date: xdate,
 								time: xtime,
@@ -146,19 +153,19 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 								end_date: $scope.reserveDeal.endDate,
 								start_time: $scope.reserveDeal.startTime,
 								end_time: $scope.reserveDeal.endTime
-								}];
+								};
 	
 		
 		var newRestaurantBooking = function(){
-			if($scope.restaurant.bookings == undefined){
-				console.log("undefined motha fuca");
+			if($scope.restaurant.bookings === undefined){
+				
 				//create restaurant object with the new booking
 				$scope.restaurant.bookings = [];
 			
 				$scope.restaurant.bookings.push(reseravtionObj);
 				//console.log($scope.restaurant);
 				//send to the factory along with the UID number to fbArray.$save
-				RestaurantFactory.addNewRestaurantBooking($scope.restaurant, $scope.UID);
+				RestaurantFactory.addNewRestaurantBooking($scope.restaurant);
 			}else{
 				
 				$scope.restaurant.bookings.push(reseravtionObj);
@@ -170,7 +177,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		
 		var newCustomerBooking = function(){
 			if(customerDetails.bookings == undefined){
-				console.log("undefined");
+				console.log(customerDetails);
 				//create restaurant object with the new booking
 				customerDetails.bookings = [];
 				customerDetails.bookings.push(reseravtionObj);
@@ -185,7 +192,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		};
 		newCustomerBooking();
 		
-	}
+	}//tick
 	
 	
 		

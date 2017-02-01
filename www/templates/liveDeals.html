@@ -78,11 +78,12 @@
     
     
  Welcome {{main.user.account_name}}
-  <input style="padding:7px;margin-top:0px; width:95%" places-auto-complete size=80
+  <input id="searchbar" style="padding:7px;margin-top:0px; width:95%" places-auto-complete size=80
     ng-model="main.address"
     component-restrictions="{country:'irl'}"
     types="{{types}}"
-    on-place-changed="main.placeChanged()" /> <br/>
+    on-place-changed="main.placeChanged()"//maybe add this to the disableTap function
+    ng-focus="disableTap()" /> <br/>
   <div ng-show="main.place">
     <!--Address = {{main.place.formatted_address}} <br/>
     Location: {{main.place.geometry.location}}<br/>-->
@@ -104,7 +105,7 @@
 				</div>
 				<div>
 					<button><a href="#/reserveTable" ng-click="reserve(main.rest.current_deal, main.rest.$id, main.rest)">Deal Details
-					</button></a>
+					</a></button>
 				</div>
 			</div>
 		</div>

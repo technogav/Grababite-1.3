@@ -229,26 +229,24 @@ angular.module('app.services', ['firebase'])
  });*/
 	
 	
-	rFactory.addNewRestaurantBooking = function(restaurant, UID){
-		//console.log(fbArray.$getRecord(UID));
-		//console.log(fbArray);
+	rFactory.addNewRestaurantBooking = function(restaurant){
+		//console.log(restaurant);
+		//console.log(UID);
 		angular.forEach(fbArray, function(value,key){
-			if(value.$id === UID){
-				console.log(fbArray);
-				value = restaurant;
-				//wont fuckin save anymore ahhhhh!!!!!! ;-)
+			if(value.account_name === restaurant.account_name){
+				//console.log(value);
+				//console.log(restaurant);
+				
+				console.log(fbArray[key]);
+				
 				fbArray.$save(key).then(function(){
 					alert("Restaurant has been updated with new booking");
 				});
-			}
+				
+			};
 		});
 		
-		/*fbArray.$loaded().then(function(data) {
-			angular.forEach(data, function(value) {
-				console.log(value);
-			});
-		});*/
-		/**/
+		
 	};
 	
 	rFactory.addNewCustomerBooking = function(customer, UID){
@@ -257,7 +255,7 @@ angular.module('app.services', ['firebase'])
 		angular.forEach(fbCustomerArray, function(value,key){
 			
 			if(value.$id === UID){
-				console.log("value");
+				console.log(value);
 				console.log(value.account_name);
 				value = customer;
 				fbCustomerArray.$save(key).then(function(){
