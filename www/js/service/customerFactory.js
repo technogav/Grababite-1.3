@@ -5,16 +5,27 @@ angular.module('customerFactory', ['firebase'])
 
 	var cFactory = this;
 		var currentUser = [];
+		var reservation = [];
 								 
 		cFactory.getCurrentUser = function(){
-			console.log("currentUser");
+			console.log(currentUser);
 			return currentUser;
 		}
+		
+		cFactory.getReservations = function(){
+			
+			var reservations = mainFactory.getReservations();
+			console.log(reservations);
+			return reservations;
+		};
+								 
+		cFactory.setReservation = function(r){
+			reservation = r;
+		};
+		cFactory.getReservation = function(){
+			return reservation;
+		}						 
 	
-	return rFactory;
-
-}])
-
-.service('BlankService', [function(){
+	return cFactory;
 
 }]);

@@ -46,7 +46,7 @@ angular.module('app.routes', [])
     views: {
       'tab3': {
         templateUrl: 'templates/myReservations.html',
-        controller: 'liveDealsController'
+        controller: 'reservationCtrl'
       }
     }
   })
@@ -79,16 +79,6 @@ angular.module('app.routes', [])
       'tab2': {
         templateUrl: 'templates/tableBooked.html',
         controller: 'tableBookedCtrl'
-      }
-    }
-  })
-
-  .state('tabs.deals', {
-    url: '/page12',
-    views: {
-      'tab2': {
-        templateUrl: 'templates/deals.html',
-        controller: 'dealsCtrl'
       }
     }
   })
@@ -187,7 +177,7 @@ angular.module('app.routes', [])
     views:{
       'tab4':{
     templateUrl: 'templates/bookings.html',
-    controller: 'liveDealsController as main'
+    controller: 'bookingsCtrl'
   }
   }
   })

@@ -105,7 +105,6 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 .controller('analyticsByDateCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
 	"use strict";
-	console.log("the dreams in which im dying are the best ive ever had");
 	
 	$scope.$on("$ionicView.beforeEnter", function(){
 	   

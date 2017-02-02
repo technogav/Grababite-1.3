@@ -79,6 +79,37 @@ console.log(start);
 		});
 	});
 	
+	mainFactory.getReservations = function(){//stick this function one factory down// actually get mainFactory.getCurrentUser will work
+		var reservations = [];
+		console.log(currentUser);
+		if(currentUser.bookings !== undefined){
+			reservations = currentUser.bookings;
+			
+		}else{
+			reservations = {name: "You currently have no reservations"}
+		}
+		return reservations;
+	}
+	
+	mainFactory.getBookings = function(){
+		var bookings = [];
+		if(loggedInRestaurant.bookings !== undefined){
+			today = today.toDateString();
+			//console.log(today);
+			for(var i =0; i<loggedInRestaurant.bookings.length; i++){
+				//console.log(loggedInRestaurant.bookings[i].date);
+				if(loggedInRestaurant.bookings[i].date == today){
+					console.log("today");
+					bookings.push(loggedInRestaurant.bookings[i]);
+					console.log(bookings);
+				}
+			}
+		}
+		
+		return bookings;
+		
+	}
+	
 	var signUpCustomer = [];
 	mainFactory.setSignUpCustomer = function(customer){
 		signUpCustomer = customer;

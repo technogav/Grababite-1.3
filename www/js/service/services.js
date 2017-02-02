@@ -228,6 +228,12 @@ angular.module('app.services', ['firebase'])
 
  });*/
 	
+	rFactory.getBookings = function(){
+		var bookings = mainFactory.getBookings();
+		console.log(bookings);
+		return bookings;
+	}
+	
 	
 	rFactory.addNewRestaurantBooking = function(restaurant){
 		//console.log(restaurant);
@@ -240,7 +246,7 @@ angular.module('app.services', ['firebase'])
 				console.log(fbArray[key]);
 				
 				fbArray.$save(key).then(function(){
-					alert("Restaurant has been updated with new booking");
+					console.log("restaurant updated with booking object");
 				});
 				
 			};
@@ -255,11 +261,12 @@ angular.module('app.services', ['firebase'])
 		angular.forEach(fbCustomerArray, function(value,key){
 			
 			if(value.$id === UID){
-				console.log(value);
-				console.log(value.account_name);
+				//console.log(value);
+				//console.log(value.account_name);
 				value = customer;
 				fbCustomerArray.$save(key).then(function(){
-					alert("Customer has been updated with new booking");
+					alert("Deal has been reserved");
+					
 				});
 			}
 		});

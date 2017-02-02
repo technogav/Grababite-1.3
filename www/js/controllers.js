@@ -121,10 +121,11 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	var details = RestaurantFactory.getReserveDeal();
 	//console.log(details);
 	var customerDetails = RestaurantFactory.getCurrentUser();
-	console.log(customerDetails);
+	
+	
 	$scope.reserveDeal = details[0];//console.log($scope.reserveDeal);
 	console.log($scope.reserveDeal);
-	$scope.restaurant = details[1];//console.log($scope.restaurant);
+	$scope.restaurant = details[1];console.log($scope.restaurant);
 	console.log($scope.restaurant);
 	$scope.UID = details[2];
 	$scope.reservationTime = [];
@@ -139,21 +140,31 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	$scope.makeReservation = function(reserve){//no ng click yet
 		console.log(reserve);
 		var xdate = reserve.date.toDateString();
-		var xtime = reserve.time.toDateString();
+		var xtime = reserve.time.toTimeString();
+		xtime = xtime.substr(0,5);
 		var reseravtionObj = {
-								name: customerDetails.account_name,
-								/*email: customerDetails.email,*/
-								phone: customerDetails.phone,
-								date: xdate,
-								time: xtime,
+								customer_name : customerDetails.account_name,
+								customer_email : customerDetails.email,
+								customer_phone : customerDetails.phone,
+								restaurant_name : $scope.restaurant.name,
+								restaurant_address : $scope.restaurant.address,
+								restaurant_coords : $scope.restaurant.coords,
+								restaurant_phone : $scope.restaurant.phone,
+								restaurant_email : $scope.restaurant.email,
 								deal_name : $scope.reserveDeal.deal_name,
-								details : $scope.reserveDeal.details,
-								conditions: $scope.reserveDeal.conditions,
-								start_date: $scope.reserveDeal.startDate,
-								end_date: $scope.reserveDeal.endDate,
-								start_time: $scope.reserveDeal.startTime,
-								end_time: $scope.reserveDeal.endTime
+								deal_details : $scope.reserveDeal.details,
+								deal_conditions: $scope.reserveDeal.conditions,
+								deal_start_date: $scope.reserveDeal.startDate,
+								deal_end_date: $scope.reserveDeal.endDate,
+								deal_start_time: $scope.reserveDeal.startTime,
+								deal_end_time: $scope.reserveDeal.endTime,
+								reservation_date : xdate,
+								reservation_time : xtime
 								};
+		
+		/*
+			
+		*/
 	
 		
 		var newRestaurantBooking = function(){
@@ -191,7 +202,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 			}
 		};
 		newCustomerBooking();
-		
+		$location.path('/page1/page3');
 	}//tick
 	
 	
@@ -219,6 +230,36 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	
 	RestaurantFactory.setReservationDeal($scope.reserveDeal);
 	*/	
+}])
+
+.controller('reservationCtrl', ['$scope', '$stateParams', 'customerFactory', '$location',
+function ($scope, $stateParams, customerFactory, $location) {
+	"use strict";
+	console.log("reservationCtrl");
+	
+	$scope.reservations = customerFactory.getReservations();
+	
+	$scope.setReservation = function(r){
+		customerFactory.setReservation(r);
+	}
+	//console.log($scope.reservations);
+}])
+
+.controller('bookingDetailsCtrl', ['$scope', '$stateParams', 'customerFactory', '$location',
+function ($scope, $stateParams, customerFactory, $location) {
+	console.log(bookingDetailsCtrl);
+	$scope.reservation = customerFactory.getReservation();
+}])
+
+.controller('bookingsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
+function ($scope, $stateParams, RestaurantFactory, $location) {
+	"use strict";
+	console.log("bookings");
+	
+	$scope.bookings = RestaurantFactory.getBookings();
+	console.log($scope.bookings);
+	
+	
 }]);
 
 

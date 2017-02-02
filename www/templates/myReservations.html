@@ -2,28 +2,15 @@
   <ion-content padding="true" class="has-header">
     <ion-list id="myReservations-list14">
       <a ui-sref="tabs.bookingDetails">
-        <ion-item class="item-thumbnail-left stable  list-text" href="#/page1/page15">
+        <ion-item class="item-thumbnail-left stable  list-text" ng-repeat="r in reservations" ng-click="setReservation(r)">
           <img src="img/641p0zRjQ8yjLZsTAf0w_housre.png">
-          <h2stable>Ormond House
+          <h2stable>{{r.restaurant_name}}
 
           </h2stable>
-          <h1>551245</h1>
+          <h1>{{r.restaurant_phone}}</h1>
         </ion-item>
       </a>
-      <ion-item class="item-thumbnail-left stable  list-text" href="#/page1/page15">
-        <img src="img/U3wlA19mScqQL893gAnv_champneys.png">
-        <h2stable>La Roche
-
-        </h2stable>
-        <h1>488651</h1>
-      </ion-item>
-      <ion-item class="item-thumbnail-left stable  list-text" href="#/page1/page15">
-        <img src="img/WE6rB9dZRTiIWQlP5qsA_kitten3.jpg">
-        <h2stable>Pickerings
-
-        </h2stable>
-        <h1>475583</h1>
-      </ion-item>
+      
     </ion-list>
   </ion-content>
 </ion-view>

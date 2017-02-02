@@ -13,7 +13,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 	/*$scope.chosenPlace = "";
 	$scope.lat = "";
 	$scope.long = "";*/	
-	$scope.deals = RestaurantFactory.getAllRestaurants();
+	
 	$scope.rests = [];
 	$scope.user = RestaurantFactory.getCurrentUser();
 
@@ -133,6 +133,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 	$scope.showDetail = function(e, restaurant) {
 		main.rest = restaurant;
 		main.map.showInfoWindow('iw', restaurant.id);
+		RestaurantFactory.setReserveRestaurant(restaurant);
 	};
 	main.types = "['address']";
 		

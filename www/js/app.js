@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', 
 			   ['ionic', 'app.controllers', 'liveDealsController', 'dealsAndEditController', 'LoginCtrl', 'analyticsController', 'app.routes', 
-				'app.directives','app.services', 'mainFactory', 'dealsAndEditFactory', 'accountFactory', 'ngMap', 
+				'app.directives','app.services', 'mainFactory', 'dealsAndEditFactory', 'accountFactory', 'customerFactory', 'ngMap', 
 				'ngCordova', 'firebase'])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider){
