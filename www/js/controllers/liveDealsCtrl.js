@@ -9,11 +9,9 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 	
 	
 	var main = this;
-//initalise variables
-	/*$scope.chosenPlace = "";
-	$scope.lat = "";
-	$scope.long = "";*/	
-	
+//function to set the currentDeal in the RestaurantFactory provided the initVar(login) function has been fired off
+	RestaurantFactory.setCurrentDeal();
+//initalise variables	
 	$scope.rests = [];
 	$scope.user = RestaurantFactory.getCurrentUser();
 

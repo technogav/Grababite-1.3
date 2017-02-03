@@ -111,7 +111,7 @@ angular.module('app.routes', [])
     views:{
       'tab1':{
     templateUrl: 'templates/todaysDeals.html',
-    controller: 'dealsCtrl as main'
+    controller: 'todayDealsCtrl'
   }
   }
   })
@@ -135,13 +135,13 @@ angular.module('app.routes', [])
   .state('history', {
     url: '/history',
     templateUrl: 'templates/history.html',
-    controller: 'dealsCtrl as main' 
+    controller: 'pastDealsCtrl' 
   })
 
   .state('pastDeals', {
     url: '/page103', 
     templateUrl: 'templates/pastDeals.html',
-    controller: 'editDealsCtrl'
+    controller: 'pastDealEditCtrl'
   })
   
   .state('editLiveDeal', {
@@ -167,7 +167,7 @@ angular.module('app.routes', [])
     views:{
       'tab2':{
     templateUrl: 'templates/myDeals.html',
-    controller: 'editDealsCtrl'
+    controller: 'myDealsCtrl'
   }
   }
   })

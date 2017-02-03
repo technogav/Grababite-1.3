@@ -3,7 +3,6 @@ angular.module('LoginCtrl', ['firebase'])//may not need to inject firebase here
 .controller('LoginCtrl', ['$scope', '$stateParams', 'accountFactory', '$location',
 function ($scope, $stateParams, accountFactory, $location) {
 	"use strict";
-	console.log("login controller");
 	
 	/*$ionicSideMenuDelegate.canDragContent(false);
 	
@@ -36,7 +35,6 @@ function ($scope, $stateParams, accountFactory, $location) {
 				if($scope.user.account_type == 'restaurant'){
 					//send username to create deals, current deal etc if user is a restaurant
 					if(accountFactory.initVariables(data.username)){
-						console.log("vars inited for restaurant account");
 					}	
 					$location.path('/page201/page100');
 				}else{
@@ -53,7 +51,6 @@ function ($scope, $stateParams, accountFactory, $location) {
 	}
 	
 	$scope.accountType = function(){
-		//console.log("sdkfjdfs");
 		$location.path('/custOrRest');
 	}
 	   

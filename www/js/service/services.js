@@ -4,7 +4,9 @@ angular.module('app.services', ['firebase'])
 							   function($firebaseArray, $firebaseObject, mainFactory){
 
 	var rFactory = this;
-
+	rFactory.setCurrentDeal = function(){
+		mainFactory.setCurrentDeal();
+	}
 	//var ref = mainFactory.getFbRestaurantArr();
 	
 	//var custRef = firebase.database().ref('customers/');

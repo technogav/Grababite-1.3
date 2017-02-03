@@ -1,36 +1,65 @@
 angular.module('dealsAndEditFactory', ['firebase'])
 
-.factory('dealsAndEditFactory', ['$firebaseArray', 'mainFactory', function($firebaseArray, mainFactory){
-
+.factory('dealsAndEditFactory', ['$firebaseArray', 'mainFactory', '$location', function($firebaseArray, mainFactory, $location){
+	//set/reset currenty deals
 	var dealFactory = this;
+	dealFactory.setCurrentDeal = function(){
+		mainFactory.setCurrentDeal();
+	}
+	dealFactory.resetCurrentDeal = function(){
+		mainFactory.resetCurrentDeal();
+	}
+	//set/reset historical deals
+	dealFactory.setHistoricalDeals = function(){
+		mainFactory.setHistoricalDeals();	
+	};
+	dealFactory.resetHistoricalDeals = function(){
+		mainFactory.resetHistoricalDeals();	
+	};
+	
+	
+	
 	var fbArray = mainFactory.getFbRestaurantArr();
 	var deals = mainFactory.getDeals();
 	var dealToEdit = [];
 	var liveDeals = mainFactory.getLiveDeals();
 	var today = mainFactory.getToday();
-	var restaurantIndex = mainFactory.getRestaurantIndex();
+	var restaurantIndex = mainFactory.getRestaurantIndex();//?
 	//console.log(restaurantIndex);
 	var historicalDeals = mainFactory.getHistoricalDeals();
 	var currentDeal = mainFactory.getCurrentDeal();
 	var loggedInRestaurant = mainFactory.getLoggedInRestaurant();
 	var loggedInName = mainFactory.getLoggedInName();
 	
+	dealFactory.setLiveDeals = function(){
+		mainFactory.setLiveDeals();
+	}
+	
+	dealFactory.getCurrentDealFromDB = function(){
+		var currentDealFromDb = mainFactory.getCurrentDealFromDB();
+		return currentDealFromDb;
+	}
 	
 	dealFactory.setDealToEdit = function(deal){
-		console.log(deal);
-		dealToEdit = deal;
+		//console.log(deal);
+		dealToEdit = deal;	
 	};
 	
+	dealFactory.setAddNewDeal2 = function(deal){
+		console.log(loggedInRestaurant);
+	}
+	
+	
 	dealFactory.setAddNewDeal = function(deal){
-		console.log(deal);
-		console.log(loggedInName);
+		console.log("factory");
+		//console.log(loggedInName);
 		
 		angular.forEach(fbArray, function(value,key){
 			//console.log(value.account_name);
 			if(value.account_name === loggedInName){
 				//console.log(value);
 				var restaurantIndex = key;
-			
+			console.log(key);
 				var id = 0;
 				
 				var startDate = deal.startDate.toDateString();
@@ -48,7 +77,7 @@ angular.module('dealsAndEditFactory', ['firebase'])
 									endTime: endTime,
 									uptake:"0"}];
 				
-				
+				console.log(dealsObject);
 				if(value.deals == undefined){
 					
 					value.deals = dealsObject;
@@ -64,11 +93,7 @@ angular.module('dealsAndEditFactory', ['firebase'])
 									endTime: endTime,
 									uptake:"0"});
 				}
-
-				
-					
-
-
+console.log(restaurantIndex);
 				fbArray.$save(restaurantIndex).then(function(){
 					alert("Deal Added. You can edit deal at any time in the control panel");
 					
@@ -79,17 +104,21 @@ angular.module('dealsAndEditFactory', ['firebase'])
 		});
 	}
 	
-	dealFactory.setReactivateDeal = function(deal){		
+	dealFactory.setReactivateDeal = function(deal){	
+		
 		angular.forEach(fbArray, function(value,key){
 			
-			if(value.name === loggedInName){
+
+			if(value.name == loggedInRestaurant.name){
+				
 				restaurantIndex = key;
 				angular.forEach(value.deals, function(value,key){
 					if(value.deal_name === deal.deal_name){
+						
 						var dealIndex = key;
 						var resetUptake = 0;
 						//get todays date and end date (30 days after today)
-						
+						var today = new Date();
 						var newEndDate = new Date();
 						newEndDate.setDate(today.getDate()+30);
 						//convert dates to string
@@ -135,12 +164,11 @@ angular.module('dealsAndEditFactory', ['firebase'])
 	}
 	
 	dealFactory.setSaveDeal = function(deal){
-		console.log(restaurantIndex);
 		
-		fbArray.$save(restaurantIndex).then(function(){
-			alert("deal changed in the database succesfully"); 
-			
-		});
+		/*fbArray.$save(restaurantIndex).then(function(){
+			$location.path('/page201/page100');	
+		});*/
+		mainFactory.setNewCurrentDeal(deal);
 	}
 	
 	dealFactory.getCurrentUser = function(){

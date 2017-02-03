@@ -178,7 +178,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 				//send to the factory along with the UID number to fbArray.$save
 				RestaurantFactory.addNewRestaurantBooking($scope.restaurant);
 			}else{
-				
+				customerDetails.bookings = [];
 				$scope.restaurant.bookings.push(reseravtionObj);
 				RestaurantFactory.addNewRestaurantBooking($scope.restaurant, $scope.UID);
 			};
@@ -196,7 +196,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 				//send to the factory along with the UID number to fbArray.$save
 				RestaurantFactory.addNewCustomerBooking(customerDetails, customerDetails.$id)
 			}else{
-				
+				customerDetails.bookings = [];
 				customerDetails.bookings.push(reseravtionObj);
 				RestaurantFactory.addNewCustomerBooking(customerDetails, customerDetails.$id)
 			}
