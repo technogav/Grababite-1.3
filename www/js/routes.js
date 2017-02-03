@@ -40,6 +40,17 @@ angular.module('app.routes', [])
       }
     }
   })
+  
+  .state('tabs2.restaurantMapView', {
+    url: '/restaurantMapView',
+	   views: {
+      'tab4': {
+        templateUrl: 'templates/restaurantMapView.html',
+        controller: 'liveDealsController as main'  
+	  }
+	}
+	  
+  })
 
   .state('tabs.myReservations', {
     url: '/page4',

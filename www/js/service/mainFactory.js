@@ -83,18 +83,32 @@ angular.module('mainFactory', ['firebase'])
 		//console.log(currentDeal);
 	};
 	
+	mainFactory.resetLiveDeals = function(){
+		liveDeals = [];
+	}
+	
 	mainFactory.resetCurrentDeal = function(){
 		currentDeal = [];
 	};
 	
 	mainFactory.setLiveDeals = function(){
-		angular.forEach(deals, function(value){
-			var end = new Date(value.endDate);
-			var start = new Date(value.startDate);
+		
+		console.log(liveDeals);
+		
+		for(var i = 0; i<deals.length; i++){
+		
+			
+			var end = new Date(deals[i].endDate);
+			var start = new Date(deals[i].startDate);
+			
+			
 			if(end >today){//think about using the start here
-				liveDeals.push(value); //**SET**//
+				
+				liveDeals[i] = deals[i]; //**SET*/
 			};
-		})
+		}
+		
+		console.log(liveDeals);
 	}
 	
 	mainFactory.setHistoricalDeals = function(){

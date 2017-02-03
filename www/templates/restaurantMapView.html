@@ -1,0 +1,41 @@
+<ion-view title="Live Deals" name="restaurantMapView-u" hide-back-button="true" id="restaurantMapView">
+  <ion-content padding="true" class="has-header">
+
+ Welcome {{main.user.account_name}}
+  <input id="searchbar" style="padding:7px;margin-top:0px; width:95%" places-auto-complete size=80
+    ng-model="main.address"
+    component-restrictions="{country:'irl'}"
+    types="{{types}}"
+    on-place-changed="main.placeChanged()"//maybe add this to the disableTap function
+    ng-focus="disableTap()" /> <br/>
+  <div ng-show="main.place">
+    <!--Address = {{main.place.formatted_address}} <br/>
+    Location: {{main.place.geometry.location}}<br/>-->
+  </div>
+  
+	<ng-map center="[{{lat}}, {{long}}]">
+		<marker id="{{r.id}}" position="{{r.coords}}"
+				on-click="showDetail(r)" ng-repeat="r in rests">
+		</marker>
+	<info-window id="iw">
+		<div ng-non-bindable="">
+			<div style="width: 240px; height:auto;">
+				<h4>{{main.rest.name}}</h4>
+				<div style="width:60%; display:inline-block; float:left;">
+					<img src="img/641p0zRjQ8yjLZsTAf0w_housre.png" width="100%" />
+				</div>        
+				<div style="width:40%; display:inline-block; float:left; padding:10px;">                   
+					<strong>Live Deal: </strong><br>{{main.rest.current_deal.deal_name}}<br><br>
+				</div>
+				<div>
+					<button><a href="#/reserveTable" ng-click="reserve(main.rest.current_deal, main.rest.$id, main.rest)">Deal Details
+					</a></button>
+				</div>
+			</div>
+		</div>
+	</info-window>
+  </ng-map>
+    
+    
+  </ion-content>
+</ion-view>

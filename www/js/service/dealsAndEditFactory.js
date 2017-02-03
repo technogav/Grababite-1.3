@@ -16,11 +16,13 @@ angular.module('dealsAndEditFactory', ['firebase'])
 	dealFactory.resetHistoricalDeals = function(){
 		mainFactory.resetHistoricalDeals();	
 	};
-	
-	
+
+	dealFactory.resetLiveDeals = function(){
+		mainFactory.resetLiveDeals();
+	}
 	
 	var fbArray = mainFactory.getFbRestaurantArr();
-	var deals = mainFactory.getDeals();
+		var deals = mainFactory.getDeals();
 	var dealToEdit = [];
 	var liveDeals = mainFactory.getLiveDeals();
 	var today = mainFactory.getToday();
@@ -105,11 +107,10 @@ console.log(restaurantIndex);
 	}
 	
 	dealFactory.setReactivateDeal = function(deal){	
-		
-		angular.forEach(fbArray, function(value,key){
+		var deals = mainFactory.getDeals();
 			
-
-			if(value.name == loggedInRestaurant.name){
+		angular.forEach(deals, function(value,key){
+			if(value.deal_name === deal.deal_name){
 				
 				restaurantIndex = key;
 				angular.forEach(value.deals, function(value,key){

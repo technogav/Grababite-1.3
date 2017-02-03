@@ -35,10 +35,12 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	console.log("myDealsCtrl controller");
 	//refresh deals from the DB (its in initVars)
 	$scope.$on("$ionicView.beforeEnter", function(){
+		//dealsAndEditFactory.resetLiveDeals();
 		dealsAndEditFactory.setLiveDeals();
+		$scope.liveDeals = dealsAndEditFactory.getLiveDeals();
 		
 	});
-	$scope.liveDeals = dealsAndEditFactory.getLiveDeals();
+	
 	
 	$scope.pastDealsEdit = function(deal){
 		dealsAndEditFactory.setDealToEdit(deal);
