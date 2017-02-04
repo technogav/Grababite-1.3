@@ -97,7 +97,7 @@ angular.module('mainFactory', ['firebase'])
 		});
 	}
 		
-	mainFactory.setCurrentDeal = function(){
+	mainFactory.setCurrentDeal = function(){ /***********************************ALERT NOT FIRING OR SAVING CORRECTLY*/
 		//maybe have the livedealsctrl fire off this one
 		angular.forEach(deals, function(value) {
 			
@@ -159,10 +159,10 @@ angular.module('mainFactory', ['firebase'])
 		});	
 	};
 	
-	mainFactory.resetHistoricalDeals = function(){
+	/*mainFactory.resetHistoricalDeals = function(){
 		historicalDeals = [];
 		liveDeals = [];
-	};
+	};*/
 	//fire off the history ctrl	will work provided the livedealsctrl has been initilized
 						
 	mainFactory.getReservations = function(){//stick this function one factory down// actually get mainFactory.getCurrentUser will work
@@ -179,22 +179,26 @@ angular.module('mainFactory', ['firebase'])
 	
 	mainFactory.getBookings = function(){
 		var bookings = [];
-		if(loggedInRestaurant.bookings !== undefined){
-			today = today.toDateString();
-			console.log(loggedInRestaurant.bookings);
-			for(var i =0; i<loggedInRestaurant.bookings.length; i++){
-				
-				if(loggedInRestaurant.bookings[i].reservation_date == today){
-					console.log("today");
-					bookings.push(loggedInRestaurant.bookings[i]);
-					//console.log(bookings);
-				}
+		var b = fbArray[restaurantIndex].bookings;
+		var xtoday = today.toDateString();
+		console.log(xtoday);
+		
+		angular.forEach(b, function(value){
+			
+		
+			
+			//today = today.toDateString();
+			if(value.reservation_date == xtoday){
+				console.log("hjidr");
+				bookings.push(value);
 			}
-		}
+		})
 		
 		return bookings;
 		
 	}
+	
+	
 	
 	var signUpCustomer = [];
 	mainFactory.setSignUpCustomer = function(customer){

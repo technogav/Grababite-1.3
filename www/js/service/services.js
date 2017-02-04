@@ -232,14 +232,12 @@ angular.module('app.services', ['firebase'])
 	
 	rFactory.getBookings = function(){
 		var bookings = mainFactory.getBookings();
-		console.log(bookings);
+		//console.log(bookings);
 		return bookings;
 	}
 	
 	
 	rFactory.addNewRestaurantBooking = function(restaurant){
-		//console.log(restaurant);
-		//console.log(UID);
 		angular.forEach(fbArray, function(value,key){
 			if(value.account_name === restaurant.account_name){
 				//console.log(value);
@@ -258,13 +256,9 @@ angular.module('app.services', ['firebase'])
 	};
 	
 	rFactory.addNewCustomerBooking = function(customer, UID){
-		console.log(UID);
-		//console.log(customer);
-		angular.forEach(fbCustomerArray, function(value,key){
-			
+		angular.forEach(fbCustomerArray, function(value,key){	
 			if(value.$id === UID){
-				//console.log(value);
-				//console.log(value.account_name);
+				console.log("value");
 				value = customer;
 				fbCustomerArray.$save(key).then(function(){
 					alert("Deal has been reserved");

@@ -15,7 +15,6 @@ angular.module('customerFactory', ['firebase'])
 		cFactory.getReservations = function(){
 			
 			var reservations = mainFactory.getReservations();
-			console.log(reservations);
 			return reservations;
 		};
 								 

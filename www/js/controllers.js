@@ -162,23 +162,16 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 								reservation_time : xtime
 								};
 		
-		/*
-			
-		*/
-	
-		
+
 		var newRestaurantBooking = function(){
 			if($scope.restaurant.bookings === undefined){
-				
-				//create restaurant object with the new booking
 				$scope.restaurant.bookings = [];
-			
 				$scope.restaurant.bookings.push(reseravtionObj);
 				//console.log($scope.restaurant);
 				//send to the factory along with the UID number to fbArray.$save
 				RestaurantFactory.addNewRestaurantBooking($scope.restaurant);
 			}else{
-				customerDetails.bookings = [];
+				
 				$scope.restaurant.bookings.push(reseravtionObj);
 				RestaurantFactory.addNewRestaurantBooking($scope.restaurant, $scope.UID);
 			};
@@ -196,13 +189,13 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 				//send to the factory along with the UID number to fbArray.$save
 				RestaurantFactory.addNewCustomerBooking(customerDetails, customerDetails.$id)
 			}else{
-				customerDetails.bookings = [];
+				
 				customerDetails.bookings.push(reseravtionObj);
 				RestaurantFactory.addNewCustomerBooking(customerDetails, customerDetails.$id)
 			}
 		};
 		newCustomerBooking();
-		$location.path('/page1/page3');
+		$location.path('/page1/page3');//maybe do this on a promise
 	}//tick
 	
 	
