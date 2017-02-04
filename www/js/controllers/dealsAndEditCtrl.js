@@ -36,7 +36,7 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	//refresh deals from the DB (its in initVars)
 	$scope.$on("$ionicView.beforeEnter", function(){
 		//dealsAndEditFactory.resetLiveDeals();
-		dealsAndEditFactory.setLiveDeals();
+		//dealsAndEditFactory.setLiveDeals();
 		$scope.liveDeals = dealsAndEditFactory.getLiveDeals();
 		
 	});
@@ -90,10 +90,9 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	console.log("pastDealsCtrl");
 	
 	$scope.$on("$ionicView.beforeEnter", function(){
-		dealsAndEditFactory.setHistoricalDeals();
+		$scope.historicalDeals = dealsAndEditFactory.getHistoricalDeals();
 		//$scope.liveDeals = dealsAndEditFactory.getLiveDeals();
 	});
-	$scope.historicalDeals = dealsAndEditFactory.getHistoricalDeals();
 	
 	$scope.pastDealEdit = function(deal){
 		dealsAndEditFactory.setDealToEdit(deal);

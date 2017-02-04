@@ -30,6 +30,44 @@ angular.module('mainFactory', ['firebase'])
 			custs.push(value);
 		});
 	});
+	
+	mainFactory.setAddNewDeal2 = function(new_deal){
+		console.log(new_deal);
+		var d = fbArray[restaurantIndex].deals
+		new_deal.startDate = new_deal.startDate.toDateString();
+		new_deal.endDate = new_deal.endDate.toDateString();
+		new_deal.startTime = new_deal.startTime.toTimeString();
+		new_deal.endTime = new_deal.endTime.toTimeString();
+		new_deal.id = 0;
+		new_deal.uptake = 0;
+		
+		
+		d.push(new_deal);
+		fbArray.$save(restaurantIndex).then(function(){
+					$location.path('/page201/page100'); 
+				});	
+		
+	}
+	
+	mainFactory.setReactivateDeal = function(new_deal){
+		console.log(new_deal);
+		
+		//get todays date and end date (30 days after today)
+		var today = new Date();
+		var newEndDate = new Date();
+		newEndDate.setDate(today.getDate()+30);
+		//convert dates to string
+		newEndDate = newEndDate.toDateString();
+		today = today.toDateString();
+		
+		new_deal.startDate = today;
+		new_deal.endDate = newEndDate;
+		new_deal.uptake = 0;
+		
+		fbArray.$save(restaurantIndex).then(function(){
+					$location.path('/page201/page100'); 
+				});	
+	}
 
 	mainFactory.initVars = function(account_name){
 		//INIT VARS BASED ON THE USERNAEM INPUT ON THE LOGIN VIEW only when is a restaurant
@@ -92,12 +130,11 @@ angular.module('mainFactory', ['firebase'])
 	};
 	
 	mainFactory.setLiveDeals = function(){
+		console.log(deals);
 		
-		console.log(liveDeals);
 		
 		for(var i = 0; i<deals.length; i++){
-		
-			
+	
 			var end = new Date(deals[i].endDate);
 			var start = new Date(deals[i].startDate);
 			
@@ -108,7 +145,7 @@ angular.module('mainFactory', ['firebase'])
 			};
 		}
 		
-		console.log(liveDeals);
+		
 	}
 	
 	mainFactory.setHistoricalDeals = function(){
@@ -143,7 +180,6 @@ angular.module('mainFactory', ['firebase'])
 	mainFactory.getBookings = function(){
 		var bookings = [];
 		if(loggedInRestaurant.bookings !== undefined){
-			console.log("book");
 			today = today.toDateString();
 			console.log(loggedInRestaurant.bookings);
 			for(var i =0; i<loggedInRestaurant.bookings.length; i++){
@@ -189,6 +225,16 @@ angular.module('mainFactory', ['firebase'])
 	}
 	
 	mainFactory.getLiveDeals = function(){
+		
+		var liveDeals=[];
+		var d = loggedInRestaurant.deals;
+		angular.forEach(d, function(value){
+			var end = new Date(value.endDate);
+			var start = new Date(value.startDate);
+			if(end >today){	
+				liveDeals.push(value);//**SET**//			
+			};
+		});
 		return liveDeals;
 		
 	}
@@ -206,10 +252,22 @@ angular.module('mainFactory', ['firebase'])
 	}
 	
 	mainFactory.getHistoricalDeals = function(){
+		
+		var historicalDeals=[];
+		var d = loggedInRestaurant.deals;
+		angular.forEach(d, function(value){
+			console.log(value);	
+			var end = new Date(value.endDate);
+			var start = new Date(value.startDate);
+			if((today >= end) || (value.uptake >= value.numberAvailable)){	
+				historicalDeals.push(value);//**SET**//			
+			};
+		});
 		return historicalDeals;
 	}
 	
 	mainFactory.getCurrentDeal = function(){
+		
 		return currentDeal;
 	}
 	

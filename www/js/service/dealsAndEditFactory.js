@@ -3,9 +3,11 @@ angular.module('dealsAndEditFactory', ['firebase'])
 .factory('dealsAndEditFactory', ['$firebaseArray', 'mainFactory', '$location', function($firebaseArray, mainFactory, $location){
 	//set/reset currenty deals
 	var dealFactory = this;
+	
 	dealFactory.setCurrentDeal = function(){
 		mainFactory.setCurrentDeal();
 	}
+	
 	dealFactory.resetCurrentDeal = function(){
 		mainFactory.resetCurrentDeal();
 	}
@@ -27,8 +29,8 @@ angular.module('dealsAndEditFactory', ['firebase'])
 	var liveDeals = mainFactory.getLiveDeals();
 	var today = mainFactory.getToday();
 	var restaurantIndex = mainFactory.getRestaurantIndex();//?
-	//console.log(restaurantIndex);
-	var historicalDeals = mainFactory.getHistoricalDeals();
+	console.log(restaurantIndex);
+	
 	var currentDeal = mainFactory.getCurrentDeal();
 	var loggedInRestaurant = mainFactory.getLoggedInRestaurant();
 	var loggedInName = mainFactory.getLoggedInName();
@@ -48,7 +50,8 @@ angular.module('dealsAndEditFactory', ['firebase'])
 	};
 	
 	dealFactory.setAddNewDeal2 = function(deal){
-		console.log(loggedInRestaurant);
+		console.log(deal);
+		mainFactory.setAddNewDeal2(deal);
 	}
 	
 	
@@ -107,36 +110,9 @@ console.log(restaurantIndex);
 	}
 	
 	dealFactory.setReactivateDeal = function(deal){	
-		var deals = mainFactory.getDeals();
-			
-		angular.forEach(deals, function(value,key){
-			if(value.deal_name === deal.deal_name){
-				
-				restaurantIndex = key;
-				angular.forEach(value.deals, function(value,key){
-					if(value.deal_name === deal.deal_name){
-						
-						var dealIndex = key;
-						var resetUptake = 0;
-						//get todays date and end date (30 days after today)
-						var today = new Date();
-						var newEndDate = new Date();
-						newEndDate.setDate(today.getDate()+30);
-						//convert dates to string
-						newEndDate = newEndDate.toDateString();
-						today = today.toDateString();
-
-						fbArray[restaurantIndex].deals[dealIndex].startDate = today;
-						fbArray[restaurantIndex].deals[dealIndex].endDate = newEndDate;
-						fbArray[restaurantIndex].deals[dealIndex].uptake = resetUptake;
-						
-						fbArray.$save(restaurantIndex).then(function(){
-							console.log("deal now active"); //updateing databse but not updateing the $scope
-						});
-					}
-				});
-			}
-		});
+		
+		mainFactory.setReactivateDeal(deal);	
+		
 	};
 	
 	dealFactory.setRemoveDeal = function(deal){
@@ -165,10 +141,7 @@ console.log(restaurantIndex);
 	}
 	
 	dealFactory.setSaveDeal = function(deal){
-		
-		/*fbArray.$save(restaurantIndex).then(function(){
-			$location.path('/page201/page100');	
-		});*/
+	
 		mainFactory.setNewCurrentDeal(deal);
 	}
 	
@@ -190,14 +163,17 @@ console.log(restaurantIndex);
 	}
 	
 	dealFactory.getCurrentDeal = function(){
+		
 		return currentDeal;
 	}
 	
 	dealFactory.getHistoricalDeals = function(){
+		var historicalDeals = mainFactory.getHistoricalDeals();
 		return historicalDeals;
 	}
 	
 	dealFactory.getLiveDeals = function(){
+		var liveDeals = mainFactory.getLiveDeals();
 		return liveDeals;
 	}
 	dealFactory.getDealToEdit = function(){
