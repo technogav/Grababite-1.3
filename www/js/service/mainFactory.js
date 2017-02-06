@@ -18,12 +18,32 @@ angular.module('mainFactory', ['firebase'])
 	var today = new Date();
 	var loggedInName = "";
 	var currentUser = [];
+	var restsWithCurrentDeal = [];
 	//SET ALL RESTAURANTS
 	fbArray.$loaded().then(function(data) {
+		
 		angular.forEach(data, function(value,key) {
-			rests.push(value);//**SET**//
+			rests.push(value);
+			if(value.current_deal !== undefined){
+				//console.log(value.account_name);
+				var end = new Date(value.current_deal.endDate);
+				var start = new Date(value.current_deal.startDate);
+				if(end >= today){
+					
+					if(start < today){
+						restsWithCurrentDeal.push(value);
+					}
+				}
+			}
+			
+			
 		});
+		
 	});
+	
+	mainFactory.getRestsWithCurrentDeal = function(){
+		return restsWithCurrentDeal;
+	}
 	//SET ALL CUSTOMERS
 	fbCustomerArray.$loaded().then(function(data){
 		angular.forEach(data, function(value,key) {
@@ -33,18 +53,36 @@ angular.module('mainFactory', ['firebase'])
 	
 	mainFactory.setAddNewDeal2 = function(new_deal){
 		console.log(new_deal);
-		var d = fbArray[restaurantIndex].deals
-		new_deal.startDate = new_deal.startDate.toDateString();
-		new_deal.endDate = new_deal.endDate.toDateString();
-		new_deal.startTime = new_deal.startTime.toTimeString();
-		new_deal.endTime = new_deal.endTime.toTimeString();
-		new_deal.id = 0;
-		new_deal.uptake = 0;
+		var newDeal = {
+						"deal_name" : new_deal.deal_name,
+						"conditions" : new_deal.conditions,
+						"details" : new_deal.description,
+						"numberAvailable" : new_deal.numberAvailable,
+						"startDate" : new_deal.startDate.toDateString(),
+						"endDate" : new_deal.endDate.toDateString(),
+						"startTime" : new_deal.startTime.toTimeString(),
+						"endTime" : new_deal.endTime.toTimeString(),
+						"id" : 0,
+						"uptake" : 0
+			
+		}
+		console.log(newDeal);
+
+		if(fbArray[restaurantIndex].deals == undefined){
+			
+			fbArray[restaurantIndex].deals = [];
+			fbArray[restaurantIndex].deals.push(newDeal);
+			this.setNewCurrentDeal(newDeal);
 		
+		}else{
+			
+			fbArray[restaurantIndex].deals.push(newDeal);
+			this.setNewCurrentDeal(newDeal);
+		}
 		
-		d.push(new_deal);
 		fbArray.$save(restaurantIndex).then(function(){
-					$location.path('/page201/page100'); 
+			alert("Your deal has been added")
+					
 				});	
 		
 	}
@@ -89,9 +127,18 @@ angular.module('mainFactory', ['firebase'])
 	}
 	
 	mainFactory.setNewCurrentDeal = function(newCurrentdeal){
-		console.log(deals); //see if the deals var reflects changes in db
+		var xend = new Date(newCurrentdeal.endDate);console.log(xend);
+		var xstart = new Date(newCurrentdeal.startDate);
 		
-		fbArray[restaurantIndex].current_deal = newCurrentdeal;
+		if(xend >= today){
+			console.log(true);
+			console.log(newCurrentdeal.deal_name);
+			if(xstart <= today){
+				console.log(true);
+				fbArray[restaurantIndex].current_deal = newCurrentdeal;
+			}
+		}
+		
 		fbArray.$save(restaurantIndex).then(function(){
 			$location.path('/page201/page100');
 		});
@@ -185,7 +232,8 @@ angular.module('mainFactory', ['firebase'])
 		
 		angular.forEach(b, function(value){
 			
-		
+		//console.log(value.reservation_date);
+		console.log(value);
 			
 			//today = today.toDateString();
 			if(value.reservation_date == xtoday){
@@ -230,7 +278,7 @@ angular.module('mainFactory', ['firebase'])
 	
 	mainFactory.getLiveDeals = function(){
 		
-		var liveDeals=[];
+		var liveDeals=[];/*???*/
 		var d = loggedInRestaurant.deals;
 		angular.forEach(d, function(value){
 			var end = new Date(value.endDate);

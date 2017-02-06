@@ -75,7 +75,7 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 		//$scope.liveDeals = dealsAndEditFactory.getLiveDeals();
 	});
 	
-	
+	//save edit to the database an update current Deal
 	$scope.saveEdit = function(deal){
 		
 		dealsAndEditFactory.setSaveDeal(deal);
@@ -121,14 +121,16 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	
 }])
 
-.controller('newDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', 
-function ($scope, $stateParams, dealsAndEditFactory) {
+.controller('newDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location',
+function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	
 	"use strict";
 
 	$scope.addNewDeal = function(newDeal){
 		console.log(newDeal);
 		dealsAndEditFactory.setAddNewDeal2(newDeal);
+		
+		$location.path('/page201/page100'); 
 	}
 	
 	

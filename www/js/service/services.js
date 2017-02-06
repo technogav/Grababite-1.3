@@ -229,6 +229,26 @@ angular.module('app.services', ['firebase'])
 
 
  });*/
+	rFactory.getRestsWithCurrentDeal = function(){
+		var restsWithCurrentDeal = mainFactory.getRestsWithCurrentDeal();
+		return restsWithCurrentDeal;
+	}
+	
+	var bookingDetail = [];
+	rFactory.setBookingDetail = function(b){
+		console.log(b);
+		bookingDetail = b;
+	}
+	
+	rFactory.getBookingDetail = function(){
+		
+		return bookingDetail;
+	}
+	
+	rFactory.getReservations = function(){
+		var reservations = mainFactory.getReservations
+		return reservations;
+	}
 	
 	rFactory.getBookings = function(){
 		var bookings = mainFactory.getBookings();

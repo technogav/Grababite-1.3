@@ -225,23 +225,25 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	*/	
 }])
 
-.controller('reservationCtrl', ['$scope', '$stateParams', 'customerFactory', '$location',
-function ($scope, $stateParams, customerFactory, $location) {
+.controller('reservationCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
+function ($scope, $stateParams, RestaurantFactory, $location) {
 	"use strict";
 	console.log("reservationCtrl");
 	
-	$scope.reservations = customerFactory.getReservations();
+	$scope.reservations = RestaurantFactory.getReservations();
 	
-	$scope.setReservation = function(r){
-		customerFactory.setReservation(r);
-	}
-	//console.log($scope.reservations);
+	console.log($scope.reservations);
 }])
 
-.controller('bookingDetailsCtrl', ['$scope', '$stateParams', 'customerFactory', '$location',
+.controller('customerBookingDetailsCtrl', ['$scope', '$stateParams', 'customerFactory', '$location',
 function ($scope, $stateParams, customerFactory, $location) {
 	console.log(bookingDetailsCtrl);
 	$scope.reservation = customerFactory.getReservation();
+}])
+.controller('reservationCtrl', ['$scope', '$stateParams', 'customerFactory', '$location',
+function ($scope, $stateParams, customerFactory, $location) {
+	
+	//$scope.reservation = customerFactory.getReservation();
 }])
 
 .controller('bookingsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
@@ -251,6 +253,24 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	
 	$scope.bookings = RestaurantFactory.getBookings();
 	console.log($scope.bookings);
+	//pass object to the factory
+	$scope.bookingDetails = function(b){
+		RestaurantFactory.setBookingDetail(b);
+		$location.path('/page201/customerBookingDetails');
+	}
+	
+}])
+
+.controller('customerBookingDetailsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
+function ($scope, $stateParams, RestaurantFactory, $location) {
+	"use strict";
+	console.log("customerBookingDetailsCtrl");
+	
+	
+	$scope.$on("$ionicView.beforeEnter", function(){
+		
+		$scope.bookingDetail = RestaurantFactory.getBookingDetail();
+	});
 	
 	
 }]);

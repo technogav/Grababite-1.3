@@ -193,6 +193,16 @@ angular.module('app.routes', [])
   }
   })
   
+  .state('tabs2.customerBookingDetails', {
+    url: '/customerBookingDetails',
+    views:{
+      'tab4':{
+    templateUrl: 'templates/customerBookingDetails.html',
+    controller: 'customerBookingDetailsCtrl'
+  }
+  }
+  })
+  
 .state('restaurantBookings', {
     url: '/restaurantBookings',
     templateUrl: 'templates/restaurantsBookings.html',

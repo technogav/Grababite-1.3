@@ -13,11 +13,14 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 	RestaurantFactory.setCurrentDeal();
 //initalise variables	
 	$scope.rests = [];
+	$scope.restsWithCurrentDeal = [];
 	$scope.user = RestaurantFactory.getCurrentUser();
 
 	main.user = $scope.user;
 //fetch all restaurants from firebase
 	$scope.rests = RestaurantFactory.getAllRestaurants();
+	$scope.restsWithCurrentDeal = RestaurantFactory.getRestsWithCurrentDeal();
+	
 	//console.log($scope.rests);
 	main.rest = $scope.rests[0];
 //FUNCTION: get current coords and bind them to scope/////////////////////////////////////////////////////////////
@@ -36,7 +39,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 	});
 	
 	
-	$scope.disableTap = function(){
+	/*$scope.disableTap = function(){
 		container = document.getElementsByClassName('pac-container');
 		// disable ionic data tab
 		angular.element(container).attr('data-tap-disabled', 'true');
@@ -44,7 +47,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 		angular.element(container).on("click", function(){
 			document.getElementById('searchbar').blur();
 		});
-	};
+	};*/
 /*
 //FUNCTION : when coords change panTo the new center/////////////////////////////////////////////////////////////
 	$scope.onMapIdle = function() {

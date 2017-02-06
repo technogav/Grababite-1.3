@@ -98,7 +98,7 @@ angular.module('dealsAndEditFactory', ['firebase'])
 									endTime: endTime,
 									uptake:"0"});
 				}
-console.log(restaurantIndex);
+//this.setSaveDeal(newDeal); will update the current deal in the database
 				fbArray.$save(restaurantIndex).then(function(){
 					alert("Deal Added. You can edit deal at any time in the control panel");
 					

@@ -91,7 +91,7 @@
   
 	<ng-map center="[{{lat}}, {{long}}]">
 		<marker id="{{r.id}}" position="{{r.coords}}"
-				on-click="showDetail(r)" ng-repeat="r in rests">
+				on-click="showDetail(r)" ng-repeat="r in restsWithCurrentDeal">
 		</marker>
 	<info-window id="iw">
 		<div ng-non-bindable="">
