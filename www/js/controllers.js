@@ -80,7 +80,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 			console.log(newCust);
 			RestaurantFactory.setCustomer(newCust);//THIS WORKS
 		
-			$location.path('/page1/page3');
+			$location.path('/login');
 		}else{
 			newCust.password1 = "";
 			newCust.password2 = "";
@@ -99,7 +99,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 			//console.log(newCust);
 			RestaurantFactory.setCustomer(newCust);//THIS WORKS
 		
-			$location.path('/page101');
+			$location.path('/login');
 		}else{
 			newCust.password1 = "";
 			newCust.password2 = "";
