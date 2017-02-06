@@ -257,16 +257,18 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	
 }])
 
-.controller('myCustomerAccountCtrl', ['$scope', '$stateParams', 'RestaurantFactory',
-function ($scope, $stateParams, RestaurantFactory) {
+.controller('myCustomerAccountCtrl', ['$scope', '$stateParams', 'customerFactory',
+function ($scope, $stateParams, customerFactory) {
 	console.log("myCustomerAccountCtrl");
 	$scope.$on("$ionicView.beforeEnter", function(){
 		
-		$scope.currentUser = RestaurantFactory.getCurrentUser();
+		$scope.currentUser = customerFactory.getCurrentUser();
 		console.log($scope.currentUser);
 	});
-	$scope.currentUser = RestaurantFactory.getCurrentUser();
-		console.log($scope.currentUser);
+	$scope.updateAccountInfo = function(account){
+		console.log(account);
+		customerFactory.setUpdateAccountInfo(account);
+	}
 	
 }])
 

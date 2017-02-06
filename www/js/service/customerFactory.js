@@ -12,6 +12,10 @@ angular.module('customerFactory', ['firebase'])
 			return currentUser;
 		}
 		
+		cFactory.getCurrentUser = function(){
+			return mainFactory.getCurrentUser();
+		}
+		
 		cFactory.getReservations = function(){
 			
 			var reservations = mainFactory.getReservations();
@@ -23,7 +27,14 @@ angular.module('customerFactory', ['firebase'])
 		};
 		cFactory.getReservation = function(){
 			return reservation;
-		}						 
+		}
+		
+		cFactory.setUpdateAccountInfo = function(account){
+			console.log(account);
+			mainFactory.setUpdateAccountInfo(account);
+		}
+		
+		
 	
 	return cFactory;
 

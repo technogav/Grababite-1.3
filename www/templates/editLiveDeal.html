@@ -1,59 +1,73 @@
 <ion-view title="Edit Live Deal" id="editLiveDeal">
-  <ion-content padding="true" class="has-header">
-    <div>
-        <a href=""><div style="margin-bottom:85px;">
-            <ion-list>
-             
-             	<ion-item>
-				 <label class="item item-input">
-					  <span class="input-label">Name: </span>
-					  <input type="text" ng-model="dealToEdit.deal_name">
-					</label>
-				 </ion-item>
-				 <ion-item>
-					<label class="item item-input">
-					  <span class="input-label">Start Date: </span>
-					  <input type="text" ng-model="dealToEdit.startDate">
-					</label>
-				 </ion-item>
-				 <ion-item>
-					<label class="item item-input">
-					  <span class="input-label">End Date: </span>
-					  <input type="text" ng-model="dealToEdit.endDate">
-					</label>
-				 </ion-item>
-				 <ion-item>
-					<label class="item item-input">
-					  <span class="input-label">Start Time: </span>
-					  <input type="text" ng-model="dealToEdit.startTime">
-					</label>
-				 </ion-item>
-				 <ion-item>
-					<label class="item item-input">
-					  <span class="input-label">End Time: </span>
-					  <input type="text" ng-model="dealToEdit.endTime">
-					</label>
-				 </ion-item>
-				 <ion-item>
-					<label class="item item-input">
-					  <span class="input-label">Number Available: </span>
-					  <input type="text" ng-model="dealToEdit.numberAvailable">
-					</label>
-				 </ion-item>
-				 <ion-item>
-					<label class="item item-input">
-					  <span class="input-label">Uptake on Deal: </span>
-					  <input type="text" ng-model="dealToEdit.uptake">
-					</label>
-				 </ion-item>
-  
-            </ion-list>
+		<ion-content padding="true" class="has-header">
+			<div>
+				
+				<ion-list>
 
-            <div class="spacer" style="width: 300px; height: 23px;"></div>
-            <button style="font-weight:600; width:96%;display:inline-block;float:left;margin-right:2%;"
-            class="button button-energized  icon ion-android-checkbox" ng-click="saveEdit(dealToEdit)">Save Changes</button>
-            
-          </ion-content>
-      </div>
-      </a>
+				<ion-item class="item-icon-right stable">
+					<label <label class="item item-input">
+					 	<span class="input-label">Name:</span>
+						<input type="text" ng-model="dealToEdit.deal_name" />
+						<i class="icon ion-edit icon-accessory"></i>
+					</label>
+				</ion-item>
+				
+				<ion-item class="item-icon-right stable">
+					<label <label class="item item-input">
+					 	<span class="input-label">Start Date</span>
+						<input type="text" ng-model="dealToEdit.startDate" />
+						<i class="icon ion-edit icon-accessory"></i>
+					</label>
+				</ion-item>
+				
+				<ion-item class="item-icon-right stable">
+					<label <label class="item item-input">
+					 	<span class="input-label">End Date</span>
+						<input type="text" ng-model="dealToEdit.endDate" />
+						<i class="icon ion-edit icon-accessory"></i>
+					</label>
+				</ion-item>
+				
+				<ion-item class="item-icon-right stable">
+					<label <label class="item item-input">
+					 	<span class="input-label">Start Time</span>
+						<input type="text" ng-model="dealToEdit.startTime" />
+						<i class="icon ion-edit icon-accessory"></i>
+					</label>
+				</ion-item>
+				
+				<ion-item class="item-icon-right stable">
+					<label <label class="item item-input">
+					 	<span class="input-label">End Date</span>
+						<input type="text" ng-model="dealToEdit.endDate" />
+						<i class="icon ion-edit icon-accessory"></i>
+					</label>
+				</ion-item>
+				
+				<ion-item class="item-icon-right stable">
+					<label <label class="item item-input">
+					 	<span class="input-label">numberAvailable</span>
+						<input type="text" ng-model="dealToEdit.numberAvailable" />
+						<i class="icon ion-edit icon-accessory"></i>
+					</label>
+				</ion-item>
+				
+				<ion-item class="item-icon-right stable">
+					<label <label class="item item-input">
+					 	<span class="input-label">uptake</span>
+						<input type="text" ng-model="dealToEdit.uptake" />
+						<i class="icon ion-edit icon-accessory"></i>
+					</label>
+				</ion-item>
+				
+
+				</ion-list>
+
+				<div class="spacer" style="width: 300px; height: 23px;"></div>
+				<button style="font-weight:600; width:96%;display:inline-block;float:left;margin-right:2%;"
+				class="button button-energized  icon ion-android-checkbox" ng-click="saveEdit(dealToEdit)">Save Changes</button>
+		</div>
+		
+	</ion-content>
+
 </ion-view>

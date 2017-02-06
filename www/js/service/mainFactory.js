@@ -19,6 +19,7 @@ angular.module('mainFactory', ['firebase'])
 	var loggedInName = "";
 	var currentUser = [];
 	var restsWithCurrentDeal = [];
+	var customerIndex = 0;
 	//SET ALL RESTAURANTS
 	fbArray.$loaded().then(function(data) {
 		
@@ -41,6 +42,16 @@ angular.module('mainFactory', ['firebase'])
 		
 	});
 	
+	mainFactory.setUpdateAccountInfo = function(account){
+		console.log(customerIndex);
+		console.log(account);
+		fbCustomerArray[customerIndex] = account;
+		fbCustomerArray.$save(customerIndex).then(function(){
+			alert("customer Details have been updated");
+				$location.path('/page1/page3')
+		});
+	};
+	
 	mainFactory.getRestsWithCurrentDeal = function(){
 		return restsWithCurrentDeal;
 	}
@@ -48,6 +59,7 @@ angular.module('mainFactory', ['firebase'])
 	fbCustomerArray.$loaded().then(function(data){
 		angular.forEach(data, function(value,key) {
 			custs.push(value);
+			customerIndex = key;
 		});
 	});
 	
