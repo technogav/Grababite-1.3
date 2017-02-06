@@ -246,7 +246,8 @@ angular.module('app.services', ['firebase'])
 	}
 	
 	rFactory.getReservations = function(){
-		var reservations = mainFactory.getReservations
+		var reservations = mainFactory.getReservations();
+		console.log(reservations);
 		return reservations;
 	}
 	
@@ -445,9 +446,8 @@ angular.module('app.services', ['firebase'])
 	}
 	
 	rFactory.getCurrentUser = function(){
-		var currentUser = mainFactory.getCurrentUser();
-		//console.log(currentUser);
-		return currentUser;
+		return mainFactory.getCurrentUser();
+		
 	}
 	
 	rFactory.setReservationDeal = function(deal){

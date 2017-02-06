@@ -26,7 +26,7 @@ angular.module('app.routes', [])
     views: {
       'tab1': {
         templateUrl: 'templates/myAccount.html',
-        controller: 'liveDealsController'
+        controller: 'myCustomerAccountCtrl'
       }
     }
   })

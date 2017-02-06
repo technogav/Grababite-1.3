@@ -123,7 +123,54 @@ angular.module('mainFactory', ['firebase'])
 	mainFactory.getCurrentDealFromDB =function(){
 		//console.log(deals);//this is only relevant at initVars stage unless on editDeals etc it is changed on the factory level
 		//console.log(loggedInRestaurant.current_deal);
-		return loggedInRestaurant.current_deal;
+		var current_deal = loggedInRestaurant.current_deal;
+		
+		var ld = [];
+		angular.forEach(loggedInRestaurant.deals, function(value){
+			var end = new Date(value.endDate);
+			var start = new Date(value.startDate);
+			if(end >today){	
+				ld.push(value);//**SET**//			
+			};
+		});
+		var xend = new Date(current_deal.endDate);console.log(xend);
+		var xstart = new Date(current_deal.startDate);
+		
+		if(xend < today){
+			console.log(current_deal.deal_name);
+			if(ld > 0){
+				console.log("bigger");
+				current_deal = ld[0];
+				fbArray[loggedInRestaurant].current_deal = ld;
+				fbArray.$save(restaurantIndex).then(function(){
+					console.log("saved");
+					return current_deal;
+				});	
+			}else{
+				console.log("no deal");
+				current_deal = {deal_name: "No deal today"};
+				return current_deal;
+			}
+			
+		}else{
+			return current_deal;
+		}
+		
+		
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	mainFactory.setNewCurrentDeal = function(newCurrentdeal){
@@ -214,13 +261,14 @@ angular.module('mainFactory', ['firebase'])
 						
 	mainFactory.getReservations = function(){//stick this function one factory down// actually get mainFactory.getCurrentUser will work
 		var reservations = [];
-		//console.log(currentUser);
+		console.log(currentUser);
 		if(currentUser.bookings !== undefined){
 			reservations = currentUser.bookings;
 			
 		}else{
 			reservations = {name: "You currently have no reservations"}
 		}
+		console.log(reservations);
 		return reservations;
 	}
 	
@@ -269,6 +317,7 @@ angular.module('mainFactory', ['firebase'])
 	}
 	
 	mainFactory.getCurrentUser = function(){
+		console.log(currentUser);
 		return currentUser;
 	}
 	

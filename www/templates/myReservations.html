@@ -1,13 +1,14 @@
-<ion-view title="My Reservations" id="myReservation">
+<ion-view title="My Reservations" id="page4">
   <ion-content padding="true" class="has-header">
+
     <ion-list id="myReservations-list14">
       <a ui-sref="tabs.bookingDetails">
         <ion-item class="item-thumbnail-left stable  list-text" ng-repeat="r in reservations" ng-click="setReservation(r)">
           <img src="img/641p0zRjQ8yjLZsTAf0w_housre.png">
-          <h2stable>dfhfghfghgh
+          <h3stable>{{r.restaurant_name}} / {{r.deal_name}}
 
-          </h2stable>
-          <h1>{{r.reservation_time}}</h1>
+          </h3stable>
+          <h2>{{r.reservation_date}} / {{r.reservation_time}}</h2>
         </ion-item>
       </a>
       

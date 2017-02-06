@@ -240,11 +240,7 @@ function ($scope, $stateParams, customerFactory, $location) {
 	console.log(bookingDetailsCtrl);
 	$scope.reservation = customerFactory.getReservation();
 }])
-.controller('reservationCtrl', ['$scope', '$stateParams', 'customerFactory', '$location',
-function ($scope, $stateParams, customerFactory, $location) {
-	
-	//$scope.reservation = customerFactory.getReservation();
-}])
+
 
 .controller('bookingsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
@@ -258,6 +254,19 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		RestaurantFactory.setBookingDetail(b);
 		$location.path('/page201/customerBookingDetails');
 	}
+	
+}])
+
+.controller('myCustomerAccountCtrl', ['$scope', '$stateParams', 'RestaurantFactory',
+function ($scope, $stateParams, RestaurantFactory) {
+	console.log("myCustomerAccountCtrl");
+	$scope.$on("$ionicView.beforeEnter", function(){
+		
+		$scope.currentUser = RestaurantFactory.getCurrentUser();
+		console.log($scope.currentUser);
+	});
+	$scope.currentUser = RestaurantFactory.getCurrentUser();
+		console.log($scope.currentUser);
 	
 }])
 
