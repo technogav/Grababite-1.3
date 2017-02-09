@@ -42,6 +42,22 @@ angular.module('mainFactory', ['firebase'])
 		
 	});
 	
+	mainFactory.checkForFirstTimeUser = function(){
+		
+		if(currentUser.account_type === "restaurant"){//this check will already have been done but its here for clarity
+			var checkRestaurant = [];
+			angular.forEach(fbArray, function(value){
+				if(currentUser.account_name === value.account_name){
+					checkRestaurant.push(value);
+				}
+			});
+			if(checkRestaurant.length == 0){
+				alert("You need to add a restaurant to successfully add a  deal. Click the menu on the top right! ----> ");
+			};
+		};
+		
+	};
+	
 	mainFactory.setUpdateAccountInfo = function(account){
 		console.log(customerIndex);
 		console.log(account);
@@ -152,19 +168,25 @@ angular.module('mainFactory', ['firebase'])
 		});
 	}
 	
-	/*mainFactory.refreshLoggedInrestaurant = function(){
+	mainFactory.refreshLoggedInrestaurant = function(){
 		//refreshes the loggedInRestaurant and the restaurantIndex variables
-		angular.forEach(data, function(value,key) {
-			if(value.account_name === account_name){//username needs to be unique or else problems
-				restaurantIndex = key; 
+		console.log(fbArray);
+		console.log(loggedInName);//redundant
+		console.log(currentUser.account_name);
+		console.log(fbArray[3].account_name);
+		angular.forEach(fbArray, function(value,key) {
+			
+			if(value.account_name === currentUser.account_name){//username needs to be unique or else problems
+				restaurantIndex = key;
+				console.log(restaurantIndex);
 				loggedInRestaurant = value; 
 			}
 		});
-	};*/
+	};
 	var ld = [];//live deals
 	
 	mainFactory.getCurrentDealFromDB =function(){
-		console.log(1);
+		
 			var current_deal = [];
 			
 		
@@ -431,8 +453,9 @@ angular.module('mainFactory', ['firebase'])
 	}
 	
 	mainFactory.getCurrentDeal = function(){
-		console.log(1);
+		
 		console.log(loggedInRestaurant);
+		console.log(restaurantIndex);
 		var currentDeal =[];
 		var d = loggedInRestaurant.deals;//what if it doesnt have deals
 		angular.forEach(d, function(value){

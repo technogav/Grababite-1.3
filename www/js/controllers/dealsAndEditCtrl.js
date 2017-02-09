@@ -57,10 +57,10 @@ function ($scope, $stateParams, dealsAndEditFactory) {
 	$scope.$on("$ionicView.beforeEnter", function(){
 		
 		$scope.currentDeal = dealsAndEditFactory.getCurrentDeal();//from main // get a new list of live deals/ current deals
-		console.log($scope.currentDeal);
+		
 	});
 	
-	
+	dealsAndEditFactory.checkForFirstTimeUser();
 	
 }])
 

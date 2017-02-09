@@ -13,6 +13,7 @@ angular.module('app.services', ['firebase'])
 	var fbArray = mainFactory.getFbRestaurantArr();
 	var fbCustomerArray = mainFactory.getFbCustomersArr();
 	var loggedInName = mainFactory.getLoggedInCredentials();
+								   console.log(loggedInName);
 	var rests = mainFactory.getRests();
 	var loggedInRestaurant = mainFactory.getLoggedInRestaurant();
 	var restaurantIndex = 8;
@@ -229,9 +230,9 @@ angular.module('app.services', ['firebase'])
 
 
  });*/
-	rFactory.refreshLoggedInrestaurant = function(){
+	/*rFactory.refreshLoggedInrestaurant = function(){
 		mainFactory.refreshLoggedInrestaurant();
-	}
+	}*/
 	
 	rFactory.getRestsWithCurrentDeal = function(){
 		var restsWithCurrentDeal = mainFactory.getRestsWithCurrentDeal();
@@ -393,8 +394,9 @@ angular.module('app.services', ['firebase'])
 	rFactory.setRestaurant = function(restaurant){
 		fbArray.$add(restaurant).then(function(){
 			alert("restaurant added"); 
+			
+			mainFactory.refreshLoggedInrestaurant();
 			$location.path('/page201/page100');
-			//this.refreshLoggedInrestaurant();
 		});
 	};
 	

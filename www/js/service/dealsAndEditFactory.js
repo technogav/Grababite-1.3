@@ -35,7 +35,9 @@ angular.module('dealsAndEditFactory', ['firebase'])
 		mainFactory.resetLiveDeals();
 	}
 	
-
+	dealFactory.checkForFirstTimeUser = function(){
+		mainFactory.checkForFirstTimeUser();
+	}
 	
 	
 	dealFactory.setLiveDeals = function(){
