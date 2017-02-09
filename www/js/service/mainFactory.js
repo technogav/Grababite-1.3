@@ -22,7 +22,7 @@ angular.module('mainFactory', ['firebase'])
 	var customerIndex = 0;
 	//SET ALL RESTAURANTS
 	fbArray.$loaded().then(function(data) {
-		
+		//this function will only get the initial 
 		angular.forEach(data, function(value,key) {
 			rests.push(value);
 			if(value.current_deal !== undefined){
@@ -63,8 +63,16 @@ angular.module('mainFactory', ['firebase'])
 		});
 	});
 	
+	mainFactory.refreshCustomerList = function(){
+		angular.forEach(fbCustomerArray, function(value,key) {
+			custs.push(value);
+			customerIndex = key;
+		});
+	}
+	
 	mainFactory.setAddNewDeal2 = function(new_deal){
 		console.log(new_deal);
+		console.log(restaurantIndex);
 		var newDeal = {
 						"deal_name" : new_deal.deal_name,
 						"conditions" : new_deal.conditions,
@@ -84,14 +92,14 @@ angular.module('mainFactory', ['firebase'])
 			
 			fbArray[restaurantIndex].deals = [];
 			fbArray[restaurantIndex].deals.push(newDeal);
-			this.setNewCurrentDeal(newDeal);
+			//this.setNewCurrentDeal(newDeal);
 		
 		}else{
 			
 			fbArray[restaurantIndex].deals.push(newDeal);
-			this.setNewCurrentDeal(newDeal);
+			//this.setNewCurrentDeal(newDeal);
 		}
-		
+		fbArray[restaurantIndex].current_deal = newDeal;
 		fbArray.$save(restaurantIndex).then(function(){
 			alert("Your deal has been added")
 					
@@ -113,7 +121,7 @@ angular.module('mainFactory', ['firebase'])
 		new_deal.startDate = today;
 		new_deal.endDate = newEndDate;
 		new_deal.uptake = 0;
-		
+		fbArray[restaurantIndex].current_deal = new_deal;
 		fbArray.$save(restaurantIndex).then(function(){
 					$location.path('/page201/page100'); 
 				});	
@@ -123,79 +131,135 @@ angular.module('mainFactory', ['firebase'])
 		//INIT VARS BASED ON THE USERNAEM INPUT ON THE LOGIN VIEW only when is a restaurant
 		fbArray.$loaded().then(function(data) {
 			angular.forEach(data, function(value,key) {
+				
 				if(value.account_name === account_name){//username needs to be unique or else problems
+					
 					restaurantIndex = key; //**SET**//
+					console.log(restaurantIndex);
 					loggedInRestaurant = value; //**SET**//
+					//console.log(value);
 					deals = value.deals; //**SET**//
 				}
 			});
 		});
 	};
 	
-	mainFactory.getCurrentDealFromDB =function(){
-		//console.log(deals);//this is only relevant at initVars stage unless on editDeals etc it is changed on the factory level
-		//console.log(loggedInRestaurant.current_deal);
-		var current_deal = loggedInRestaurant.current_deal;
-		
-		var ld = [];
-		angular.forEach(loggedInRestaurant.deals, function(value){
-			var end = new Date(value.endDate);
-			var start = new Date(value.startDate);
-			if(end >today){	
-				ld.push(value);//**SET**//			
-			};
-		});
-		var xend = new Date(current_deal.endDate);console.log(xend);
-		var xstart = new Date(current_deal.startDate);
-		
-		if(xend < today){
-			console.log(current_deal.deal_name);
-			if(ld > 0){
-				console.log("bigger");
-				current_deal = ld[0];
-				fbArray[loggedInRestaurant].current_deal = ld;
-				fbArray.$save(restaurantIndex).then(function(){
-					console.log("saved");
-					return current_deal;
-				});	
-			}else{
-				console.log("no deal");
-				current_deal = {deal_name: "No deal today"};
-				return current_deal;
-			}
-			
-		}else{
-			return current_deal;
-		}
-		
-		
+	//when a deal is added i need to refresh the deals variable by ; therefore deals should be a seperate function
 	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	mainFactory.refreshDealsFromDb = function(){
+		angular.forEach(fbArray, function(value) {
+			deals = value.deals;
+		});
 	}
 	
+	/*mainFactory.refreshLoggedInrestaurant = function(){
+		//refreshes the loggedInRestaurant and the restaurantIndex variables
+		angular.forEach(data, function(value,key) {
+			if(value.account_name === account_name){//username needs to be unique or else problems
+				restaurantIndex = key; 
+				loggedInRestaurant = value; 
+			}
+		});
+	};*/
+	var ld = [];//live deals
+	
+	mainFactory.getCurrentDealFromDB =function(){
+		console.log(1);
+			var current_deal = [];
+			
+		
+			var liveDeals = this.getLiveDealsFromDB();
+		console.log(liveDeals);
+		//console.log(current_deal);
+			var xend = [];
+			var xstart = [];
+			angular.forEach(liveDeals,function(value){
+				console.log(1);
+				xend = new Date(value.endDate);//console.log(xend);
+				xstart = new Date(value.startDate);
+				if((xstart <= today) && (xend >= today)){
+					current_deal.push(value);
+					//console.log(value);
+				}
+				
+			});//MEMORY LEAK HERE
+			/*if(current_deal.length > 1){
+				alert("You current have too many deals for today");
+			}*/
+		console.log(current_deal);
+		return current_deal[0];
+		
+	}
+	//maybe redundant	
+	mainFactory.getLiveDealsFromDB = function(){
+			// consider putting an this.initVars here	
+			//console.log(loggedInRestaurant.deals);
+		ld=[];
+			if(loggedInRestaurant.deals != undefined){
+				console.log(true);
+				//cycle tru deals and set the curreent deal to the db
+				angular.forEach(loggedInRestaurant.deals, function(value){
+					var end = new Date(value.endDate);
+					var start = new Date(value.startDate);
+					if((end >= today) && (value.numberAvailable >= value.uptake)){	
+						console.log(true);
+						ld.push(value);//**SET**//			
+					};
+				});
+				console.log(ld);
+				return ld;//console.log(ld);
+			}
+	}
+	
+		/*
+		var getUptoDateCurrentDeal = function(){
+			if(loggedInRestaurant.current_deal != undefined){
+				current_deal = loggedInRestaurant.current_deal;
+			}
+		}
+			
+			
+			
+			var xend = new Date(current_deal.endDate);console.log(xend);
+			var xstart = new Date(current_deal.startDate);
+			
+			if(xend < today){
+				console.log(current_deal.deal_name);
+				if(ld > 0){
+					console.log("bigger");
+					current_deal = ld[0];
+					fbArray[restaurantIndex].current_deal = ld;
+					fbArray.$save(restaurantIndex).then(function(){
+						console.log("saved");
+						return current_deal;
+					});	
+				}else{
+					console.log("no deal");
+					current_deal = {deal_name: "No deal today"};
+					return current_deal;
+				}
+			}
+
+		}else{
+			console.log(loggedInRestaurant);
+			current_deal = {deal_name:"There are no deals set!"};
+			return current_deal;
+		}	
+		
+	}
+	*/
 	mainFactory.setNewCurrentDeal = function(newCurrentdeal){
-		var xend = new Date(newCurrentdeal.endDate);console.log(xend);
+		var xend = new Date(newCurrentdeal.endDate);
 		var xstart = new Date(newCurrentdeal.startDate);
 		
-		if(xend >= today){
-			console.log(true);
-			console.log(newCurrentdeal.deal_name);
-			if(xstart <= today){
+		if((xend >= today) && (xstart <= today) && (newCurrentdeal.numberAvailable > newCurrentdeal.uptake)){
+			
 				console.log(true);
 				fbArray[restaurantIndex].current_deal = newCurrentdeal;
-			}
+			
+		}else{
+			console.log(liveDeals);
+			fbArray[restaurantIndex].current_deal = null;
 		}
 		
 		fbArray.$save(restaurantIndex).then(function(){
@@ -329,7 +393,7 @@ angular.module('mainFactory', ['firebase'])
 	}
 	
 	mainFactory.getCurrentUser = function(){
-		console.log(currentUser);
+		//console.log(currentUser);
 		return currentUser;
 	}
 	
@@ -337,20 +401,7 @@ angular.module('mainFactory', ['firebase'])
 		return today;
 	}
 	
-	mainFactory.getLiveDeals = function(){
-		
-		var liveDeals=[];/*???*/
-		var d = loggedInRestaurant.deals;
-		angular.forEach(d, function(value){
-			var end = new Date(value.endDate);
-			var start = new Date(value.startDate);
-			if(end >today){	
-				liveDeals.push(value);//**SET**//			
-			};
-		});
-		return liveDeals;
-		
-	}
+	
 	
 	mainFactory.getLoggedInRestaurant = function(){
 		return loggedInRestaurant;
@@ -380,9 +431,40 @@ angular.module('mainFactory', ['firebase'])
 	}
 	
 	mainFactory.getCurrentDeal = function(){
-		
-		return currentDeal;
+		console.log(1);
+		console.log(loggedInRestaurant);
+		var currentDeal =[];
+		var d = loggedInRestaurant.deals;//what if it doesnt have deals
+		angular.forEach(d, function(value){
+			var end = new Date(value.endDate);
+			var start = new Date(value.startDate);
+			if((today >= start) && (end >= today) && (value.numberAvailable > value.uptake)){	
+				currentDeal.push(value);//**SET**//			
+			};
+			if(currentDeal.length > 1){
+				alert("you have too many deals valid for today. please deactivate one to avoid problems");
+			}
+		});
+		return currentDeal[0];
 	}
+	
+	
+	mainFactory.getLiveDeals = function(){
+		
+		var liveDeals=[];/*???*/
+		var d = loggedInRestaurant.deals;
+		angular.forEach(d, function(value){
+			var end = new Date(value.endDate);
+			var start = new Date(value.startDate);
+			if((end >today) && (value.numberAvailable > value.uptake)){	
+				liveDeals.push(value);//**SET**//			
+			};
+		});
+		return liveDeals;
+		
+	}
+	
+	
 	
 	mainFactory.getRests = function(){
 		return rests;

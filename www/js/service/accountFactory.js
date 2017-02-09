@@ -14,9 +14,12 @@ angular.module('accountFactory', ['firebase'])
 	var currentUser = [];
 	
 	//SETTERS//
+	accountFactory.refreshCustomerList = function(){
+		mainFactory.refreshCustomerList();
+	}
+	
 	accountFactory.setCurrentUser = function(user){
-		currentUser = user;
-		//console.log(currentUser);
+		//console.log(user);
 		mainFactory.setCurrentUser(user);
 	}
 	

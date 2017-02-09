@@ -1,7 +1,7 @@
 angular.module('app.services', ['firebase'])
 
-.factory('RestaurantFactory', ['$firebaseArray', '$firebaseObject', 'mainFactory', 
-							   function($firebaseArray, $firebaseObject, mainFactory){
+.factory('RestaurantFactory', ['$firebaseArray', '$firebaseObject', 'mainFactory', '$location',
+							   function($firebaseArray, $firebaseObject, mainFactory, $location){
 
 	var rFactory = this;
 	rFactory.setCurrentDeal = function(){
@@ -229,6 +229,10 @@ angular.module('app.services', ['firebase'])
 
 
  });*/
+	rFactory.refreshLoggedInrestaurant = function(){
+		mainFactory.refreshLoggedInrestaurant();
+	}
+	
 	rFactory.getRestsWithCurrentDeal = function(){
 		var restsWithCurrentDeal = mainFactory.getRestsWithCurrentDeal();
 		return restsWithCurrentDeal;
@@ -261,8 +265,8 @@ angular.module('app.services', ['firebase'])
 	rFactory.addNewRestaurantBooking = function(restaurant){
 		angular.forEach(fbArray, function(value,key){
 			if(value.account_name === restaurant.account_name){
-				//console.log(value);
-				//console.log(restaurant);
+				console.log(value);
+				console.log(restaurant);
 				
 				console.log(fbArray[key]);
 				
@@ -276,14 +280,25 @@ angular.module('app.services', ['firebase'])
 		
 	};
 	
-	rFactory.addNewCustomerBooking = function(customer, UID){
+	rFactory.addNewCustomerBooking = function(customer){
+		//console.log(customer);
+		//maybe get a global logged in customer index
 		angular.forEach(fbCustomerArray, function(value,key){	
-			if(value.$id === UID){
-				console.log("value");
-				value = customer;
+			if(value.account_name === customer.account_name){
+				fbCustomerArray[key] = customer;
+				//console.log(fbCustomerArray[key]);
+				/*if(fbCustomerArray[key].bookings == undefined){
+					fbCustomerArray[key].bookings = [];
+					fbCustomerArray[key].bookings.push(value);
+					console.log(fbCustomerArray[key].bookings);
+				}else{
+					fbCustomerArray[key].bookings.push(value);
+				}*/
+				
+				
 				fbCustomerArray.$save(key).then(function(){
-					alert("Deal has been reserved");
-					
+					console.log("Deal has been reserved");
+					alert("Your deal has been reserved")
 				});
 			}
 		});
@@ -376,7 +391,11 @@ angular.module('app.services', ['firebase'])
 	};
 	
 	rFactory.setRestaurant = function(restaurant){
-		fbArray.$add(restaurant);
+		fbArray.$add(restaurant).then(function(){
+			alert("restaurant added"); 
+			$location.path('/page201/page100');
+			//this.refreshLoggedInrestaurant();
+		});
 	};
 	
 	var signUpCustomer = [];

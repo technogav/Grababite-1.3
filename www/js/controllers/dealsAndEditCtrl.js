@@ -53,11 +53,11 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 function ($scope, $stateParams, dealsAndEditFactory) {
 	"use strict";
 	
-	console.log("todayDealsCtrl controller");
+	
 	$scope.$on("$ionicView.beforeEnter", function(){
 		
-		$scope.currentDeal = dealsAndEditFactory.getCurrentDealFromDB();
-		
+		$scope.currentDeal = dealsAndEditFactory.getCurrentDeal();//from main // get a new list of live deals/ current deals
+		console.log($scope.currentDeal);
 	});
 	
 	

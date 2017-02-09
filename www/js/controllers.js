@@ -10,7 +10,8 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location) {
 	console.log("restaurantAccountCtrl");
 	$scope.newRest = [];
 	
-	$scope.currentUser = RestaurantFactory.getSignUpCustomer();
+	//$scope.currentUser = RestaurantFactory.getSignUpCustomer();
+	$scope.currentUser = RestaurantFactory.getCurrentUser();
 		//console.log($scope.currentUser);
 	
 	$scope.addRestaurant = function(){
@@ -38,8 +39,7 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location) {
 	$scope.sendToService = function(newRest){
 		
 		RestaurantFactory.setRestaurant(newRest);//THIS WORKS
-		alert("restaurant added"); //however it is brittle because there is no way to check if restaurant is actually added
-		$location.path('/page201/page100');
+		//RestaurantFactory.refreshLoggedInrestaurant();
 	};
 
 }])
@@ -113,6 +113,14 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		
 }])
 
+
+
+
+
+
+
+
+
 .controller('reserveTableCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
 	"use strict";
@@ -124,9 +132,9 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	
 	
 	$scope.reserveDeal = details[0];//console.log($scope.reserveDeal);
-	console.log($scope.reserveDeal);
-	$scope.restaurant = details[1];console.log($scope.restaurant);
-	console.log($scope.restaurant);
+	//console.log($scope.reserveDeal);
+	$scope.restaurant = details[1];//console.log($scope.restaurant);
+	//console.log($scope.restaurant);
 	$scope.UID = details[2];
 	$scope.reservationTime = [];
 	$scope.reservationDate = [];
@@ -169,29 +177,32 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 				$scope.restaurant.bookings.push(reseravtionObj);
 				//console.log($scope.restaurant);
 				//send to the factory along with the UID number to fbArray.$save
+				console.log($scope.restaurant);
 				RestaurantFactory.addNewRestaurantBooking($scope.restaurant);
 			}else{
 				
 				$scope.restaurant.bookings.push(reseravtionObj);
-				RestaurantFactory.addNewRestaurantBooking($scope.restaurant, $scope.UID);
+				RestaurantFactory.addNewRestaurantBooking($scope.restaurant);
 			};
 		};
 		newRestaurantBooking();
 		
 		
 		var newCustomerBooking = function(){
+			console.log(customerDetails);
 			if(customerDetails.bookings == undefined){
-				console.log(customerDetails);
+				
 				//create restaurant object with the new booking
 				customerDetails.bookings = [];
 				customerDetails.bookings.push(reseravtionObj);
 				//console.log($scope.restaurant.bookings);
+				console.log(customerDetails);
 				//send to the factory along with the UID number to fbArray.$save
-				RestaurantFactory.addNewCustomerBooking(customerDetails, customerDetails.$id)
+				RestaurantFactory.addNewCustomerBooking(customerDetails)
 			}else{
 				
 				customerDetails.bookings.push(reseravtionObj);
-				RestaurantFactory.addNewCustomerBooking(customerDetails, customerDetails.$id)
+				RestaurantFactory.addNewCustomerBooking(customerDetails)
 			}
 		};
 		newCustomerBooking();
@@ -241,7 +252,6 @@ function ($scope, $stateParams, customerFactory, $location) {
 	$scope.reservation = customerFactory.getReservation();
 }])
 
-
 .controller('bookingsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
 	"use strict";
@@ -256,6 +266,15 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	}
 	
 }])
+
+
+
+
+
+
+
+
+
 
 .controller('myCustomerAccountCtrl', ['$scope', '$stateParams', 'customerFactory',
 function ($scope, $stateParams, customerFactory) {

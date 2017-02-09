@@ -4,6 +4,18 @@ angular.module('dealsAndEditFactory', ['firebase'])
 	//set/reset currenty deals
 	var dealFactory = this;
 	
+	var fbArray = mainFactory.getFbRestaurantArr();
+	var deals = mainFactory.getDeals();
+	var dealToEdit = [];
+	
+	var today = mainFactory.getToday();
+	var restaurantIndex = mainFactory.getRestaurantIndex();//?
+
+	var currentDeal = [];
+	var loggedInRestaurant = mainFactory.getLoggedInRestaurant();
+	var loggedInName = mainFactory.getLoggedInName();
+	
+
 	dealFactory.setCurrentDeal = function(){
 		mainFactory.setCurrentDeal();
 	}
@@ -23,26 +35,26 @@ angular.module('dealsAndEditFactory', ['firebase'])
 		mainFactory.resetLiveDeals();
 	}
 	
-	var fbArray = mainFactory.getFbRestaurantArr();
-		var deals = mainFactory.getDeals();
-	var dealToEdit = [];
-	var liveDeals = mainFactory.getLiveDeals();
-	var today = mainFactory.getToday();
-	var restaurantIndex = mainFactory.getRestaurantIndex();//?
-	console.log(restaurantIndex);
+
 	
-	var currentDeal = mainFactory.getCurrentDeal();
-	var loggedInRestaurant = mainFactory.getLoggedInRestaurant();
-	var loggedInName = mainFactory.getLoggedInName();
 	
 	dealFactory.setLiveDeals = function(){
 		mainFactory.setLiveDeals();
 	}
 	
-	dealFactory.getCurrentDealFromDB = function(){
-		var currentDealFromDb = mainFactory.getCurrentDealFromDB();
-		return currentDealFromDb;
+	dealFactory.getCurrentDeal = function(){
+		
+		var currentDeal = mainFactory.getCurrentDeal();
+		console.log(currentDeal);
+		return currentDeal;
 	}
+	
+	dealFactory.getLiveDeals = function(){
+		//var liveDeals = mainFactory.getLiveDealsFromDB();
+		var liveDeals = mainFactory.getLiveDeals();
+		return liveDeals;
+	}
+	
 	
 	dealFactory.setDealToEdit = function(deal){
 		//console.log(deal);
@@ -162,20 +174,17 @@ angular.module('dealsAndEditFactory', ['firebase'])
 		return deals;
 	}
 	
-	dealFactory.getCurrentDeal = function(){
+	/*dealFactory.getCurrentDeal = function(){
 		
 		return currentDeal;
-	}
+	}*/
 	
 	dealFactory.getHistoricalDeals = function(){
 		var historicalDeals = mainFactory.getHistoricalDeals();
 		return historicalDeals;
 	}
 	
-	dealFactory.getLiveDeals = function(){
-		var liveDeals = mainFactory.getLiveDeals();
-		return liveDeals;
-	}
+	
 	dealFactory.getDealToEdit = function(){
 		return dealToEdit;
 	};

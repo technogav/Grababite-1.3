@@ -4,11 +4,11 @@ angular.module('LoginCtrl', ['firebase'])//may not need to inject firebase here
 function ($scope, $stateParams, accountFactory, $location) {
 	"use strict";
 	
-	/*$ionicSideMenuDelegate.canDragContent(false);
 	
-	$scope.$on('$ionicView.leave', function () { 
-		$ionicSideMenuDelegate.canDragContent(true); 
-	}); */
+	
+	$scope.$on('$ionicView.enter', function () { 
+		accountFactory.refreshCustomerList();
+	});
 
 	$scope.checkLogin = function(data){
 				
@@ -30,12 +30,13 @@ function ($scope, $stateParams, accountFactory, $location) {
 		
 		var checkPassword = function(data){
 
-			if($scope.user.password1 === data.password){			
-				accountFactory.setCurrentUser($scope.user);
+			if($scope.user.password1 === data.password){
+				//console.log($scope.user);
+				accountFactory.setCurrentUser($scope.user);//find a new way to set the current user
 				if($scope.user.account_type == 'restaurant'){
 					//send username to create deals, current deal etc if user is a restaurant
-					if(accountFactory.initVariables(data.username)){
-					}	
+					//console.log(data.username);
+					accountFactory.initVariables(data.username);
 					$location.path('/page201/page100');
 				}else{
 					$location.path('/page1/page3');
