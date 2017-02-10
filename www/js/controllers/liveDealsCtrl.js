@@ -14,7 +14,9 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 		
 		if($ionicSideMenuDelegate.isOpen()){
 			$ionicSideMenuDelegate.toggleRight();
+			
 		}
+		
 	});
 //function to set the currentDeal in the RestaurantFactory provided the initVar(login) function has been fired off
 	RestaurantFactory.setCurrentDeal();

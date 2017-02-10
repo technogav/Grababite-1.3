@@ -9,6 +9,7 @@ function ($scope, $stateParams, accountFactory, $location, $ionicSideMenuDelegat
 		if($ionicSideMenuDelegate.isOpen()){
 			$ionicSideMenuDelegate.toggleRight();
 		}
+		$scope.customers = accountFactory.getCustomers();
 	});
 
 	$scope.checkLogin = function(data){
@@ -16,8 +17,8 @@ function ($scope, $stateParams, accountFactory, $location, $ionicSideMenuDelegat
 		$scope.user = [];
 		
 		var checkUsername = function(data){
-			$scope.customers = accountFactory.getCustomers();
-			//console.log($scope.customers);
+			
+			console.log($scope.customers);
 			for(var i = 0; i < $scope.customers.length; i++){				
 				if(data.username === $scope.customers[i].account_name){
 					//console.log($scope.customers[i].account_name);		

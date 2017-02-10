@@ -518,7 +518,7 @@ angular.module('mainFactory', ['firebase'])
 	}
 	
 	mainFactory.getCusts = function(){
-		
+		this.refreshCustomerList()
 		return custs;
 	}
 	

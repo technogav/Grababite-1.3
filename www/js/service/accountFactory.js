@@ -10,7 +10,7 @@ angular.module('accountFactory', ['firebase'])
 		mainFactory.initVars(account_name);
 	}
 	//VARIABLES//
-	var customers = mainFactory.getCusts();
+	
 	var currentUser = [];
 	
 	//SETTERS//
@@ -26,6 +26,7 @@ angular.module('accountFactory', ['firebase'])
 	
 	//GETTERS//
 	accountFactory.getCustomers = function(){
+		var customers = mainFactory.getCusts();
 		return customers;
 	}
 	
