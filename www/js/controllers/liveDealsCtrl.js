@@ -1,14 +1,21 @@
 
 angular.module('liveDealsController', ['firebase', 'ngMap'])
 
-.controller('liveDealsController', ['$scope', '$http', '$location', 'NgMap', '$stateParams', '$cordovaGeolocation', '$ionicPlatform', 'RestaurantFactory',
+.controller('liveDealsController', ['$scope', '$http', '$location', 'NgMap', '$stateParams', '$cordovaGeolocation', '$ionicPlatform', 'RestaurantFactory', '$ionicSideMenuDelegate',
 							  
-function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatform, RestaurantFactory) {
+function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatform, RestaurantFactory, $ionicSideMenuDelegate) {
 'use strict';
 //console.log("liveDealsController");
 	
 	
 	var main = this;
+	
+	$scope.$on("$ionicView.beforeEnter", function(){
+		
+		if($ionicSideMenuDelegate.isOpen()){
+			$ionicSideMenuDelegate.toggleRight();
+		}
+	});
 //function to set the currentDeal in the RestaurantFactory provided the initVar(login) function has been fired off
 	RestaurantFactory.setCurrentDeal();
 //initalise variables	

@@ -7550,7 +7550,7 @@ textarea {
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding: 6px 0 5px 16px; }
+  padding: 14px 0 14px 14px; }
   .item-input input {
     -webkit-border-radius: 0;
     border-radius: 0;

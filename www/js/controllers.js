@@ -5,9 +5,15 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('restaurantAccountCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$http', '$location',
-function ($scope, $stateParams, RestaurantFactory, $http, $location) {
+.controller('restaurantAccountCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$http', '$location', '$ionicSideMenuDelegate',
+function ($scope, $stateParams, RestaurantFactory, $http, $location, $ionicSideMenuDelegate) {
 	console.log("restaurantAccountCtrl");
+	$scope.$on("$ionicView.beforeEnter", function(){
+		
+		if($ionicSideMenuDelegate.isOpen()){
+			$ionicSideMenuDelegate.toggleRight();
+		}
+	});
 	$scope.newRest = [];
 	
 	//$scope.currentUser = RestaurantFactory.getSignUpCustomer();

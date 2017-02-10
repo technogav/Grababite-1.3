@@ -1,4 +1,4 @@
-angular.module('dealsAndEditController', ['firebase'])//may not need to inject firebase here
+angular.module('dealsAndEditController', ['ionic-timepicker','firebase'])//may not need to inject firebase here
 
 
 .controller('dealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location',
@@ -64,8 +64,8 @@ function ($scope, $stateParams, dealsAndEditFactory) {
 	
 }])
 
-.controller('editDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location',
-function ($scope, $stateParams, dealsAndEditFactory, $location) {
+.controller('editDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location', 'ionicTimePicker',
+function ($scope, $stateParams, dealsAndEditFactory, $location, ionicTimePicker) {
 	"use strict";
 	console.log("editDealCtrl");
 	
@@ -73,25 +73,77 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 		//dealsAndEditFactory.setHistoricalDeals();
 		$scope.dealToEdit = dealsAndEditFactory.getDealToEdit();
 		//$scope.liveDeals = dealsAndEditFactory.getLiveDeals();
+		$scope.displayStartTime = $scope.dealToEdit;
+	console.log($scope.dealToEdit[0]);
+	$scope.displayEndTime = $scope.dealToEdit;
+		
 	});
 	
+
 	//save edit to the database an update current Deal
 	$scope.saveEdit = function(deal){
 		
 		dealsAndEditFactory.setSaveDeal(deal);
 		//dealsAndEditFactory.setCurrentDeal();
 	};
+	
+	
+	//IonicTimePicker
+	var setStartTime = {
+    callback: function (val) {      //Mandatory
+      if (typeof (val) === 'undefined') {
+        console.log('Time not selected');
+      } else {
+        var selectedTime = new Date(val * 1000).toTimeString();
+       $scope.startTime =selectedTime;
+        
+        
+      }
+    },
+    inputTime: 50400,   //Optional
+    format: 12,         //Optional
+    step: 15,           //Optional
+    setLabel: 'Set2'    //Optional
+  };
+	var setEndTime = {
+    callback: function (val) {      //Mandatory
+      if (typeof (val) === 'undefined') {
+        console.log('Time not selected');
+      } else {
+        var selectedTime = new Date(val * 1000).toTimeString();
+		  
+		  $scope.endTime = selectedTime;
+        
+      }
+    },
+    inputTime: 50400,   //Optional
+    format: 12,         //Optional
+    step: 15,           //Optional
+    setLabel: 'Set2'    //Optional
+  };
+
+
+	$scope.getStartTime = function(){
+		ionicTimePicker.openTimePicker(setStartTime);
+	}
+	$scope.getEndTime = function(){
+		ionicTimePicker.openTimePicker(setEndTime);
+	}
+  
 
 }])
 
-.controller('pastDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location',
-function ($scope, $stateParams, dealsAndEditFactory, $location) {
+.controller('pastDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location','$ionicSideMenuDelegate',
+function ($scope, $stateParams, dealsAndEditFactory, $location, $ionicSideMenuDelegate) {
 	"use strict";
 	console.log("pastDealsCtrl");
 	
 	$scope.$on("$ionicView.beforeEnter", function(){
 		$scope.historicalDeals = dealsAndEditFactory.getHistoricalDeals();
 		//$scope.liveDeals = dealsAndEditFactory.getLiveDeals();
+		if($ionicSideMenuDelegate.isOpen()){
+			$ionicSideMenuDelegate.toggleRight();
+		}
 	});
 	
 	$scope.pastDealEdit = function(deal){
@@ -110,6 +162,7 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 		$scope.dealToEdit = dealsAndEditFactory.getDealToEdit();
 	});
 	
+	
 		
 	$scope.reactivateDeal = function(deal){
 		dealsAndEditFactory.setReactivateDeal(deal);
@@ -121,18 +174,72 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	
 }])
 
-.controller('newDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location',
-function ($scope, $stateParams, dealsAndEditFactory, $location) {
+.controller('newDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location','ionicTimePicker',
+function ($scope, $stateParams, dealsAndEditFactory, $location,ionicTimePicker) {
 	
 	"use strict";
-
+		$scope.startTime = "Start Time";
+		$scope.endTime = "End Time";
 	$scope.addNewDeal = function(newDeal){
 		console.log(newDeal);
+		
+		newDeal.startTime = $scope.startTime;
+		newDeal.endTime = $scope.endTime;
+		console.log(newDeal);
 		dealsAndEditFactory.setAddNewDeal2(newDeal);
+		newDeal = null;
+		
+		
+		
+		
 		
 		$location.path('/page201/page100'); 
+		
+		
+		
 	}
 	
+	var setStartTime = {
+    callback: function (val) {      //Mandatory
+      if (typeof (val) === 'undefined') {
+        console.log('Time not selected');
+      } else {
+        var selectedTime = new Date(val * 1000).toTimeString();
+       $scope.startTime =selectedTime;
+        
+        
+      }
+    },
+    inputTime: 50400,   //Optional
+    format: 12,         //Optional
+    step: 15,           //Optional
+    setLabel: 'Set2'    //Optional
+  };
+	var setEndTime = {
+    callback: function (val) {      //Mandatory
+      if (typeof (val) === 'undefined') {
+        console.log('Time not selected');
+      } else {
+        var selectedTime = new Date(val * 1000).toTimeString();
+		  
+		  $scope.endTime = selectedTime;
+        
+      }
+    },
+    inputTime: 50400,   //Optional
+    format: 12,         //Optional
+    step: 15,           //Optional
+    setLabel: 'Set2'    //Optional
+  };
+
+
+	$scope.getStartTime = function(){
+		ionicTimePicker.openTimePicker(setStartTime);
+	}
+	$scope.getEndTime = function(){
+		ionicTimePicker.openTimePicker(setEndTime);
+	}
+  
 	
 		
 		

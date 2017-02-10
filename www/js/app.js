@@ -8,7 +8,7 @@
 angular.module('app', 
 			   ['ionic', 'app.controllers', 'liveDealsController', 'dealsAndEditController', 'LoginCtrl', 'analyticsController', 'app.routes', 
 				'app.directives','app.services', 'mainFactory', 'dealsAndEditFactory', 'accountFactory', 'customerFactory', 'ngMap', 
-				'ngCordova', 'firebase'])
+				'ngCordova', 'firebase', 'ionic-timepicker'])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider){
   

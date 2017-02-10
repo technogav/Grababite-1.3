@@ -146,7 +146,7 @@ angular.module('app.routes', [])
   .state('history', {
     url: '/history',
     templateUrl: 'templates/history.html',
-    controller: 'pastDealsCtrl' 
+    controller: 'pastDealsCtrl as main' 
   })
 
   .state('pastDeals', {

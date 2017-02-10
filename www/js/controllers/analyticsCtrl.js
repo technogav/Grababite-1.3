@@ -1,10 +1,15 @@
 angular.module('analyticsController', ['firebase'])//may not need to inject firebase here
 
-.controller('analyticsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
-function ($scope, $stateParams, RestaurantFactory, $location) {
+.controller('analyticsCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location','$ionicSideMenuDelegate',
+function ($scope, $stateParams, RestaurantFactory, $location, $ionicSideMenuDelegate) {
 	
-	console.log("mad world");
-	
+	//console.log("analyticsCtrl");
+	$scope.$on("$ionicView.beforeEnter", function(){
+		
+		if($ionicSideMenuDelegate.isOpen()){
+			$ionicSideMenuDelegate.toggleRight();
+		}
+	});
 	$scope.x = function(searchDate){
 		//console.log("fire");
 		$scope.analyticsSearchDate = RestaurantFactory.setAnalyticsSearchDate(searchDate);
@@ -112,5 +117,6 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		$scope.dateFor = RestaurantFactory.getDateFor();
 	
 	});
+	
 	
 }]);

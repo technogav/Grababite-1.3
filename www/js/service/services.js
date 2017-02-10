@@ -1,7 +1,7 @@
 angular.module('app.services', ['firebase'])
 
-.factory('RestaurantFactory', ['$firebaseArray', '$firebaseObject', 'mainFactory', '$location',
-							   function($firebaseArray, $firebaseObject, mainFactory, $location){
+.factory('RestaurantFactory', ['$firebaseArray', '$firebaseObject', 'mainFactory', '$location', '$ionicPopup',
+							   function($firebaseArray, $firebaseObject, mainFactory, $location, $ionicPopup){
 
 	var rFactory = this;
 	rFactory.setCurrentDeal = function(){
@@ -392,8 +392,20 @@ angular.module('app.services', ['firebase'])
 	};
 	
 	rFactory.setRestaurant = function(restaurant){
+		var showAlert = function() {
+			var alertPopup = $ionicPopup.alert({
+				title: 'Account edited',
+				template: 'Restaurant added, you can now start adding deals.'
+			});
+			alertPopup.then(function(res) {
+				
+			});
+
+		};
 		fbArray.$add(restaurant).then(function(){
-			alert("restaurant added"); 
+			
+			
+			showAlert();
 			
 			mainFactory.refreshLoggedInrestaurant();
 			$location.path('/page201/page100');

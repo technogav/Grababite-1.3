@@ -1,35 +1,70 @@
 <ion-view title="My Account" id="page101">
   <ion-content padding="true" class="has-header">
-    <h3>Add a Restaurant</h3>
+    <h3 style="text-align:center">Add a Restaurant</h3>
 
 
-    <ion-list>
+    
 
 
-      <form class="form-inline" role="form" ng-submit="addRestaurant(newRest)">
+      <form class="form-inline" role="form">
 
       	<div class="form-group">
-      	<!--//note to initalize angular fire and also to sync db with name heer-->
-      		<ion-item class="stable"><input type="text" placeholder="Restaurant Name" ng-model="newRest.name"/></ion-item>
-      		<ion-item class="stable  item-text-wrap">
+      		
+      		<label class="item item-input">
+      			<input type="text" placeholder="Restaurant Name" ng-model="newRest.name"/>
+      			<i class="icon ion-edit icon-accessory icon-right"></i>
+      		</label>
+      		
+      		<label class="item item-input">
       		  	<input type="text" placeholder="Address Line 1, Line 2, 3" ng-model="newRest.address" />
-      		</ion-item>
-      		<ion-item class="stable  item-text-wrap">
+				<i class="icon ion-edit icon-accessory icon-right"></i>
+			</label>
+     		
+      		<label class="item item-input">
       		  	<input type="text" placeholder="Restaurant Type" ng-model="newRest.type" />
-      		  </ion-item>
-      		<ion-item class="stable">
+      		  	<i class="icon ion-edit icon-accessory icon-right"></i>
+      		</label>
+      		<label class="item item-input">
       		  	<input type="text" placeholder="Restaurant Email" ng-model="newRest.email"/>
-      		  </ion-item>
-      		<ion-item class="stable">
+      		  	<i class="icon ion-edit icon-accessory icon-right"></i>
+      		</label>
+      		<label class="item item-input">
       		  	<input type="text" placeholder="Restaurant Phone" ng-model="newRest.phone"/>
-      		  </ion-item>
-<button type="submit" class="button button-assertive  button-block icon ion-android-checkbox"> Save Changes</button>
+      		  	<i class="icon ion-edit icon-accessory icon-right"></i>
+      		</label>
+<button ng-click="addRestaurant(newRest)" class="button button-assertive  button-block icon ion-android-checkbox"> Save Changes</button>
 
 
 
       	</div>
 
       </form>
+      
+      
+      
+     <!-- <form class="list">
+      <label class="item item-input">
+        <input type="text" class="input_padding" ng-model="newCust.account_name" placeholder="UserName">
+        <i class="icon ion-edit icon-accessory icon-right"></i>
+      </label>
+      <label class="item item-input">
+        <input type="email"class="input_padding" ng-model="newCust.email" placeholder="Email">
+        <i class="icon ion-edit icon-accessory icon-right"></i>
+		</label>
+      <label class="item item-input">
+        <input type="tel" class="input_padding" ng-model="newCust.phone" placeholder="Phone Number">
+        <i class="icon ion-edit icon-accessory icon-right"></i>
+      </label>
+      <label class="item item-input">
+        <input type="password" class="input_padding" ng-model="newCust.password1" placeholder="Password">
+        <i class="icon ion-edit icon-accessory icon-right"></i>
+      </label>
+      <label class="item item-input">
+        <input type="password" class="input_padding" ng-model="newCust.password2" placeholder="Password">
+        <i class="icon ion-edit icon-accessory icon-right"></i>
+      </label>
+      <button style="font-weight:600;" ng-click="newCustomer(newCust)" class="button button-energized  button-block icon ion-android-checkbox-outline"> Sign Up</button>
+    </form>-->
 
   </ion-content>
 </ion-view>

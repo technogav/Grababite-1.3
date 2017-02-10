@@ -1,13 +1,14 @@
 angular.module('LoginCtrl', ['firebase'])//may not need to inject firebase here
 
-.controller('LoginCtrl', ['$scope', '$stateParams', 'accountFactory', '$location',
-function ($scope, $stateParams, accountFactory, $location) {
+.controller('LoginCtrl', ['$scope', '$stateParams', 'accountFactory', '$location', '$ionicSideMenuDelegate',
+function ($scope, $stateParams, accountFactory, $location, $ionicSideMenuDelegate) {
 	"use strict";
 	
-	
-	
-	$scope.$on('$ionicView.enter', function () { 
-		accountFactory.refreshCustomerList();
+	$scope.$on("$ionicView.beforeEnter", function(){
+		
+		if($ionicSideMenuDelegate.isOpen()){
+			$ionicSideMenuDelegate.toggleRight();
+		}
 	});
 
 	$scope.checkLogin = function(data){

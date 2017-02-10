@@ -5,24 +5,24 @@
     </div>
     <form class="list">
       <label class="item item-input">
-        <span class="input-label">Name</span>
-        <input type="text" ng-model="newCust.account_name">
+        <input type="text" class="input_padding" ng-model="newCust.account_name" placeholder="UserName">
+        <i class="icon ion-edit icon-accessory icon-right"></i>
       </label>
       <label class="item item-input">
-        <span class="input-label">Email</span>
-        <input type="email" ng-model="newCust.email">
+        <input type="email"class="input_padding" ng-model="newCust.email" placeholder="Email">
+        <i class="icon ion-edit icon-accessory icon-right"></i>
       </label>
       <label class="item item-input">
-        <span class="input-label">Phone Number</span>
-        <input type="tel" ng-model="newCust.phone">
+        <input type="tel" class="input_padding" ng-model="newCust.phone" placeholder="Phone Number">
+        <i class="icon ion-edit icon-accessory icon-right"></i>
       </label>
       <label class="item item-input">
-        <span class="input-label">Password</span>
-        <input type="password" ng-model="newCust.password1">
+        <input type="password" class="input_padding" ng-model="newCust.password1" placeholder="Password">
+        <i class="icon ion-edit icon-accessory icon-right"></i>
       </label>
       <label class="item item-input">
-        <span class="input-label">Password</span>
-        <input type="password" ng-model="newCust.password2">
+        <input type="password" class="input_padding" ng-model="newCust.password2" placeholder="Password">
+        <i class="icon ion-edit icon-accessory icon-right"></i>
       </label>
       <button style="font-weight:600;" ng-click="newCustomer(newCust)" class="button button-energized  button-block icon ion-android-checkbox-outline"> Sign Up</button>
     </form>

@@ -1,46 +1,37 @@
-<ion-view title="New Deal" id="page102">
+<ion-view title="Add New Deal" id="page102">
   <ion-content padding="true" class="has-header">
     <div>
       <!--<img src="https://s3.amazonaws.com/ionic-io-static/n5xqYMxvQ3GM09htPqdf_GrabaBite_logo-SafeArea.svg" style="display: block; width: 55%; height: auto; margin-left: auto; margin-right: auto;">-->
     </div>
-    <div class="spacer" style="height: 10px;"></div>
-    <h4 style="color:#E03C31;font-weight:600;text-align:center;" class="image2">CREATE NEW DEAL</h4>
-    <div class="spacer" style="height: 10px;"></div>
+    
     <div>
       <form class="list" ng-submit="addNewDeal(newDeal)">
         <h2 style="color:#857874;text-align:center;"></h2>
         <label class="item item-input">
-          <span class="input-label">Deal Name </span>
-          <input type="text" placeholder="" ng-model="newDeal.deal_name">
-        </label>
+          <input style="height:auto" type="text" placeholder="Deal Name " ng-model="newDeal.deal_name">
+		  </label>
           <label class="item item-input">
-            <span class="input-label">Deal Description </span>
-            <input type="text" placeholder="" ng-model="newDeal.description">
+            <input style="height:auto" type="text" placeholder="Deal Description" ng-model="newDeal.description">
           </label>
           <label class="item item-input">
-            <span class="input-label">Start Date</span>
-            <input type="date" ng-model="newDeal.startDate" placeholder="">
+            <input type="date" ng-model="newDeal.startDate" placeholder="Start Date">
           </label>
           <label class="item item-input">
-            <span class="input-label">End Date</span>
-            <input type="date" ng-model="newDeal.endDate" placeholder="">
+            <input type="date" ng-model="newDeal.endDate" placeholder="End Date">
           </label>
           <label class="item item-input">
-            <span class="input-label">Start Time</span>
-            <input type="time" ng-model="newDeal.startTime" placeholder="">
+            <input type="text" placeholder="{{startTime}}" ng-click="getStartTime()">
           </label>
           <label class="item item-input">
-            <span class="input-label">End Time</span>
-            <input type="time" ng-model="newDeal.endTime" placeholder="">
+            <input type="text" placeholder="End Time" ng-click="getEndTime()">
           </label>
           <label class="item item-input">
-            <span class="input-label">Number of Deals Available</span>
-            <input style="float:right;" type="number" ng-model="newDeal.numberAvailable" />
+            <input type="text" placeholder="Number of Deals Available" ng-model="newDeal.numberAvailable"  />
           </label>
           <label class="item item-input">
-            <span class="input-label">Conditions of Deal</span>
-              <textarea placeholder="" rows="4" ng-model="newDeal.conditions"></textarea></label>
-            <button style="font-weight:600;" class="button button-energized  button-block icon ion-android-checkmark-circle"> Save Deal</button>
+            <span class="input-label"></span>
+              <textarea placeholder="Conditions of Deal" rows="4" ng-model="newDeal.conditions"></textarea></label>
+            <button style="font-weight:600;" class="button button-energized  button-block icon ion-android-checkmark-circle">Save</button>
         </form>
 
        

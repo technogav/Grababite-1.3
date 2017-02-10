@@ -12,7 +12,7 @@ angular.module('mainFactory', ['firebase'])
 	var custs = [];
 	var currentDeal = [];
 	var historicalDeals = [];
-	var restaurantIndex = 0;
+	var restaurantIndex = null;
 	var loggedInRestaurant = [];
 	var liveDeals = [];
 	var today = new Date();
@@ -96,30 +96,34 @@ angular.module('mainFactory', ['firebase'])
 						"numberAvailable" : new_deal.numberAvailable,
 						"startDate" : new_deal.startDate.toDateString(),
 						"endDate" : new_deal.endDate.toDateString(),
-						"startTime" : new_deal.startTime.toTimeString(),
-						"endTime" : new_deal.endTime.toTimeString(),
+						"startTime" : new_deal.startTime,
+						"endTime" : new_deal.endTime,
 						"id" : 0,
 						"uptake" : 0
 			
 		}
 		console.log(newDeal);
+		if(restaurantIndex !== null){
+			if(fbArray[restaurantIndex].deals == undefined){
 
-		if(fbArray[restaurantIndex].deals == undefined){
-			
-			fbArray[restaurantIndex].deals = [];
-			fbArray[restaurantIndex].deals.push(newDeal);
-			//this.setNewCurrentDeal(newDeal);
-		
+				fbArray[restaurantIndex].deals = [];
+				fbArray[restaurantIndex].deals.push(newDeal);
+				//this.setNewCurrentDeal(newDeal);
+
+			}else{
+
+				fbArray[restaurantIndex].deals.push(newDeal);
+				//this.setNewCurrentDeal(newDeal);
+			}
+			fbArray[restaurantIndex].current_deal = newDeal;
+			fbArray.$save(restaurantIndex).then(function(){
+				alert("Your deal has been added")
+
+					});	
+
 		}else{
-			
-			fbArray[restaurantIndex].deals.push(newDeal);
-			//this.setNewCurrentDeal(newDeal);
+			alert("there are no restaurants logged in. so no deal could be added");
 		}
-		fbArray[restaurantIndex].current_deal = newDeal;
-		fbArray.$save(restaurantIndex).then(function(){
-			alert("Your deal has been added")
-					
-				});	
 		
 	}
 	
