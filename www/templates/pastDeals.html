@@ -4,19 +4,49 @@
         <a href=""><div style="margin-bottom:85px;">
             <ion-list>
               <ion-item style="background:lightgrey"><span>Name:</span><span style="text-align:center;">{{dealToEdit.deal_name}}</span></ion-item>
-              <ion-item>Start Date: {{dealToEdit.startDate}}</ion-item>
-              <ion-item>End Date: {{dealToEdit.endDate}}</ion-item>
-              <ion-item>Start Time: {{dealToEdit.startTime}}</ion-item>
-              <ion-item>End Time: {{dealToEdit.endTime}}</ion-item>
-              <ion-item>Number Available:  {{dealToEdit.numberAvailable}}</ion-item>
-              <ion-item>Number Deals Taken:  {{dealToEdit.uptake}}</ion-item>
+              <ion-item>
+              	<label class="item item-input">
+              		<span>Start Date:</span>
+               		<span>{{dealToEdit.startDate}}</span>
+				 </label>
+              </ion-item>
+              <ion-item>
+              	<label class="item item-input">
+              		<span>End Date:</span>
+               		<span>{{dealToEdit.endDate}}</span>
+				 </label>
+              </ion-item>
+              <ion-item>
+              	<label class="item item-input">
+              		<span>Start Time:</span>
+               		<span>{{dealToEdit.startTime}}</span>
+				 </label>
+              </ion-item>
+              <ion-item>
+              	<label class="item item-input">
+              		<span>End Time:</span>
+               		<span>{{dealToEdit.endTime}}</span>
+				 </label>
+              </ion-item>
+              <ion-item>
+              	<label class="item item-input">
+              		<span>Number Available:</span>
+               		<span>{{dealToEdit.numberAvailable}}</span>
+				 </label>
+              </ion-item>
+              <ion-item>
+              	<label class="item item-input">
+              		<span>Uptake:</span>
+               		<span>{{dealToEdit.uptake}}</span>
+				 </label>
+              </ion-item>
             </ion-list>
 
             <div class="spacer" style="width: 300px; height: 23px;"></div>
             <button style="font-weight:600; width:49%;display:inline-block;float:left;margin-right:2%;"
-            class="button button-energized  icon ion-android-checkbox" ng-click="reactivateDeal(dealToEdit)"> Reactivate Deal</button>
+            class="button button-energized  icon ion-android-checkbox" ng-click="reactivateDeal(dealToEdit)"> Reactivate</button>
             <button style="font-weight:600;width:49%;display:inline-block;float:left;"
-            class="button button-assertive icon ion-android-checkbox" ng-click="removeDeal(dealToEdit)"> Remove Deal</button>
+            class="button button-assertive icon ion-android-checkbox" ng-disable="true" ng-click="removeDeal(dealToEdit)"> Remove</button>
           </ion-content>
       </div>
       </a>

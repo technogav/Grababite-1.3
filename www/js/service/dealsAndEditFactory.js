@@ -47,7 +47,7 @@ angular.module('dealsAndEditFactory', ['firebase'])
 	dealFactory.getCurrentDeal = function(){
 		
 		var currentDeal = mainFactory.getCurrentDeal();
-		console.log(currentDeal);
+		//console.log(currentDeal);
 		return currentDeal;
 	}
 	
@@ -69,7 +69,7 @@ angular.module('dealsAndEditFactory', ['firebase'])
 	}
 	
 	
-	dealFactory.setAddNewDeal = function(deal){
+	/*dealFactory.setAddNewDeal = function(deal){
 		console.log("factory");
 		//console.log(loggedInName);
 		
@@ -121,7 +121,7 @@ angular.module('dealsAndEditFactory', ['firebase'])
 				
 			}
 		});
-	}
+	}*/
 	
 	dealFactory.setReactivateDeal = function(deal){	
 		

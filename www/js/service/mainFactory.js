@@ -1,6 +1,7 @@
 angular.module('mainFactory', ['firebase'])
 
-.factory('mainFactory', ['$firebaseArray', '$firebaseObject', '$location', function($firebaseArray, $firebaseObject, $location){
+.factory('mainFactory', ['$firebaseArray', '$firebaseObject', '$location', '$ionicPopup',
+						 function($firebaseArray, $firebaseObject, $location, $ionicPopup){
 
 	var mainFactory = this;
 	var ref = firebase.database().ref('restaurants/');
@@ -59,8 +60,8 @@ angular.module('mainFactory', ['firebase'])
 	};
 	
 	mainFactory.setUpdateAccountInfo = function(account){
-		console.log(customerIndex);
-		console.log(account);
+		//console.log(customerIndex);
+		//console.log(account);
 		fbCustomerArray[customerIndex] = account;
 		fbCustomerArray.$save(customerIndex).then(function(){
 			alert("customer Details have been updated");
@@ -94,8 +95,8 @@ angular.module('mainFactory', ['firebase'])
 						"conditions" : new_deal.conditions,
 						"details" : new_deal.description,
 						"numberAvailable" : new_deal.numberAvailable,
-						"startDate" : new_deal.startDate.toDateString(),
-						"endDate" : new_deal.endDate.toDateString(),
+						"startDate" : new_deal.startDate,
+						"endDate" : new_deal.endDate,
 						"startTime" : new_deal.startTime,
 						"endTime" : new_deal.endTime,
 						"id" : 0,
@@ -117,9 +118,19 @@ angular.module('mainFactory', ['firebase'])
 			}
 			fbArray[restaurantIndex].current_deal = newDeal;
 			fbArray.$save(restaurantIndex).then(function(){
-				alert("Your deal has been added")
+				var showAlert = function() {
+							var alertPopup = $ionicPopup.alert({
+								title: 'Success',
+								template: 'Your deal has been added.'
+								});
+								alertPopup.then(function(res) {
 
-					});	
+								});
+								
+							};
+				showAlert();
+				$location.path('/page201/page100'); 
+			});	
 
 		}else{
 			alert("there are no restaurants logged in. so no deal could be added");
@@ -146,19 +157,17 @@ angular.module('mainFactory', ['firebase'])
 					$location.path('/page201/page100'); 
 				});	
 	}
-
+	
+	//INIT VARS BASED ON THE USERNAEM INPUT ON THE LOGIN VIEW only when is a restaurant
 	mainFactory.initVars = function(account_name){
-		//INIT VARS BASED ON THE USERNAEM INPUT ON THE LOGIN VIEW only when is a restaurant
 		fbArray.$loaded().then(function(data) {
-			angular.forEach(data, function(value,key) {
-				
-				if(value.account_name === account_name){//username needs to be unique or else problems
-					
-					restaurantIndex = key; //**SET**//
-					console.log(restaurantIndex);
-					loggedInRestaurant = value; //**SET**//
+			angular.forEach(data, function(value,key) {	
+				if(value.account_name === account_name){					
+					restaurantIndex = key; 
+					//console.log(restaurantIndex);
+					loggedInRestaurant = value; 
 					//console.log(value);
-					deals = value.deals; //**SET**//
+					deals = value.deals;
 				}
 			});
 		});
@@ -177,7 +186,7 @@ angular.module('mainFactory', ['firebase'])
 		console.log(fbArray);
 		console.log(loggedInName);//redundant
 		console.log(currentUser.account_name);
-		console.log(fbArray[3].account_name);
+		
 		angular.forEach(fbArray, function(value,key) {
 			
 			if(value.account_name === currentUser.account_name){//username needs to be unique or else problems
@@ -237,43 +246,6 @@ angular.module('mainFactory', ['firebase'])
 			}
 	}
 	
-		/*
-		var getUptoDateCurrentDeal = function(){
-			if(loggedInRestaurant.current_deal != undefined){
-				current_deal = loggedInRestaurant.current_deal;
-			}
-		}
-			
-			
-			
-			var xend = new Date(current_deal.endDate);console.log(xend);
-			var xstart = new Date(current_deal.startDate);
-			
-			if(xend < today){
-				console.log(current_deal.deal_name);
-				if(ld > 0){
-					console.log("bigger");
-					current_deal = ld[0];
-					fbArray[restaurantIndex].current_deal = ld;
-					fbArray.$save(restaurantIndex).then(function(){
-						console.log("saved");
-						return current_deal;
-					});	
-				}else{
-					console.log("no deal");
-					current_deal = {deal_name: "No deal today"};
-					return current_deal;
-				}
-			}
-
-		}else{
-			console.log(loggedInRestaurant);
-			current_deal = {deal_name:"There are no deals set!"};
-			return current_deal;
-		}	
-		
-	}
-	*/
 	mainFactory.setNewCurrentDeal = function(newCurrentdeal){
 		var xend = new Date(newCurrentdeal.endDate);
 		var xstart = new Date(newCurrentdeal.startDate);
@@ -456,22 +428,26 @@ angular.module('mainFactory', ['firebase'])
 		return historicalDeals;
 	}
 	
-	mainFactory.getCurrentDeal = function(){
-		
-		console.log(loggedInRestaurant);
-		console.log(restaurantIndex);
+	mainFactory.getCurrentDeal = function(){	
+		//console.log(loggedInRestaurant);
+		//console.log(restaurantIndex);
 		var currentDeal =[];
-		var d = loggedInRestaurant.deals;//what if it doesnt have deals
-		angular.forEach(d, function(value){
-			var end = new Date(value.endDate);
-			var start = new Date(value.startDate);
-			if((today >= start) && (end >= today) && (value.numberAvailable > value.uptake)){	
-				currentDeal.push(value);//**SET**//			
-			};
-			if(currentDeal.length > 1){
-				alert("you have too many deals valid for today. please deactivate one to avoid problems");
-			}
-		});
+		if(loggedInRestaurant.deals != undefined){
+			var d = loggedInRestaurant.deals;
+			angular.forEach(d, function(value){
+				var end = new Date(value.endDate);
+				var start = new Date(value.startDate);
+				if((today >= start) && (end >= today) && (value.numberAvailable > value.uptake)){	
+					currentDeal.push(value);		
+				};
+				if(currentDeal.length > 1){
+					alert("you have too many deals valid for today. please deactivate one to avoid problems");
+				};
+			});	
+		}else{
+			console.log("deals are undefined");
+		}
+		
 		return currentDeal[0];
 	}
 	

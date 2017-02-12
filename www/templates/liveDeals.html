@@ -1,89 +1,14 @@
 <ion-view title="Live Deals" hide-back-button="true" id="page3">
   <ion-content padding="true" class="has-header">
+  
 
-
-  	<!--<i id="searchIcon" class="ion-search"></i>
-  	<!--<form id="liveDeals-form6" class="list">
-      <div id="liveDeals-container5">
-
-<input type="text" ng-model="chosenPlace" />
-
-
-
-          <a ui-sref="tabs.refineYourSearch" id="liveDeals-button5" style="border-radius:0px 0px 0px 0px;" class="button button-assertive  button-clear icon-left ion-funnel shorter right"></a>
-           <a style="border-radius:0px 0px 0px 0px;" ng-click="repositionMap(searchbar)" class="button button-assertive  button-clear icon-left ion-paper-airplane shorter right"></a>
-         <label class="item item-input short" id="liveDeals-search4" name="searchbox">
-            <i class="icon ion-search placeholder-icon"></i>
-
-            <input type="search" ng-model="searchbar" placeholder="Search by location or restaurant">
-			</label> -->
-
-            <!--<input type="submit" ng-click="repositionMap(searchbar)" id="submitSearch" value="submit" >
-
-        </form>-->
-	<!--<div id="searchbar">
-		  <input id="search" places-auto-complete size=80
-			ng-model="main.address"
-			component-restrictions="{country:'ie'}"
-			types="{{types}}"
-			on-place-changed="main.placeChanged()"
-		  ng-focus="disableTap()"/> <br/>
-
-
-
-		  <div ng-show="main.place">
-
-		  </div>
-
-
-		</div>
-	<a href="#/page1/page8"><i id="funnelIcon" class="ion-funnel"></i></a>
-	
-<div class="image"><!--data-tap-disable="true"
-       disable-default-u-i="true"-->
-        <!--<ng-map style="display: block; width: 100%; height: 620px; margin-left: auto; margin-right: auto;" center="[{{lat}}, {{long}}]"
-     	 styles="[{featureType:'road.highway',elementType:'geometry',stylers:[{hue:'#990000'},{saturation:60},{lightness:-20}]},{featureType:'road.arterial',elementType:'all',stylers:[{hue:'#990000'},{lightness:-40},{visibility:'simplified'},{saturation:30}]},{featureType:'road.local',elementType:'all',stylers:[{hue:'#f6ff00'},{saturation:50},{gamma:0.7},{visibility:'simplified'}]},{featureType:'water',elementType:'geometry',stylers:[{saturation:40},{lightness:40}]},{featureType:'road.highway',elementType:'labels',stylers:[{visibility:'on'},{saturation:98}]},{featureType:'administrative.locality',elementType:'labels',stylers:[{hue:'#0022ff'},{saturation:50},{lightness:-10},{gamma:0.90}]},{featureType:'transit.line',elementType:'geometry',stylers:[{hue:'#ff0000'},{visibility:'on'},{lightness:-70}]}]"> <!--city center 53.3450897,-6.2638032-->
-
-<!--find logic to be able to have relevant deals in all restaurants-->
-     <!--onece we have that pass that deal to the service and switch views-->
-     <!--then work on the booking system-->
-      
-
-<!--
-      <info-window id="iw">
-        <div ng-non-bindable="">
-              <div style="width: 240px; height:auto;">
-                   <h4>{{main.rest.name}}</h4>
-                    <div style="width:60%; display:inline-block; float:left;">
-                      <img src="img/641p0zRjQ8yjLZsTAf0w_housre.png" width="100%" />
-                    </div>
-                    
-                <div style="width:40%; display:inline-block; float:left; padding:10px;">
-			                   
-				                 <strong>Live Deal: </strong><br>{{main.rest.current_deal.deal_name}}<br><br>
-					</div>
-                    <div>
-                    	<button><a href="#/reserveTable" ng-click="reserve(main.rest.current_deal, main.rest.$id, main.rest)">Deal Details
-                    	</a></button>
-                    </div>
-              </div>
-        </div>
-
-      </info-window>
-
-   
-    </div>-->
-    
-    
-    
-    
- Welcome {{main.user.account_name}}
-  <input id="searchbar" style="padding:7px;margin-top:0px; width:95%" places-auto-complete size=80
+  <input id="searchbar" style="padding:10px;margin-top:0px; width:100%" places-auto-complete size=80
     ng-model="main.address"
     component-restrictions="{country:'irl'}"
     types="{{types}}"
     on-place-changed="main.placeChanged()"//maybe add this to the disableTap function
     ng-focus="disableTap()" /> <br/>
+     Welcome {{main.user.account_name}}
   <div ng-show="main.place">
     <!--Address = {{main.place.formatted_address}} <br/>
     Location: {{main.place.geometry.location}}<br/>-->
@@ -95,16 +20,16 @@
 		</marker>
 	<info-window id="iw">
 		<div ng-non-bindable="">
-			<div style="width: 240px; height:auto;">
-				<h4>{{main.rest.name}}</h4>
-				<div style="width:60%; display:inline-block; float:left;">
-					<img src="img/641p0zRjQ8yjLZsTAf0w_housre.png" width="100%" />
+			<div style="width: 160px; height:auto; padding:0;">
+				<h4 style="text-align: center">{{main.rest.name}}</h4>
+				<div style="width:40%; display:inline-block; float:left;">
+					<img src="https://s3.amazonaws.com/ionic-io-static/EGzQ5CcDS3ODKJcQE11W_Asset 1.png">
 				</div>        
-				<div style="width:40%; display:inline-block; float:left; padding:10px;">                   
+				<div style="width:50%;  margin-left: 10%;display:inline-block; float:left;">                   
 					<strong>Live Deal: </strong><br>{{main.rest.current_deal.deal_name}}<br><br>
 				</div>
 				<div>
-					<button><a href="#/reserveTable" ng-click="reserve(main.rest.current_deal, main.rest.$id, main.rest)">Deal Details
+					<button style="float:right;"><a href="#/reserveTable" ng-click="reserve(main.rest.current_deal, main.rest.$id, main.rest)">More Details
 					</a></button>
 				</div>
 			</div>

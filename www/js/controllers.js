@@ -7,13 +7,18 @@ function ($scope, $stateParams) {
 
 .controller('restaurantAccountCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$http', '$location', '$ionicSideMenuDelegate',
 function ($scope, $stateParams, RestaurantFactory, $http, $location, $ionicSideMenuDelegate) {
-	console.log("restaurantAccountCtrl");
+	//console.log("restaurantAccountCtrl");
+	
+	//
 	$scope.$on("$ionicView.beforeEnter", function(){
 		
 		if($ionicSideMenuDelegate.isOpen()){
 			$ionicSideMenuDelegate.toggleRight();
 		}
 	});
+	
+	
+	
 	$scope.newRest = [];
 	
 	//$scope.currentUser = RestaurantFactory.getSignUpCustomer();
@@ -56,8 +61,8 @@ function ($scope, $stateParams, customerFactory, $http, $location) {
 	
 }])
 
-.controller('customerSignUpCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
-function ($scope, $stateParams, RestaurantFactory, $location) {
+.controller('customerSignUpCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location', '$ionicPopup',
+function ($scope, $stateParams, RestaurantFactory, $location, $ionicPopup) {
 	var main = this;
 	console.log("customerSignUpCtrl");
 		
@@ -90,7 +95,16 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		}else{
 			newCust.password1 = "";
 			newCust.password2 = "";
-			alert("passwords did not match. Please enter again.")
+			var showAlert = function() {
+					var alertPopup = $ionicPopup.alert({
+						title: 'Error',
+						template: 'Your login details are incorrect.'
+					});
+				alertPopup.then(function(res) {
+
+				});
+				showAlert();
+			};
 		};
 		
 	};
@@ -109,7 +123,17 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		}else{
 			newCust.password1 = "";
 			newCust.password2 = "";
-			alert("passwords did not match. Please enter again.")
+			var showAlert = function() {
+					var alertPopup = $ionicPopup.alert({
+						title: 'Error',
+						template: 'Your login details are incorrect.'
+					});
+				alertPopup.then(function(res) {
+
+				});
+				showAlert();
+			};
+			
 		}
 		
 	};
@@ -119,24 +143,68 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 		
 }])
 
-
-
-
-
-
-
-
-
-.controller('reserveTableCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
-function ($scope, $stateParams, RestaurantFactory, $location) {
+.controller('reserveTableCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location', 'ionicTimePicker', 'ionicDatePicker',
+function ($scope, $stateParams, RestaurantFactory, $location, ionicTimePicker, ionicDatePicker) {
 	"use strict";
 	console.log("reserveTable");
-	
+	$scope.resTime = "Enter Time";
+	$scope.resDate = "Enter Date";
 	var details = RestaurantFactory.getReserveDeal();
 	//console.log(details);
 	var customerDetails = RestaurantFactory.getCurrentUser();
-	
-	
+	var setStartTime = {
+		callback: function (val) {      //Mandatory
+			if (typeof (val) === 'undefined') {
+				console.log('Time not selected');
+			} else {
+				var selectedTime = new Date(val * 1000).toTimeString();
+				$scope.resTime =selectedTime.substr(0,5);
+
+
+			}
+		},
+		inputTime: 50400,   //Optional
+		format: 12,         //Optional
+		step: 15,           //Optional
+		setLabel: 'Set'    //Optional
+	};
+	var setStartDate = {
+      callback: function (val) {  //Mandatory
+		  if (typeof (val) === 'undefined') {
+			  //console.log('Date not selected');
+		  } else {
+			  var selectedDate = new Date(val).toDateString();
+			  $scope.resDate =selectedDate;
+		  }
+      },
+      /*disabledDates: [            //Optional
+        new Date(2016, 2, 16),
+        new Date(2015, 3, 16),
+        new Date(2015, 4, 16),
+        new Date(2015, 5, 16),
+        new Date('Wednesday, August 12, 2015'),
+        new Date("08-16-2016"),
+        new Date(1439676000000)
+      ],*/
+      from: new Date(2012, 1, 1), //Optional
+      to: new Date(2021, 10, 30), //Optional
+      inputDate: new Date(),      //Optional
+      mondayFirst: true,          //Optional
+      disableWeekdays: [0],       //Optional
+      closeOnSelect: false,       //Optional
+      templateType: 'popup'       //Optional
+    };
+	$scope.getStartDate = function(){
+      ionicDatePicker.openDatePicker(setStartDate);
+    };
+	//function to open time picker
+	$scope.getReservationTime = function(){
+		ionicTimePicker.openTimePicker(setStartTime);
+	}
+	//function to open date picker
+	$scope.getReservationDate = function(){
+		ionicDatePicker.openDatePicker(setStartDate);
+	}
 	$scope.reserveDeal = details[0];//console.log($scope.reserveDeal);
 	//console.log($scope.reserveDeal);
 	$scope.restaurant = details[1];//console.log($scope.restaurant);
@@ -153,9 +221,8 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	
 	$scope.makeReservation = function(reserve){//no ng click yet
 		console.log(reserve);
-		var xdate = reserve.date.toDateString();
-		var xtime = reserve.time.toTimeString();
-		xtime = xtime.substr(0,5);
+		var xdate = $scope.resDate;
+		var xtime = $scope.resTime;
 		var reseravtionObj = {
 								customer_name : customerDetails.account_name,
 								customer_email : customerDetails.email,
@@ -176,7 +243,6 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 								reservation_time : xtime
 								};
 		
-
 		var newRestaurantBooking = function(){
 			if($scope.restaurant.bookings === undefined){
 				$scope.restaurant.bookings = [];
@@ -184,11 +250,11 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 				//console.log($scope.restaurant);
 				//send to the factory along with the UID number to fbArray.$save
 				console.log($scope.restaurant);
-				RestaurantFactory.addNewRestaurantBooking($scope.restaurant);
+				RestaurantFactory.addNewRestaurantBooking($scope.restaurant, $scope.reserveDeal);
 			}else{
 				
 				$scope.restaurant.bookings.push(reseravtionObj);
-				RestaurantFactory.addNewRestaurantBooking($scope.restaurant);
+				RestaurantFactory.addNewRestaurantBooking($scope.restaurant, $scope.reserveDeal);
 			};
 		};
 		newRestaurantBooking();
@@ -212,34 +278,8 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 			}
 		};
 		newCustomerBooking();
-		$location.path('/page1/page3');//maybe do this on a promise
-	}//tick
-	
-	
 		
-	
-	
-	//create new customer object with the new booking
-		//send to the factory along with the UID number to fbArray.$save
-	
-	
-	
-	/*$scope.$on("$ionicView.beforeEnter", function(){
-	   
-	   
-	});*/
-	
-	
-	
-	/*$scope.reserveDeal.bookings = [{customer_name:"", 
-									phone: "",
-								   email: "",
-								   time: $scope.time,
-								   date: $scope.date,
-								   reservationNum: "123"}];
-	
-	RestaurantFactory.setReservationDeal($scope.reserveDeal);
-	*/	
+	}
 }])
 
 .controller('reservationCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',

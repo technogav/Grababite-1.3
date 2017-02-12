@@ -1,7 +1,7 @@
 angular.module('LoginCtrl', ['firebase'])//may not need to inject firebase here
 
-.controller('LoginCtrl', ['$scope', '$stateParams', 'accountFactory', '$location', '$ionicSideMenuDelegate',
-function ($scope, $stateParams, accountFactory, $location, $ionicSideMenuDelegate) {
+.controller('LoginCtrl', ['$scope', '$stateParams', 'accountFactory', '$location', '$ionicSideMenuDelegate','$ionicPopup',
+function ($scope, $stateParams, accountFactory, $location, $ionicSideMenuDelegate,$ionicPopup) {
 	"use strict";
 	
 	$scope.$on("$ionicView.beforeEnter", function(){
@@ -9,7 +9,7 @@ function ($scope, $stateParams, accountFactory, $location, $ionicSideMenuDelegat
 		if($ionicSideMenuDelegate.isOpen()){
 			$ionicSideMenuDelegate.toggleRight();
 		}
-		$scope.customers = accountFactory.getCustomers();
+		
 	});
 
 	$scope.checkLogin = function(data){
@@ -17,8 +17,8 @@ function ($scope, $stateParams, accountFactory, $location, $ionicSideMenuDelegat
 		$scope.user = [];
 		
 		var checkUsername = function(data){
-			
-			console.log($scope.customers);
+			$scope.customers = accountFactory.getCustomers();
+			//console.log($scope.customers);
 			for(var i = 0; i < $scope.customers.length; i++){				
 				if(data.username === $scope.customers[i].account_name){
 					//console.log($scope.customers[i].account_name);		
@@ -44,8 +44,17 @@ function ($scope, $stateParams, accountFactory, $location, $ionicSideMenuDelegat
 					$location.path('/page1/page3');
 				}
 			}else{
-				alert("sorry password did not match. Try again or make new account? (links to new account view)");
+				var showAlert = function() {
+					var alertPopup = $ionicPopup.alert({
+						title: 'Error',
+						template: 'Your login details are incorrect.'
+					});
+				alertPopup.then(function(res) {
+
+				});
 				
+			};
+				showAlert();
 			}
 		//console.log($scope.user.account_type);
 		}

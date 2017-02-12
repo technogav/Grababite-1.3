@@ -14,23 +14,25 @@
             <input style="height:auto" type="text" placeholder="Deal Description" ng-model="newDeal.description">
           </label>
           <label class="item item-input">
-            <input type="date" ng-model="newDeal.startDate" placeholder="Start Date">
+            <input type="text" placeholder="{{startDate}}" ng-click="getStartDate()">
           </label>
           <label class="item item-input">
-            <input type="date" ng-model="newDeal.endDate" placeholder="End Date">
+            <input type="text" ng-click="getEndDate()" placeholder="{{endDate}}">
           </label>
           <label class="item item-input">
             <input type="text" placeholder="{{startTime}}" ng-click="getStartTime()">
           </label>
           <label class="item item-input">
-            <input type="text" placeholder="End Time" ng-click="getEndTime()">
+            <input type="text" placeholder="{{endTime}}" ng-click="getEndTime()">
           </label>
           <label class="item item-input">
-            <input type="text" placeholder="Number of Deals Available" ng-model="newDeal.numberAvailable"  />
+            <input type="number" max="99" placeholder="Number of Deals Available" ng-model="newDeal.numberAvailable"  />
           </label>
           <label class="item item-input">
-            <span class="input-label"></span>
-              <textarea placeholder="Conditions of Deal" rows="4" ng-model="newDeal.conditions"></textarea></label>
+          
+              <textarea style="margin-left:0; float:left;" placeholder="Conditions of Deal" rows="4" ng-model="newDeal.conditions"></textarea>
+          
+		  </label>
             <button style="font-weight:600;" class="button button-energized  button-block icon ion-android-checkmark-circle">Save</button>
         </form>
 

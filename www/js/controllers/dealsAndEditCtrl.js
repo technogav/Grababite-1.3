@@ -39,6 +39,11 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 		//dealsAndEditFactory.setLiveDeals();
 		$scope.liveDeals = dealsAndEditFactory.getLiveDeals();
 		
+		//temporary fix to show there are no deals available
+		if($scope.liveDeals.length == 0){
+			console.log("no deal");
+			$scope.liveDeals = [{deal_name:"You currently have no live deals."}];
+		}
 	});
 	
 	
@@ -56,8 +61,12 @@ function ($scope, $stateParams, dealsAndEditFactory) {
 	
 	$scope.$on("$ionicView.beforeEnter", function(){
 		
-		$scope.currentDeal = dealsAndEditFactory.getCurrentDeal();//from main // get a new list of live deals/ current deals
-		
+		$scope.currentDeal = dealsAndEditFactory.getCurrentDeal();
+		//temporary fix to show there are no deals available
+		if($scope.currentDeal == null){
+			console.log("no deal");
+			$scope.currentDeal = {deal_name:"You currently have no deal available for today."};
+		}
 	});
 	
 	dealsAndEditFactory.checkForFirstTimeUser();
@@ -144,6 +153,11 @@ function ($scope, $stateParams, dealsAndEditFactory, $location, $ionicSideMenuDe
 		if($ionicSideMenuDelegate.isOpen()){
 			$ionicSideMenuDelegate.toggleRight();
 		}
+		console.log($scope.historicalDeals);
+		if($scope.historicalDeals.length == 0){
+			console.log("done");
+			$scope.historicalDeals = [{deal_name:"You have no deals in your history"}];
+		};
 	});
 	
 	$scope.pastDealEdit = function(deal){
@@ -160,6 +174,8 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	
 	$scope.$on("$ionicView.beforeEnter", function(){
 		$scope.dealToEdit = dealsAndEditFactory.getDealToEdit();
+		$scope.dealToEdit.startTime = $scope.dealToEdit.startTime.substr(0,5);
+	$scope.dealToEdit.endTime = $scope.dealToEdit.endTime.substr(0,5);
 	});
 	
 	
@@ -174,46 +190,106 @@ function ($scope, $stateParams, dealsAndEditFactory, $location) {
 	
 }])
 
-.controller('newDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location','ionicTimePicker',
-function ($scope, $stateParams, dealsAndEditFactory, $location,ionicTimePicker) {
+.controller('newDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location','ionicTimePicker', 'ionicDatePicker',
+function ($scope, $stateParams, dealsAndEditFactory, $location,ionicTimePicker,ionicDatePicker) {
 	
 	"use strict";
-		$scope.startTime = "Start Time";
-		$scope.endTime = "End Time";
+	$scope.startTime = "Start Time";
+	$scope.endTime = "End Time";
+	$scope.startDate = "Start Date";
+	$scope.endDate = "End Date";
+	
 	$scope.addNewDeal = function(newDeal){
 		console.log(newDeal);
-		
 		newDeal.startTime = $scope.startTime;
 		newDeal.endTime = $scope.endTime;
+		newDeal.startDate = $scope.startDate;
+		newDeal.endDate = $scope.endDate;
+		
 		console.log(newDeal);
 		dealsAndEditFactory.setAddNewDeal2(newDeal);
 		newDeal = null;
-		
-		
-		
-		
-		
-		$location.path('/page201/page100'); 
-		
-		
+
+	//$location.path('/page201/page100'); 	
 		
 	}
 	
+	
+	var setStartDate = {
+      callback: function (val) {  //Mandatory
+		  if (typeof (val) === 'undefined') {
+			  //console.log('Date not selected');
+		  } else {
+			  var selectedDate = new Date(val).toDateString();
+			  $scope.startDate =selectedDate;
+		  }
+      },
+      /*disabledDates: [            //Optional
+        new Date(2016, 2, 16),
+        new Date(2015, 3, 16),
+        new Date(2015, 4, 16),
+        new Date(2015, 5, 16),
+        new Date('Wednesday, August 12, 2015'),
+        new Date("08-16-2016"),
+        new Date(1439676000000)
+      ],*/
+      from: new Date(2012, 1, 1), //Optional
+      to: new Date(2021, 10, 30), //Optional
+      inputDate: new Date(),      //Optional
+      mondayFirst: true,          //Optional
+      disableWeekdays: [0],       //Optional
+      closeOnSelect: false,       //Optional
+      templateType: 'popup'       //Optional
+    };
+	var setEndDate = {
+      callback: function (val) {  //Mandatory
+        if (typeof (val) === 'undefined') {
+			  //console.log('Date not selected');
+		  } else {
+			  var selectedDate = new Date(val).toDateString();
+			  $scope.endDate =selectedDate;
+		  }
+      },
+      /*disabledDates: [            //Optional
+        new Date(2016, 2, 16),
+        new Date(2015, 3, 16),
+        new Date(2015, 4, 16),
+        new Date(2015, 5, 16),
+        new Date('Wednesday, August 12, 2015'),
+        new Date("08-16-2016"),
+        new Date(1439676000000)
+      ],*/
+      from: new Date(2012, 1, 1), //Optional
+      to: new Date(2021, 10, 30), //Optional
+      inputDate: new Date(),      //Optional
+      mondayFirst: true,          //Optional
+      disableWeekdays: [0],       //Optional
+      closeOnSelect: false,       //Optional
+      templateType: 'popup'       //Optional
+    };
+	
+    $scope.getStartDate = function(){
+      ionicDatePicker.openDatePicker(setStartDate);
+    };
+	$scope.getEndDate = function(){
+      ionicDatePicker.openDatePicker(setEndDate);
+    };
+
 	var setStartTime = {
     callback: function (val) {      //Mandatory
       if (typeof (val) === 'undefined') {
         console.log('Time not selected');
       } else {
         var selectedTime = new Date(val * 1000).toTimeString();
-       $scope.startTime =selectedTime;
+       $scope.startTime =selectedTime.substr(0,5);
         
         
       }
     },
-    inputTime: 50400,   //Optional
+    inputTime: 43210,   //Optional
     format: 12,         //Optional
     step: 15,           //Optional
-    setLabel: 'Set2'    //Optional
+    setLabel: 'Set'    //Optional
   };
 	var setEndTime = {
     callback: function (val) {      //Mandatory
@@ -222,14 +298,14 @@ function ($scope, $stateParams, dealsAndEditFactory, $location,ionicTimePicker) 
       } else {
         var selectedTime = new Date(val * 1000).toTimeString();
 		  
-		  $scope.endTime = selectedTime;
+		  $scope.endTime = selectedTime.substr(0,5);
         
       }
     },
-    inputTime: 50400,   //Optional
+     inputTime: 43210,   //Optional
     format: 12,         //Optional
     step: 15,           //Optional
-    setLabel: 'Set2'    //Optional
+    setLabel: 'Set'    //Optional
   };
 
 
