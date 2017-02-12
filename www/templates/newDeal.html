@@ -8,22 +8,22 @@
       <form class="list" ng-submit="addNewDeal(newDeal)">
         <h2 style="color:#857874;text-align:center;"></h2>
         <label class="item item-input">
-          <input style="height:auto" type="text" placeholder="Deal Name " ng-model="newDeal.deal_name">
+          <input style="height:auto" type="text" placeholder="Deal Name " ng-model="newDeal.deal_name"autocomplete="off">
 		  </label>
           <label class="item item-input">
             <input style="height:auto" type="text" placeholder="Deal Description" ng-model="newDeal.description">
           </label>
           <label class="item item-input">
-            <input type="text" placeholder="{{startDate}}" ng-click="getStartDate()">
+            <input type="text" placeholder="{{startDate}}" ng-click="getStartDate()"autocomplete="off">
           </label>
           <label class="item item-input">
-            <input type="text" ng-click="getEndDate()" placeholder="{{endDate}}">
+            <input type="text" ng-click="getEndDate()" placeholder="{{endDate}}"autocomplete="off">
           </label>
           <label class="item item-input">
-            <input type="text" placeholder="{{startTime}}" ng-click="getStartTime()">
+            <input type="text" placeholder="{{startTime}}" ng-click="getStartTime()"autocomplete="off">
           </label>
           <label class="item item-input">
-            <input type="text" placeholder="{{endTime}}" ng-click="getEndTime()">
+            <input type="text" placeholder="{{endTime}}" ng-click="getEndTime()"autocomplete="off">
           </label>
           <label class="item item-input">
             <input type="number" max="99" placeholder="Number of Deals Available" ng-model="newDeal.numberAvailable"  />
