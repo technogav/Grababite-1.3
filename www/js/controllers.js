@@ -1,8 +1,44 @@
 angular.module('app.controllers', ['firebase'])//may not need to inject firebase here
 
-.controller('menuCtrl', ['$scope', '$stateParams', 
-function ($scope, $stateParams) {
+.controller('menuCtrl', ['$scope', '$stateParams','$location','$rootScope',
+function ($scope, $stateParams,$location, $rootScope) {
+	//use this controller to dynamically change the side menubar
+	var randObj = {0:"a", 1:"b", 2:"c"};
+	$scope.menuItems = [];
+	
+	
+	$rootScope.$on('$stateChangeSuccess', function(){
+		var absUrl = $location.absUrl();
+		absUrl = absUrl.substr(absUrl.lastIndexOf("/") + 1);
+		
+		var pages = [{
+			item: 2
+		}];
+		
+		if(absUrl == "login"){
+		$scope.menuItems = [
+						{item: "Home", icon:"<i class='icon ion-home'></i>", link:"#/login"},
+						{item: "Add Restaurant" , icon:"<i class='icon ion-plus-circled'>", link:"#/page101"},
+						{item: "Map" , icon:"<i class='icon ion-map'>", link:"#/page201/restaurantMapView"},
+						{item: "Analytics" , icon:"<i class='icon ion-pie-graph'>", link:"#/page201/analytics"},
+						{item: "History" , icon:"<i class='icon ion-eye'>", link:"#/history"},
+						{item: "History" , icon:"<i class='icon ion-log-out'>", link:"#/page100"}
+			];
 
+		}
+		if(absUrl === "page3"){
+			$scope.menuItems = [
+						{item: "Home", icon:"<i class='icon ion-home'></i>", link:"#/login"},
+						
+						{item: "Logout" , icon:"<i class='icon ion-log-out'>", link:"#/page100"}
+			];
+		}
+	
+	});
+	
+	
+	
+	
 }])
 
 .controller('restaurantAccountCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$http', '$location', '$ionicSideMenuDelegate',

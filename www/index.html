@@ -113,50 +113,64 @@
   <body ng-app="app" animation="slide-left-right-ios7">
   <div>
 
-  <ion-side-menus enable-menu-with-back-views="true" data-componentid="side-menu21">
-   
-    <ion-side-menu-content>
-      <ion-nav-bar class="bar-assertive">
-        <ion-nav-back-button></ion-nav-back-button>
-        <ion-nav-buttons side="right">
-          <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
-        </ion-nav-buttons>
-      </ion-nav-bar>
-      <ion-nav-view></ion-nav-view>
-    </ion-side-menu-content>
-    <ion-side-menu side="right" id="side-menu21" style="background-color:#FFFFFF;">
-      <ion-header-bar class="bar-assertive">
-        <div class="title">Menu</div>
-      </ion-header-bar>
-      
-      <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-right has-header ">
-        <ion-list id="menu-list3" data-componentid="list3">
-          <ion-item class="item-icon-left assertive" id="menu-list-item1" href="#/login" data-componentid="list-item1">
-            <i class="icon ion-home"></i>Login Screen</ion-item>
-          <ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page101" data-componentid="list-item2">
-			  <i class="icon ion-plus-circled"></i>Add Restaurant
-          </ion-item>
-		<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page201/restaurantMapView">
-		  <i class="icon ion-map"></i>Map
-		</ion-item>
-        <ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page201/analytics" data-componentid="list-item4">
-		  <i class="icon ion-pie-graph"></i>Analytics
-		</ion-item>
+<ion-side-menus enable-menu-with-back-views="true" data-componentid="side-menu21">
 
-        <ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/history" data-componentid="list-item5">
-		  <i class="icon ion-eye"></i>History
-		</ion-item>
-		<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page100" data-componentid="list-item6">
-		  <i class="icon ion-log-out"></i>LogOut
-		</ion-item>
+	<ion-side-menu-content>
+		<ion-nav-bar class="bar-assertive">
+			<ion-nav-back-button>	
+			</ion-nav-back-button>
+			<ion-nav-buttons side="right">
+				<button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+			</ion-nav-buttons>
+		</ion-nav-bar>
+		<ion-nav-view></ion-nav-view>
+	</ion-side-menu-content>
+	
+	<ion-side-menu side="right" id="side-menu21" style="background-color:#FFFFFF;">
+		<ion-header-bar class="bar-assertive">
+		<div class="title">Menu</div>
+		</ion-header-bar>
+
+		<ion-content ng-controller="menuCtrl" padding="false" class="side-menu-right has-header ">
+		<!--//use ng-repeat to list these menu items;-->
+		<ion-list id="menu-list3" data-componentid="list3">
+			<ion-item ng-repeat="x in menuItems" class="item-icon-left assertive" id="menu-list-item1" ng-href="{{x.link}}" data-componentid="list-item1">
+				
+					<span ng-bind-html="x.icon"></span>{{x.item}}
+				
+			</ion-item>
+		
+			
+				<!--<ion-item class="item-icon-left assertive" id="menu-list-item1" href="#/login" data-componentid="list-item1">
+					<i class="icon ion-home"></i><test></test>
+				</ion-item>
+					
+				<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page101" data-componentid="list-item2">
+					<i class="icon ion-plus-circled"></i>Add Restaurant
+				</ion-item>
+
+				<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page201/restaurantMapView">
+					<i class="icon ion-map"></i>Map
+				</ion-item>
+
+				<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page201/analytics" data-componentid="list-item4">
+					<i class="icon ion-pie-graph"></i>Analytics
+				</ion-item>
+
+				<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/history" data-componentid="list-item5">
+					<i class="icon ion-eye"></i>History
+				</ion-item>
+
+				<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page100" data-componentid="list-item6">
+					<i class="icon ion-log-out"></i>LogOut
+				</ion-item>-->
+			</ion-list>
+			
+		</ion-content>
+	</ion-side-menu>
 
 
-        </ion-list>
-      </ion-content>
-    </ion-side-menu>
-
-
-  </ion-side-menus>
+</ion-side-menus>
 
 </div>
 
