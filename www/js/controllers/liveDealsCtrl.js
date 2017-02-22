@@ -16,19 +16,28 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 			$ionicSideMenuDelegate.toggleRight();
 			
 		}
+		$scope.restsWithCurrentDeal = RestaurantFactory.getRestsWithCurrentDeal();
+		//console.log($scope.restsWithCurrentDeal);
 		
 	});
+	$scope.$on("$ionicView.enter", function(){
+			NgMap.getMap().then(function(map) {
+				main.map = map;
+		});
+	});
 //function to set the currentDeal in the RestaurantFactory provided the initVar(login) function has been fired off
-	RestaurantFactory.setCurrentDeal();
+	//RestaurantFactory.setCurrentDeal();
 //initalise variables	
 	$scope.rests = [];
 	$scope.restsWithCurrentDeal = [];
+	
 	$scope.user = RestaurantFactory.getCurrentUser();
 
 	main.user = $scope.user;
 //fetch all restaurants from firebase
 	$scope.rests = RestaurantFactory.getAllRestaurants();
-	$scope.restsWithCurrentDeal = RestaurantFactory.getRestsWithCurrentDeal();
+	
+	console.log($scope.restsWithCurrentDeal);
 	
 	//console.log($scope.rests);
 	main.rest = $scope.rests[0];
@@ -71,9 +80,7 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 			main.map.setCenter(main.place.geometry.location);
 	}
   
-	NgMap.getMap().then(function(map) {
-			main.map = map;
-	});
+	
  
 
 }]);

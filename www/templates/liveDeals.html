@@ -16,7 +16,7 @@
   
 	<ng-map center="[{{lat}}, {{long}}]">
 		<marker id="{{r.id}}" position="{{r.coords}}"
-				on-click="showDetail(r)" ng-repeat="r in restsWithCurrentDeal">
+				on-click="showDetail(r)" ng-repeat="r in restsWithCurrentDeal track by $index">
 		</marker>
 	<info-window id="iw">
 		<div ng-non-bindable="">

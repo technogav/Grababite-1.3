@@ -210,6 +210,7 @@ angular.module('app.services', ['firebase'])
 	};
 	
 	rFactory.setRestaurant = function(restaurant){
+		//create an alert to be fired on successful upload
 		var showAlert = function() {
 			var alertPopup = $ionicPopup.alert({
 				title: 'Account edited',
@@ -220,24 +221,23 @@ angular.module('app.services', ['firebase'])
 			});
 
 		};
-		fbArray.$add(restaurant).then(function(){
-			
-			
+		
+		//save to firebase
+		fbArray.$add(restaurant).then(function(){		
 			showAlert();
-			
+		//create a global loggedInRestaurant variable on the top level	
 			mainFactory.refreshLoggedInrestaurant();
 			$location.path('/page201/page100');
 		});
 	};
 	
-	var signUpCustomer = [];
-								   
-	rFactory.getSignUpCustomer = function(){
-		mainFactory.setSignUpCustomer(signUpCustomer);
-		return signUpCustomer;
-	}							   
+	var signUpCustomer = [];								   							   
 	rFactory.setCustomer = function(customer){
+		
+		//populate glob variable
 		signUpCustomer = customer;
+		
+		/*create alert yolk to be fired off on success*/
 		var showAlert = function() {
 			var alertPopup = $ionicPopup.alert({
 				title: 'Sign In',
@@ -248,9 +248,15 @@ angular.module('app.services', ['firebase'])
 			});
 
 		};
+		
+		//save to firebase
 		fbCustomerArray.$add(customer).then(function(){
 			showAlert();
 		});
+	}
+	rFactory.getSignUpCustomer = function(){
+		mainFactory.setSignUpCustomer(signUpCustomer);
+		return signUpCustomer;
 	}
 	
 	rFactory.getDealToEdit = function(){
@@ -294,9 +300,6 @@ angular.module('app.services', ['firebase'])
 	var reserveDeal = [];
 	rFactory.setReserveDeal = function(deal, restaurantUID, restaurant){
 		reserveTableUID = restaurantUID;
-		/*console.log(deal);
-		console.log(restaurantUID);
-		console.log(restaurant);*/
 		reserveDeal = [deal,restaurant,restaurantUID];
 	};
 	

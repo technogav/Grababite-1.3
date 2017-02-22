@@ -22,24 +22,27 @@ angular.module('mainFactory', ['firebase'])
 	var restsWithCurrentDeal = [];
 	var customerIndex = 0;
 	//SET ALL RESTAURANTS
-	fbArray.$loaded().then(function(data) {
-		//this function will only get the initial 
-		angular.forEach(data, function(value,key) {
+	var getRestaurantsWithCurrentDeal = function(){
+		 angular.forEach(fbArray, function(value,key) {
 			rests.push(value);
 			if(value.current_deal !== undefined){
 				//console.log(value.account_name);
 				var end = new Date(value.current_deal.endDate);
 				var start = new Date(value.current_deal.startDate);
 				if(end >= today){
-					
+
 					if(start < today){
 						restsWithCurrentDeal.push(value);
 					}
 				}
 			}
-			
-			
+
+
 		});
+	 }
+	fbArray.$loaded().then(function(data) {
+		//this function will only get the initial 
+		getRestaurantsWithCurrentDeal();
 		
 	});
 	
@@ -70,6 +73,7 @@ angular.module('mainFactory', ['firebase'])
 	};
 	
 	mainFactory.getRestsWithCurrentDeal = function(){
+		getRestaurantsWithCurrentDeal();
 		return restsWithCurrentDeal;
 	}
 	//SET ALL CUSTOMERS

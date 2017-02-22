@@ -1,4 +1,4 @@
-<ion-view title="Live Deals" name="restaurantMapView-u" hide-back-button="true" id="restaurantMapView">
+<ion-view title="Live Deals" name="restaurantMapView-u" id="restaurantMapView">
   <ion-content padding="true" class="has-header">
 
  Welcome {{main.user.account_name}}
@@ -6,7 +6,7 @@
     ng-model="main.address"
     component-restrictions="{country:'irl'}"
     types="{{types}}"
-    on-place-changed="main.placeChanged()"//maybe add this to the disableTap function
+    on-place-changed="main.placeChanged()"
     ng-focus="disableTap()" /> <br/>
   <div ng-show="main.place">
     <!--Address = {{main.place.formatted_address}} <br/>
@@ -28,8 +28,9 @@
 					<strong>Live Deal: </strong><br>{{main.rest.current_deal.deal_name}}<br><br>
 				</div>
 				<div>
-					<button><a href="#/reserveTable" ng-click="reserve(main.rest.current_deal, main.rest.$id, main.rest)">Deal Details
-					</a></button>
+				<!--//find a way to do this without conflict maybe make a seperate ctrl instead of using -->
+					<!--<button><a href="#/reserveTable" ng-click="reserve(main.rest.current_deal, main.rest.$id, main.rest)">Deal Details
+					</a></button>-->
 				</div>
 			</div>
 		</div>

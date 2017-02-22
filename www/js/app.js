@@ -6,9 +6,29 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('app', 
-			   ['ionic', 'app.controllers', 'liveDealsController', 'dealsAndEditController', 'LoginCtrl', 'analyticsController', 'app.routes', 
-				'app.directives','app.services', 'mainFactory', 'dealsAndEditFactory', 'accountFactory', 'customerFactory', 'ngMap', 
-				'ngCordova', 'firebase', 'ionic-timepicker', 'ionic-datepicker'])
+			   ['ionic',
+				/*controllers*/
+				'app.controllers', 
+				'liveDealsController', 
+				'dealsAndEditController', 
+				'LoginCtrl', 
+				'analyticsController',
+				/*Services*/
+				'app.services', 
+				'mainFactory', 
+				'dealsAndEditFactory', 
+				'accountFactory', 
+				'customerFactory',
+				/*routes*/
+				'app.routes',
+				/*directives*/
+				'app.directives',
+				/*other*/
+				'ngMap', 
+				'ngCordova', 
+				'firebase', 
+				'ionic-timepicker', 
+				'ionic-datepicker'])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider){
   
@@ -33,7 +53,7 @@ angular.module('app',
     }
   });
 })
-
+//Configure for datepicker
 /*.config(function (ionicDatePickerProvider) {
     var datePickerObj = {
       inputDate: new Date(),
@@ -53,26 +73,3 @@ angular.module('app',
     };
     ionicDatePickerProvider.configDatePicker(datePickerObj);
   })*/
-
-.directive('disableSideMenuDrag', ['$ionicSideMenuDelegate', '$rootScope', function($ionicSideMenuDelegate, $rootScope) {
-    return {
-        restrict: "A",  
-        controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
-
-            function stopDrag(){
-              $ionicSideMenuDelegate.canDragContent(false);
-            }
-
-            function allowDrag(){
-              $ionicSideMenuDelegate.canDragContent(true);
-            }
-
-            $rootScope.$on('$ionicSlides.slideChangeEnd', allowDrag);
-            $element.on('touchstart', stopDrag);
-            $element.on('touchend', allowDrag);
-            $element.on('mousedown', stopDrag);
-            $element.on('mouseup', allowDrag);
-
-        }]
-    };
-}])

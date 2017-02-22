@@ -7,10 +7,10 @@ angular.module('customerFactory', ['firebase'])
 		var currentUser = [];
 		var reservation = [];
 								 
-		cFactory.getCurrentUser = function(){
+		/*cFactory.getCurrentUser = function(){
 			console.log(currentUser);
 			return currentUser;
-		}
+		}*/
 		
 		cFactory.getCurrentUser = function(){
 			return mainFactory.getCurrentUser();

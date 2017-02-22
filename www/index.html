@@ -1,178 +1,107 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *">
-    <title></title>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *">
+		<title></title>
+		<link rel="stylesheet" href="fonts/raleway/css/fonts.css">
+		<link href="lib/ionic/css/ionic.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
 
+		<script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <link rel="stylesheet" href="fonts/raleway/css/fonts.css">
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+		<!-- cordova script (this will be a 404 during development) -->
+		<script src="cordova.js"></script>
 
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+		<!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+		<link href="css/ionic.app.css" rel="stylesheet">
+		-->
+		<link rel="manifest" href="manifest.json">
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+		<link href="css/ionic.app.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
-<link rel="manifest" href="manifest.json">
+		<!--main dependancies-->
+		<script src="js/app.js"></script>
+		<script src="js/routes.js"></script>
+		<script src="js/directives.js"></script>
+		<!--controller dependancies-->
+		<script src="js/controllers.js"></script>
+		<script src="js/controllers/liveDealsCtrl.js"></script>
+		<script src="js/controllers/dealsAndEditCtrl.js"></script>
+		<script src="js/controllers/analyticsCtrl.js"></script>
+		<script src="js/controllers/loginCtrl.js"></script>
+		<!--factory/service dependancies-->
+		<script src="js/service/customerFactory.js"></script>
+		<script src="js/service/mainFactory.js"></script>
+		<script src="js/service/dealsAndEditFactory.js"></script>
+		<script src="js/service/services.js"></script>
+		<script src="js/service/accountFactory.js"></script>
+		<!--lodash-->
+		<script src="https://cdn.jsdelivr.net/lodash/4.15.0/lodash.min.js"></script>
+		<!--map dependancies-->
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAIlBmEEBgms_hhbcyU-uNciPRknniNQY&libraries=places"></script>
+		<script src="lib/ng-map.min.js"></script>
+		<!--cordova-->
+		<script src="lib/ng-cordova/dist/ng-cordova.min.js"></script>
+		<!--unsure of what this dependancy does coz the docs read like a drunk russian wrote them-->
+		<script src="js/angular-simple-logger.js"></script>
+		<!--time/date dependancies-->
+		<script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
+		<script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+		<!-- Firebase & CoNFIGuiRE... -->
+		<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+		<script>
+			var config = {
+				apiKey: "AIzaSyD4BVnN3FkiAyp7GXtGASmNI65_lNwdfoI",
+				authDomain: "grababite-a6cf9.firebaseapp.com",
+				databaseURL: "https://grababite-a6cf9.firebaseio.com",
+				storageBucket: "grababite-a6cf9.appspot.com",
+				messagingSenderId: "75457488012"
+			  };
+				firebase.initializeApp(config);
+		</script>
+		<!--/*<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script>*/-->
 
-    <link href="css/ionic.app.css" rel="stylesheet">
+		<!-- AngularFire -->
+		<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
 
-
-    <style type="text/css">
-      .platform-ios .manual-ios-statusbar-padding{
-        padding-top:20px;
-      }
-      .manual-remove-top-padding{
-        padding-top:0px;
-      }
-      .manual-remove-top-padding .scroll{
-        padding-top:0px !important;
-      }
-      ion-list.manual-list-fullwidth div.list, .list.card.manual-card-fullwidth {
-        margin-left:-10px;
-        margin-right:-10px;
-      }
-      ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidth > .item {
-        border-radius:0px;
-        border-left:0px;
-        border-right: 0px;
-      }
-      .show-list-numbers-and-dots ul{
-        list-style-type: disc;
-        padding-left:40px;
-      }
-      .show-list-numbers-and-dots ol{
-        list-style-type: decimal;
-        padding-left:40px;
-      }
-    </style>
-
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/controllers/liveDealsCtrl.js"></script>
-    <script src="js/controllers/dealsAndEditCtrl.js"></script>
-    <script src="js/controllers/analyticsCtrl.js"></script>
-    <script src="js/controllers/loginCtrl.js"></script>
-    <script src="js/routes.js"></script>
-
-
-    <script src="js/directives.js"></script>
-	<script src="js/service/customerFactory.js"></script>
-   	<script src="js/service/mainFactory.js"></script>
-   	<script src="js/service/dealsAndEditFactory.js"></script>
-    <script src="js/service/services.js"></script>
-    <script src="js/service/accountFactory.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/lodash/4.15.0/lodash.min.js"></script>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAIlBmEEBgms_hhbcyU-uNciPRknniNQY&libraries=places"></script>
-    <script src="lib/ng-map.min.js"></script>
-    
-	<script src="lib/ng-cordova/dist/ng-cordova.min.js"></script>
-
-    <script src="js/angular-simple-logger.js"></script>
-	<script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
-   <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
-    <!-- Firebase this is not loading quick enough so the app crashes waiting for response, think about spinners-->
-	<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-	<script>
- 	var config = {
-		apiKey: "AIzaSyD4BVnN3FkiAyp7GXtGASmNI65_lNwdfoI",
-		authDomain: "grababite-a6cf9.firebaseapp.com",
-		databaseURL: "https://grababite-a6cf9.firebaseio.com",
-		storageBucket: "grababite-a6cf9.appspot.com",
-		messagingSenderId: "75457488012"
-	  };
-  firebase.initializeApp(config);
-</script>
-	<!--/*<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script>*/-->
-
-
-
-
-	<!-- AngularFire -->
-	<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
-
-
-
-
-    <!-- Only required for Tab projects w/ pages in multiple tabs
-    <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
-    -->
-
-  </head>
-  <body ng-app="app" animation="slide-left-right-ios7">
-  <div>
-
-<ion-side-menus enable-menu-with-back-views="true" data-componentid="side-menu21">
-
-	<ion-side-menu-content>
-		<ion-nav-bar class="bar-assertive">
-			<ion-nav-back-button>	
-			</ion-nav-back-button>
-			<ion-nav-buttons side="right">
-				<button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
-			</ion-nav-buttons>
-		</ion-nav-bar>
-		<ion-nav-view></ion-nav-view>
-	</ion-side-menu-content>
-	
-	<ion-side-menu side="right" id="side-menu21" style="background-color:#FFFFFF;">
-		<ion-header-bar class="bar-assertive">
-		<div class="title">Menu</div>
-		</ion-header-bar>
-
-		<ion-content ng-controller="menuCtrl" padding="false" class="side-menu-right has-header ">
-		<!--//use ng-repeat to list these menu items;-->
-		<ion-list id="menu-list3" data-componentid="list3">
-			<ion-item ng-repeat="x in menuItems" class="item-icon-left assertive" id="menu-list-item1" ng-href="{{x.link}}" data-componentid="list-item1">
-				
-					<span ng-bind-html="x.icon"></span>{{x.item}}
-				
-			</ion-item>
-		
-			
-				<!--<ion-item class="item-icon-left assertive" id="menu-list-item1" href="#/login" data-componentid="list-item1">
-					<i class="icon ion-home"></i><test></test>
-				</ion-item>
-					
-				<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page101" data-componentid="list-item2">
-					<i class="icon ion-plus-circled"></i>Add Restaurant
-				</ion-item>
-
-				<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page201/restaurantMapView">
-					<i class="icon ion-map"></i>Map
-				</ion-item>
-
-				<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page201/analytics" data-componentid="list-item4">
-					<i class="icon ion-pie-graph"></i>Analytics
-				</ion-item>
-
-				<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/history" data-componentid="list-item5">
-					<i class="icon ion-eye"></i>History
-				</ion-item>
-
-				<ion-item class="item-icon-left assertive" id="menu-list-item2" href="#/page100" data-componentid="list-item6">
-					<i class="icon ion-log-out"></i>LogOut
-				</ion-item>-->
-			</ion-list>
-			
-		</ion-content>
-	</ion-side-menu>
-
-
-</ion-side-menus>
-
-</div>
-
-  </body>
+		<!-- Only required for Tab projects w/ pages in multiple tabs
+		<script src="lib/ionicuirouter/ionicUIRouter.js"></script>
+		-->
+	</head>
+	<body ng-app="app" animation="slide-left-right-ios7">
+		<div>
+			<ion-side-menus enable-menu-with-back-views="true" data-componentid="side-menu21">
+				<!--top navbar-->
+				<ion-side-menu-content>
+				<ion-nav-bar class="bar-assertive">
+					<ion-nav-back-button>	
+					</ion-nav-back-button>
+					<ion-nav-buttons side="right">
+						<button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+					</ion-nav-buttons>
+				</ion-nav-bar>
+				<ion-nav-view></ion-nav-view>
+				</ion-side-menu-content>
+				<!--slide in menu right-->
+				<ion-side-menu side="right" id="side-menu21" style="background-color:#FFFFFF;">
+				<ion-header-bar class="bar-assertive">
+					<div class="title">Menu</div>
+				</ion-header-bar>
+				<!--menuCtrl controls the menu content dynamically from json data-->
+				<ion-content ng-controller="menuCtrl" padding="false" class="side-menu-right has-header ">
+					<ion-list id="menu-list3" data-componentid="list3">
+						<ion-item ng-repeat="x in menuItems" class="item-icon-left assertive" id="menu-list-item1" ng-href="{{x.link}}" data-componentid="list-item1">
+								<span ng-bind-html="x.icon"></span>{{x.item}}
+						</ion-item>
+					</ion-list>			
+				</ion-content>
+				</ion-side-menu>
+			</ion-side-menus>
+		</div>
+	</body>
 </html>

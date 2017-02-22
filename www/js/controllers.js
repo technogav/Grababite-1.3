@@ -3,20 +3,20 @@ angular.module('app.controllers', ['firebase'])//may not need to inject firebase
 .controller('menuCtrl', ['$scope', '$stateParams','$location','$rootScope',
 function ($scope, $stateParams,$location, $rootScope) {
 	//use this controller to dynamically change the side menubar
-	var randObj = {0:"a", 1:"b", 2:"c"};
 	$scope.menuItems = [];
-	
-	
 	$rootScope.$on('$stateChangeSuccess', function(){
 		var absUrl = $location.absUrl();
 		absUrl = absUrl.substr(absUrl.lastIndexOf("/") + 1);
-		
-		var pages = [{
-			item: 2
-		}];
-		
-		if(absUrl == "login"){
-		$scope.menuItems = [
+		/*assign a sidemenu thats relevent to the page*/
+		//rearrange this for optimization later
+		if((absUrl === "page3") || (absUrl === "page2") || (absUrl === "page1") || (absUrl === "page4")){
+			$scope.menuItems = [
+						{item: "Home", icon:"<i class='icon ion-home'></i>", link:"#/login"},
+						{item: "Logout" , icon:"<i class='icon ion-log-out'>", link:"#/page100"}
+			];
+		}
+		else if((absUrl === "history") || (absUrl === "bookings") || (absUrl === "page102") || (absUrl === "page100") || (absUrl === "myDeals")|| (absUrl === "page101")){
+			$scope.menuItems = [
 						{item: "Home", icon:"<i class='icon ion-home'></i>", link:"#/login"},
 						{item: "Add Restaurant" , icon:"<i class='icon ion-plus-circled'>", link:"#/page101"},
 						{item: "Map" , icon:"<i class='icon ion-map'>", link:"#/page201/restaurantMapView"},
@@ -24,28 +24,17 @@ function ($scope, $stateParams,$location, $rootScope) {
 						{item: "History" , icon:"<i class='icon ion-eye'>", link:"#/history"},
 						{item: "History" , icon:"<i class='icon ion-log-out'>", link:"#/page100"}
 			];
-
+			
 		}
-		if(absUrl === "page3"){
-			$scope.menuItems = [
-						{item: "Home", icon:"<i class='icon ion-home'></i>", link:"#/login"},
-						
-						{item: "Logout" , icon:"<i class='icon ion-log-out'>", link:"#/page100"}
-			];
+		else{
+			$scope.menuItems = [];
 		}
-	
-	});
-	
-	
-	
-	
-}])
+	});		
+}])//ok
 
 .controller('restaurantAccountCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$http', '$location', '$ionicSideMenuDelegate',
 function ($scope, $stateParams, RestaurantFactory, $http, $location, $ionicSideMenuDelegate) {
-	//console.log("restaurantAccountCtrl");
 	
-	//
 	$scope.$on("$ionicView.beforeEnter", function(){
 		
 		if($ionicSideMenuDelegate.isOpen()){
@@ -53,18 +42,12 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location, $ionicSideM
 		}
 	});
 	
-	
-	
 	$scope.newRest = [];
+	$scope.currentUser = RestaurantFactory.getCurrentUser();//console.log($scope.currentUser);
 	
-	//$scope.currentUser = RestaurantFactory.getSignUpCustomer();
-	$scope.currentUser = RestaurantFactory.getCurrentUser();
-		//console.log($scope.currentUser);
-	
+	/*make restaurant object and send to another function to send to factory*/
 	$scope.addRestaurant = function(){
-	
 		var url = "http://maps.google.com/maps/api/geocode/json?address=" + $scope.newRest.address;
-
 			$http({
 				method: 'GET',
 				url: url
@@ -83,52 +66,56 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location, $ionicSideM
 			});
 	};
 	
+	/*send restaurant object to the factory to be saved to firebase and usful vars collected*/
 	$scope.sendToService = function(newRest){
-		
-		RestaurantFactory.setRestaurant(newRest);//THIS WORKS
-		//RestaurantFactory.refreshLoggedInrestaurant();
+		RestaurantFactory.setRestaurant(newRest);		
 	};
 
-}])
+}])//ok
 
 .controller('customerAccountCtrl', ['$scope', '$stateParams', 'customerFactory', '$http', '$location',
 function ($scope, $stateParams, customerFactory, $http, $location) {
 	$scope.currentUser = customerFactory.getCurrentUser();
 	
-}])
+}])//ok
 
 .controller('customerSignUpCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location', '$ionicPopup',
 function ($scope, $stateParams, RestaurantFactory, $location, $ionicPopup) {
 	var main = this;
-	console.log("customerSignUpCtrl");
-		
+	//console.log("customerSignUpCtrl");	
 	main.newCust = [];
 	var account_type = "";
 	
+	/*decide weather the customer will sign up as a restaurant of consumer*/	
+	//sets the account type to customer at the factory level & directs to the relevent sign up view
 	$scope.customer = function(){
 		account_type = "customer";
 		RestaurantFactory.setAccountType(account_type);
-		$location.path('/customerSignUp');//nobody is signed in when redirected to map after sign up
+		$location.path('/customerSignUp');
 	};
+	
+	//sets the account type to customer at the factory level & directs to the relevent sign up view
 	$scope.restaurant = function(){
 		account_type = "restaurant";
 		RestaurantFactory.setAccountType(account_type);
 		$location.path('/customerSignUpRestEd');//page101
 	};
 	
-
 	$scope.newCustomer = function(newCust){
 		
 		var account_type = RestaurantFactory.getAccountType();
 		
 		if(newCust.password1 === newCust.password2){
+			
+			/*bind the account type to the scope object newCust $scope.newCust*/
 			newCust.account_type = account_type;
-			console.log(account_type);
-			console.log(newCust);
-			RestaurantFactory.setCustomer(newCust);//THIS WORKS
+			
+			//send newCust to th efactory to be saved to FB 
+			RestaurantFactory.setCustomer(newCust);
 		
 			$location.path('/login');
 		}else{
+			//handle login errors
 			newCust.password1 = "";
 			newCust.password2 = "";
 			var showAlert = function() {
@@ -146,19 +133,20 @@ function ($scope, $stateParams, RestaurantFactory, $location, $ionicPopup) {
 	};
 	
 	$scope.newCustomerRest = function(newCust){
+		/*newCust is the object passed back from the view with all the  fields filled in*/
 		
-		var account_type = RestaurantFactory.getAccountType();
+		var account_type = RestaurantFactory.getAccountType();//possibly redundant code as account has been set in this controller
 		
+		/*if passwords match send newCust obj to the factory to get saved to FB and to set the customers signUpCustomer var*/
 		if(newCust.password1 === newCust.password2){
 			newCust.account_type = account_type;
-			//console.log(account_type);
-			//console.log(newCust);
-			RestaurantFactory.setCustomer(newCust);//THIS WORKS
-		
+			RestaurantFactory.setCustomer(newCust);
+			//Change view
 			$location.path('/login');
 		}else{
 			newCust.password1 = "";
 			newCust.password2 = "";
+			/*handle login errors*///needs alot more
 			var showAlert = function() {
 					var alertPopup = $ionicPopup.alert({
 						title: 'Error',
@@ -174,10 +162,10 @@ function ($scope, $stateParams, RestaurantFactory, $location, $ionicPopup) {
 		
 	};
 	
-	//have the custOrRest page here too
+	//two simular functions here all the only difference is where they relocate to surly there is a neater way to do this
 		
 		
-}])
+}])//needs to be rewritten
 
 .controller('reserveTableCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location', 'ionicTimePicker', 'ionicDatePicker',
 function ($scope, $stateParams, RestaurantFactory, $location, ionicTimePicker, ionicDatePicker) {
@@ -185,9 +173,13 @@ function ($scope, $stateParams, RestaurantFactory, $location, ionicTimePicker, i
 	console.log("reserveTable");
 	$scope.resTime = "Enter Time";
 	$scope.resDate = "Enter Date";
+	/*get the details of the reserveDeal obj*/
 	var details = RestaurantFactory.getReserveDeal();
-	//console.log(details);
+	
+	//get customer details
 	var customerDetails = RestaurantFactory.getCurrentUser();
+	
+	/*predefined timepicker functions unusual syntax- rewrite to include an arg*/
 	var setStartTime = {
 		callback: function (val) {      //Mandatory
 			if (typeof (val) === 'undefined') {
@@ -230,6 +222,8 @@ function ($scope, $stateParams, RestaurantFactory, $location, ionicTimePicker, i
       closeOnSelect: false,       //Optional
       templateType: 'popup'       //Optional
     };
+	
+	
 	$scope.getStartDate = function(){
       ionicDatePicker.openDatePicker(setStartDate);
     };
@@ -348,15 +342,6 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	}
 	
 }])
-
-
-
-
-
-
-
-
-
 
 .controller('myCustomerAccountCtrl', ['$scope', '$stateParams', 'customerFactory',
 function ($scope, $stateParams, customerFactory) {

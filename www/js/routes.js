@@ -44,7 +44,7 @@ angular.module('app.routes', [])
   .state('tabs2.restaurantMapView', {
     url: '/restaurantMapView',
 	   views: {
-      'tab4': {
+      'tab24': {
         templateUrl: 'templates/restaurantMapView.html',
         controller: 'liveDealsController as main'  
 	  }
@@ -120,7 +120,7 @@ angular.module('app.routes', [])
   .state('tabs2.TodaysDeals', {
     url: '/page100',
     views:{
-      'tab1':{
+      'tab21':{
     templateUrl: 'templates/todaysDeals.html',
     controller: 'todayDealsCtrl'
   }
@@ -136,7 +136,7 @@ angular.module('app.routes', [])
   .state('tabs2.newDeal', {
     url: '/page102',
     views:{
-      'tab3':{
+      'tab23':{
     templateUrl: 'templates/newDeal.html',
     controller: 'newDealsCtrl'
   }
@@ -176,7 +176,7 @@ angular.module('app.routes', [])
   .state('tabs2.myDeals', {
     url: '/myDeals',
     views:{
-      'tab2':{
+      'tab22':{
     templateUrl: 'templates/myDeals.html',
     controller: 'myDealsCtrl'
   }
@@ -186,7 +186,7 @@ angular.module('app.routes', [])
   .state('tabs2.bookings', {
     url: '/bookings',
     views:{
-      'tab4':{
+      'tab24':{
     templateUrl: 'templates/bookings.html',
     controller: 'bookingsCtrl'
   }
@@ -196,7 +196,7 @@ angular.module('app.routes', [])
   .state('tabs2.customerBookingDetails', {
     url: '/customerBookingDetails',
     views:{
-      'tab4':{
+      'tab24':{
     templateUrl: 'templates/customerBookingDetails.html',
     controller: 'customerBookingDetailsCtrl'
   }
