@@ -37,6 +37,7 @@ angular.module('app.services', ['firebase'])
 	rFactory.setBookingDetail = function(b){
 		console.log(b);
 		bookingDetail = b;
+		
 	}
 	
 	rFactory.getBookingDetail = function(){
@@ -59,15 +60,26 @@ angular.module('app.services', ['firebase'])
 	
 	rFactory.addNewRestaurantBooking = function(restaurant, reserveDeal){
 		angular.forEach(fbArray, function(value,key){
+			//identify the restaurant
 			if(value.account_name === restaurant.account_name){
 				
-				reserveDeal.uptake = reserveDeal.uptake +1;
+				reserveDeal.uptake = parseInt(reserveDeal.uptake) +1;
+				
 				angular.forEach(restaurant.deals, function(value){
 					if(value.deal_name == reserveDeal.deal_name){
-						value.uptake = value.uptake + 1;
+						value.uptake = parseInt(value.uptake) + 1;
 					}
+					
+					
+					console.log(value.uptake);
+					console.log(value.numberAvailable);
 				});
-				console.log(fbArray[key]);
+				console.log(value.current_deal)
+				value.current_deal.uptake = value.current_deal.uptake + 1;
+				if(value.current_deal.uptake >= value.current_deal.numberAvailable){
+					value.current_deal = null;
+				}
+				//console.log(fbArray[key]);
 				
 				fbArray.$save(key).then(function(){
 					

@@ -170,7 +170,7 @@ function ($scope, $stateParams, RestaurantFactory, $location, $ionicPopup) {
 .controller('reserveTableCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location', 'ionicTimePicker', 'ionicDatePicker',
 function ($scope, $stateParams, RestaurantFactory, $location, ionicTimePicker, ionicDatePicker) {
 	"use strict";
-	console.log("reserveTable");
+	//console.log("reserveTable");
 	$scope.resTime = "Enter Time";
 	$scope.resDate = "Enter Date";
 	/*get the details of the reserveDeal obj*/
@@ -315,7 +315,7 @@ function ($scope, $stateParams, RestaurantFactory, $location, ionicTimePicker, i
 .controller('reservationCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
 function ($scope, $stateParams, RestaurantFactory, $location) {
 	"use strict";
-	console.log("reservationCtrl");
+	//console.log("reservationCtrl");
 	
 	$scope.reservations = RestaurantFactory.getReservations();
 	
@@ -334,7 +334,7 @@ function ($scope, $stateParams, RestaurantFactory, $location) {
 	console.log("bookings");
 	
 	$scope.bookings = RestaurantFactory.getBookings();
-	console.log($scope.bookings);
+	//console.log($scope.bookings);
 	//pass object to the factory
 	$scope.bookingDetails = function(b){
 		RestaurantFactory.setBookingDetail(b);

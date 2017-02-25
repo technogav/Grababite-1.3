@@ -23,13 +23,16 @@ angular.module('mainFactory', ['firebase'])
 	var customerIndex = 0;
 	//SET ALL RESTAURANTS
 	var getRestaurantsWithCurrentDeal = function(){
+		restsWithCurrentDeal = [];
+		
 		 angular.forEach(fbArray, function(value,key) {
 			rests.push(value);
 			if(value.current_deal !== undefined){
-				//console.log(value.account_name);
+				//value.current_deal = null;
+				console.log(value.account_name);
 				var end = new Date(value.current_deal.endDate);
 				var start = new Date(value.current_deal.startDate);
-				if(end >= today){
+				if((end >= today)||(value.uptake <= value.numberAvailable)){
 
 					if(start < today){
 						restsWithCurrentDeal.push(value);
@@ -250,23 +253,19 @@ angular.module('mainFactory', ['firebase'])
 			}
 	}
 	
-	mainFactory.setNewCurrentDeal = function(newCurrentdeal){
+/*func: to check the newCurrentdeal(edited deal) is valid then setting field current_deal in FB appropriatly*/
+	mainFactory.setNewCurrentDeal = function(newCurrentdeal){//setSaveDeal() from edit deals ctrl
 		var xend = new Date(newCurrentdeal.endDate);
 		var xstart = new Date(newCurrentdeal.startDate);
-		
+		//check date and numberAvailable
 		if((xend >= today) && (xstart <= today) && (newCurrentdeal.numberAvailable > newCurrentdeal.uptake)){
-			
-				console.log(true);
-				fbArray[restaurantIndex].current_deal = newCurrentdeal;
-			
+				fbArray[restaurantIndex].current_deal = newCurrentdeal;	
 		}else{
-			console.log(liveDeals);
+		//if OOB remove current_deal field	
 			fbArray[restaurantIndex].current_deal = null;
 		}
 		
-		fbArray.$save(restaurantIndex).then(function(){
-			$location.path('/page201/page100');
-		});
+		
 	}
 		
 	mainFactory.setCurrentDeal = function(){ /***********************************ALERT NOT FIRING OR SAVING CORRECTLY*/

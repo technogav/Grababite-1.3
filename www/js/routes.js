@@ -100,7 +100,7 @@ angular.module('app.routes', [])
     controller: 'pleaseTryAgainCtrl'
   })
 
-  .state('tabs.bookingDetails', {
+  /*.state('tabs.bookingDetails', {
     url: '/page15',
     views: {
       'tab3': {
@@ -108,7 +108,7 @@ angular.module('app.routes', [])
         controller: 'bookingDetailsCtrl'
       }
     }
-  })
+  })*/
 
   .state('welcomeToGrababite', {
     url: '/page14',

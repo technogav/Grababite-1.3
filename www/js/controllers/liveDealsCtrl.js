@@ -1,14 +1,17 @@
 
 angular.module('liveDealsController', ['firebase', 'ngMap'])
 
-.controller('liveDealsController', ['$scope', '$http', '$location', 'NgMap', '$stateParams', '$cordovaGeolocation', '$ionicPlatform', 'RestaurantFactory', '$ionicSideMenuDelegate',
+.controller('liveDealsController', ['$scope', '$http', '$location', 'NgMap', '$stateParams', '$cordovaGeolocation', '$ionicPlatform', 'RestaurantFactory', '$ionicSideMenuDelegate', '$interval',
 							  
-function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatform, RestaurantFactory, $ionicSideMenuDelegate) {
+function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $ionicPlatform, RestaurantFactory, $ionicSideMenuDelegate
+		  ,$interval) {
 'use strict';
 //console.log("liveDealsController");
 	
 	
 	var main = this;
+	$scope.rests = [];
+	$scope.restsWithCurrentDeal = [];
 	
 	$scope.$on("$ionicView.beforeEnter", function(){
 		
@@ -16,20 +19,23 @@ function ($scope, $http, $location, NgMap, $stateParams, $cordovaGeolocation, $i
 			$ionicSideMenuDelegate.toggleRight();
 			
 		}
-		$scope.restsWithCurrentDeal = RestaurantFactory.getRestsWithCurrentDeal();
-		//console.log($scope.restsWithCurrentDeal);
-		
+	});	
+/*func: go through the FB ref to see if there are current_deals in the DB; that is also looped to look every 5 seconds*/	
+	$scope.restsWithCurrentDeal = [];
+	var refreshCurrentDeals = function(){
+		$scope.restsWithCurrentDeal = RestaurantFactory.getRestsWithCurrentDeal();		
+	}
+	refreshCurrentDeals();
+	
+	$interval(refreshCurrentDeals, 5000);
+	
+	NgMap.getMap().then(function(map) {
+		main.map = map;
 	});
-	$scope.$on("$ionicView.enter", function(){
-			NgMap.getMap().then(function(map) {
-				main.map = map;
-		});
-	});
+	
 //function to set the currentDeal in the RestaurantFactory provided the initVar(login) function has been fired off
 	//RestaurantFactory.setCurrentDeal();
 //initalise variables	
-	$scope.rests = [];
-	$scope.restsWithCurrentDeal = [];
 	
 	$scope.user = RestaurantFactory.getCurrentUser();
 

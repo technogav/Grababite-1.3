@@ -124,9 +124,7 @@ angular.module('dealsAndEditFactory', ['firebase'])
 	}*/
 	
 	dealFactory.setReactivateDeal = function(deal){	
-		
-		mainFactory.setReactivateDeal(deal);	
-		
+		mainFactory.setReactivateDeal(deal);		
 	};
 	
 	dealFactory.setRemoveDeal = function(deal){
@@ -154,9 +152,13 @@ angular.module('dealsAndEditFactory', ['firebase'])
 		});
 	}
 	
+/*func: to pass in edited details obj to be checked if the deal is within bounds	*/
 	dealFactory.setSaveDeal = function(deal){
-	
 		mainFactory.setNewCurrentDeal(deal);
+		/*save any changes to the FB ref then change views*/
+		fbArray.$save(restaurantIndex).then(function(){
+			$location.path('/page201/page100');
+		});
 	}
 	
 	dealFactory.getCurrentUser = function(){

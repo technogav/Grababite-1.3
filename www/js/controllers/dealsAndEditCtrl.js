@@ -76,24 +76,19 @@ function ($scope, $stateParams, dealsAndEditFactory) {
 .controller('editDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location', 'ionicTimePicker',
 function ($scope, $stateParams, dealsAndEditFactory, $location, ionicTimePicker) {
 	"use strict";
-	console.log("editDealCtrl");
+	//console.log("editDealCtrl");
 	
+	/*get some varibales before entering view*/
 	$scope.$on("$ionicView.beforeEnter", function(){
-		//dealsAndEditFactory.setHistoricalDeals();
 		$scope.dealToEdit = dealsAndEditFactory.getDealToEdit();
-		//$scope.liveDeals = dealsAndEditFactory.getLiveDeals();
 		$scope.displayStartTime = $scope.dealToEdit;
-	console.log($scope.dealToEdit[0]);
-	$scope.displayEndTime = $scope.dealToEdit;
-		
+		//console.log($scope.dealToEdit[0]);
+		$scope.displayEndTime = $scope.dealToEdit;	
 	});
 	
-
-	//save edit to the database an update current Deal
-	$scope.saveEdit = function(deal){
-		
+/*func: to set the current_deal field in FB; will also delete the field in FB if the edited deal is Out Of Bounds(OOB)*/
+	$scope.saveEdit = function(deal){	
 		dealsAndEditFactory.setSaveDeal(deal);
-		//dealsAndEditFactory.setCurrentDeal();
 	};
 	
 	
