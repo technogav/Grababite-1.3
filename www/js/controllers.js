@@ -175,10 +175,10 @@ function ($scope, $stateParams, RestaurantFactory, $location, ionicTimePicker, i
 	$scope.resDate = "Enter Date";
 	/*get the details of the reserveDeal obj*/
 	var details = RestaurantFactory.getReserveDeal();
-	
+	console.log(details);
 	//get customer details
 	var customerDetails = RestaurantFactory.getCurrentUser();
-	
+	console.log(customerDetails);
 	/*predefined timepicker functions unusual syntax- rewrite to include an arg*/
 	var setStartTime = {
 		callback: function (val) {      //Mandatory
@@ -249,8 +249,9 @@ function ($scope, $stateParams, RestaurantFactory, $location, ionicTimePicker, i
 	$scope.newCustomerReseravtion = [];
 	
 	
-	$scope.makeReservation = function(reserve){//no ng click yet
-		console.log(reserve);
+	$scope.makeReservation = function(){//no ng click yet
+		//RestaurantFactory.incrementCurrent_dealInFB();use this if i cannot find an alt
+		//put an if to ask weather all the fields have benn successfully filled
 		var xdate = $scope.resDate;
 		var xtime = $scope.resTime;
 		var reseravtionObj = {
@@ -312,8 +313,8 @@ function ($scope, $stateParams, RestaurantFactory, $location, ionicTimePicker, i
 	}
 }])
 
-.controller('reservationCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$location',
-function ($scope, $stateParams, RestaurantFactory, $location) {
+.controller('reservationCtrl', ['$scope', '$stateParams', 'RestaurantFactory',
+function ($scope, $stateParams, RestaurantFactory) {
 	"use strict";
 	//console.log("reservationCtrl");
 	

@@ -58,44 +58,73 @@ angular.module('app.services', ['firebase'])
 	}
 	
 	
-	rFactory.addNewRestaurantBooking = function(restaurant, reserveDeal){
+	rFactory.addNewRestaurantBooking = function(restaurant, reserveDeal){//re-write this function
+		console.log(restaurant.current_deal);
+		console.log(restaurant);
+		index = "";
+		//target the restaurant and increment the current_deal.uptake
+		/*angular.forEach(fbArray, function(value,key){	
+			if(value.$id === restaurant.$id){
+				index = value.$id;
+				restaurant.current_deal.uptake = restaurant.current_deal.uptake + 1;
+				fbArray[key] = restaurant;
+				
+				
+				
+			}
+		});*/
+		
+		//console.log(fbArray[index]);
+		//cur = cur++;
+		
+		
+		var index = null;
 		angular.forEach(fbArray, function(value,key){
 			//identify the restaurant
+			index = key
+			
 			if(value.account_name === restaurant.account_name){
-				
+				console.log("account names match");
 				reserveDeal.uptake = parseInt(reserveDeal.uptake) +1;
-				
+				//console.log(uptake);
 				angular.forEach(restaurant.deals, function(value){
+					
 					if(value.deal_name == reserveDeal.deal_name){
 						value.uptake = parseInt(value.uptake) + 1;
+						console.log(value.uptake);
 					}
-					
-					
-					console.log(value.uptake);
-					console.log(value.numberAvailable);
 				});
-				console.log(value.current_deal)
-				value.current_deal.uptake = value.current_deal.uptake + 1;
-				if(value.current_deal.uptake >= value.current_deal.numberAvailable){
-					value.current_deal = null;
-				}
-				//console.log(fbArray[key]);
 				
-				fbArray.$save(key).then(function(){
-					
-					$location.path('/page1/page3');
-				});
+				//console.log(key);
+//				console.log(fbArray[key].current_deal.uptake);
+				//value.current_deal.uptake = value.current_deal.uptake + 1;
+				
+				
+				fbArray[key].current_deal.uptake = fbArray[key].current_deal.uptake + 1;
+				console.log(fbArray[key].current_deal.uptake);
+				
+				if(value.current_deal.uptake >= value.current_deal.numberAvailable){
+						value.current_deal = null;
+					}
 				
 			};
+			
+			
+			
 		});
-		
+		fbArray.$save(index).then(function(){
+						console.log("here");
+						$location.path('/page1/page3');
+					});
 		
 	};
 	
 	rFactory.addNewCustomerBooking = function(customer){
 		//console.log(customer);
 		//maybe get a global logged in customer index
-		angular.forEach(fbCustomerArray, function(value,key){	
+		var index = null;
+		angular.forEach(fbCustomerArray, function(value,key){
+			index = key;
 			if(value.account_name === customer.account_name){
 				fbCustomerArray[key] = customer;
 				//console.log(fbCustomerArray[key]);
@@ -108,23 +137,23 @@ angular.module('app.services', ['firebase'])
 				}*/
 				
 				
-				fbCustomerArray.$save(key).then(function(){
-					console.log("Deal has been reserved");
-					var showAlert = function() {
-							var alertPopup = $ionicPopup.alert({
-								title: 'Reserved',
-								template: 'Your Deal has been reserved. Check the reservation tab for details.'
-							});
-						alertPopup.then(function(res) {
-
-						});
-						
-					};
-					showAlert();
-				});
+				
 			}
 		});
-		
+		fbCustomerArray.$save(index).then(function(){
+			console.log("Deal has been reserved");
+			var showAlert = function() {
+					var alertPopup = $ionicPopup.alert({
+						title: 'Reserved',
+						template: 'Your Deal has been reserved. Check the reservation tab for details.'
+					});
+				alertPopup.then(function(res) {
+
+				});
+
+			};
+			showAlert();
+		});
 		/*fbArray.$loaded().then(function(data) {
 			angular.forEach(data, function(value) {
 				console.log(value);

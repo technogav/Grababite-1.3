@@ -29,7 +29,7 @@ angular.module('mainFactory', ['firebase'])
 			rests.push(value);
 			if(value.current_deal !== undefined){
 				//value.current_deal = null;
-				console.log(value.account_name);
+				//console.log(value.account_name);
 				var end = new Date(value.current_deal.endDate);
 				var start = new Date(value.current_deal.startDate);
 				if((end >= today)||(value.uptake <= value.numberAvailable)){
@@ -338,9 +338,16 @@ angular.module('mainFactory', ['firebase'])
 						
 	mainFactory.getReservations = function(){//stick this function one factory down// actually get mainFactory.getCurrentUser will work
 		var reservations = [];
-		console.log(currentUser);
+		//console.log(today);
 		if(currentUser.bookings !== undefined){
-			reservations = currentUser.bookings;
+			angular.forEach(currentUser.bookings, function(value){
+				var resDate  = new Date(value.reservation_date);
+				//console.log(resDate);
+				if(resDate >= today){
+					reservations.push(value);
+				}
+			})
+			//reservations = currentUser.bookings;
 			
 		}else{
 			reservations = {name: "You currently have no reservations"}
