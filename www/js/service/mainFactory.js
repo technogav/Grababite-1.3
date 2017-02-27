@@ -257,6 +257,7 @@ angular.module('mainFactory', ['firebase'])
 	mainFactory.setNewCurrentDeal = function(newCurrentdeal){//setSaveDeal() from edit deals ctrl
 		var xend = new Date(newCurrentdeal.endDate);
 		var xstart = new Date(newCurrentdeal.startDate);
+		newCurrentdeal.uptake = parseInt(newCurrentdeal.uptake);
 		//check date and numberAvailable
 		if((xend >= today) && (xstart <= today) && (newCurrentdeal.numberAvailable > newCurrentdeal.uptake)){
 				fbArray[restaurantIndex].current_deal = newCurrentdeal;	

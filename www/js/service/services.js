@@ -16,7 +16,7 @@ angular.module('app.services', ['firebase'])
 								   console.log(loggedInName);
 	var rests = mainFactory.getRests();
 	var loggedInRestaurant = mainFactory.getLoggedInRestaurant();
-	var restaurantIndex = 8;
+	var restaurantIndex = null;
 	var today = mainFactory.getToday();
 	var account_type = "";
 	
@@ -100,7 +100,7 @@ angular.module('app.services', ['firebase'])
 				//value.current_deal.uptake = value.current_deal.uptake + 1;
 				
 				
-				fbArray[key].current_deal.uptake = fbArray[key].current_deal.uptake + 1;
+				fbArray[key].current_deal.uptake = parseInt(fbArray[key].current_deal.uptake) + 1;
 				console.log(fbArray[key].current_deal.uptake);
 				
 				if(value.current_deal.uptake >= value.current_deal.numberAvailable){
