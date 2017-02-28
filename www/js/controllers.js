@@ -9,7 +9,7 @@ function ($scope, $stateParams,$location, $rootScope) {
 		absUrl = absUrl.substr(absUrl.lastIndexOf("/") + 1);
 		/*assign a sidemenu thats relevent to the page*/
 		//rearrange this for optimization later
-		if((absUrl === "page3") || (absUrl === "page2") || (absUrl === "page1") || (absUrl === "page4")){
+		if((absUrl === "page3") || (absUrl === "page2") || (absUrl === "page1") || (absUrl === "page4")|| (absUrl === "reserveTable")){
 			$scope.menuItems = [
 						{item: "Home", icon:"<i class='icon ion-home'></i>", link:"#/login"},
 						{item: "Logout" , icon:"<i class='icon ion-log-out'>", link:"#/page100"}

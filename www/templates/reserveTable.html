@@ -7,9 +7,13 @@
 		<div style="margin-left: -10px; width: calc(100% + 20px);">
 			<img src="img/U3wlA19mScqQL893gAnv_champneys.png" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
 		</div>
-		<h2 id="reserveDealHeader">{{reserveDeal.deal_name}}</h2>
+		<h3 id="reserveDealHeader">{{reserveDeal.deal_name}}</h3>
+        <div class="reserveDealBorder">
+          <p class="reserveDealPara">You are about to reserve this deal. Please enter your reservation date and time. This will send your reservation to the restaurant. These are live deals in real time so we cannot guarentee the deal until you reserve it.<br></p>
+        </div>
+		 <h4 style="text-align:center">Details of your reserved deal</h4>
 		<p class="reserveDealPara">{{reserveDeal.details}}</p>
-		<p class="reserveDealPara">You can avail of this deal between the dates {{displayStartDate | date:'MMM d y'}} and {{displayEndDate | date:'MMM d y'}}</p>
+	  <p class="reserveDealPara">You can avail of this deal between the dates {{displayStartDate | date:'MMM d y'}} and {{displayEndDate | date:'MMM d y'}}</p>
 		<p class="reserveDealPara">Deal is only valid between the times {{displayStartTime}} and , {{displayEndTime}}</p>
 		<form id="reserveTable-form11" class="list">	
 			<div class="spacer" style="width: 300px; height: 10px;"></div>

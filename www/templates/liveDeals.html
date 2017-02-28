@@ -8,13 +8,47 @@
     types="{{types}}"
     on-place-changed="main.placeChanged()"//maybe add this to the disableTap function
     ng-focus="disableTap()" /> <br/>
-     Welcome {{main.user.account_name}}
   <div ng-show="main.place">
     <!--Address = {{main.place.formatted_address}} <br/>
     Location: {{main.place.geometry.location}}<br/>-->
   </div>
   
-	<ng-map center="[{{lat}}, {{long}}]">
+	<ng-map center="[{{lat}}, {{long}}]" styles="[{
+	featureType:'road.highway',
+	elementType:'geometry',
+		stylers:[{hue:'yellow'},
+	{saturation:60},{lightness:-20}]},
+	{featureType:'road.arterial',
+	elementType:'all',
+		stylers:[{hue:'grey'},
+	{lightness:-40},
+	{visibility:'simplified'},
+	{saturation:30}]},
+	{featureType:'road.local',
+	elementType:'all',
+		stylers:[{hue:'blue'},
+	{saturation:50},{gamma:0.7},
+	{visibility:'simplified'}]},
+	{featureType:'water',
+	elementType:'geometry',
+		stylers:[{saturation:40},{visibility:'on'},
+	{lightness:40}]},
+	{featureType:'road.highway',
+	elementType:'labels',
+		stylers:[{visibility:'off'},
+	{saturation:98}]},
+	{featureType:'administrative.locality',
+	elementType:'labels',
+		stylers:[{hue:'#0022ff'},{visibility:'on'},
+	{saturation:50},
+	{lightness:-10},
+	{gamma:0.90}]},
+	{featureType:'transit.line',
+	elementType:'geometry',
+		stylers:[{hue:'yellow'},
+	{visibility:'on'},
+	{lightness:-70}]}]">
+		
 		<custom-marker id="{{r.id}}" position="{{r.coords}}"
 				on-click="showDetail(r)" ng-repeat="r in restsWithCurrentDeal track by $index">
           <div style="max-width:38px;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -33,8 +67,8 @@
 		<div ng-non-bindable="">
 			<div style="width: 160px; height:auto; padding:0;">
 				<h4 style="text-align: center">{{main.rest.name}}</h4>
-				<div style="width:40%; display:inline-block; float:left;">
-					<img src="https://s3.amazonaws.com/ionic-io-static/EGzQ5CcDS3ODKJcQE11W_Asset 1.png">
+				<div style="width:35%; display:inline-block; float:left;">
+					<img style="width:80%;"src="https://s3.amazonaws.com/ionic-io-static/EGzQ5CcDS3ODKJcQE11W_Asset 1.png">
 				</div>        
 				<div style="width:50%;  margin-left: 10%;display:inline-block; float:left;">                   
 					<strong>Live Deal: </strong><br>{{main.rest.current_deal.deal_name}}<br><br>

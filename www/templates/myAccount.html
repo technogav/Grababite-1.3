@@ -2,29 +2,31 @@
 	<ion-content padding="false" class="has-header">
 		<div class="list card" id="myAccount-card24">
 			<div class="item item-body" id="myAccount-list-item-container9">
+				<h3stable>You may edit your account details. Just click in, edit and press the update button</h3stable>
 				<ion-list id="myAccount-list6">
-				
+
 					<ion-item class="item-icon-right stable" id="myAccount-list-item38">
-						<input type="text" ng-model="currentUser.account_name" />
+						<input style="width:100%;" type="text" ng-model="currentUser.account_name" />
 							<i class="icon ion-edit icon-accessory"></i>
 					</ion-item>
 
 					<ion-item class="item-icon-right" id="myAccount-list-item39">
-						<input type="text" ng-model="currentUser.email" />
+						<input style="width:100%;" type="text" ng-model="currentUser.email" />
 							<i class="icon ion-edit icon-accessory"></i>
 							<ion-option-button class="button-positive"></ion-option-button>
 							<ion-option-button class="button-positive"></ion-option-button>
 					</ion-item>
-					
-		<ion-item class="item-icon-right" id="myAccount-list-item40">
-		<input type="text" ng-model="currentUser.phone" />
-		<i class="icon ion-edit icon-accessory"></i>
-		</ion-item>
-		</ion-list>
 
+					<ion-item class="item-icon-right" id="myAccount-list-item40">
+						<input style="width:100%;" type="text" ng-model="currentUser.phone" />
+							<i class="icon ion-edit icon-accessory"></i>
+					</ion-item>
+					<button id="myAccount-button11" class="button button-energized  button-block icon ion-android-checkbox"
+						ng-click="updateAccountInfo(currentUser)"> Update my info</button>
+				</ion-list>
+
+			</div>
 		</div>
-		</div>
-		<button id="myAccount-button11" class="button button-energized  button-block icon ion-android-checkbox"
-		ng-click="updateAccountInfo(currentUser)"> Update my info</button>
+		
 	</ion-content>
 </ion-view>
