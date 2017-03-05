@@ -13,31 +13,22 @@
 				
 					<label class="item item-input">
 					 	
-						<input type="text" ng-model="dealToEdit.startDate" />
+						<input type="text" placeholder="{{startDate}}" ng-click="getStartDate()"autocomplete="off">
 						<i class="icon ion-edit icon-accessory"></i>
 					</label>
-				
-				
-				
-					<label class="item item-input">
-					 	
-						<input type="text" ng-model="dealToEdit.endDate" />
+		
+					<label class="item item-input">	 	
+						<input type="text" placeholder="{{endDate}}" ng-click="getEndDate()"autocomplete="off">
 						<i class="icon ion-edit icon-accessory"></i>
 					</label>
-				
-				
-				
+
 					<label class="item item-input">
-					 	
-						<input type="text" ng-click="getStartTime()" ng-model="displayStartTime" />
+						<input type="text" placeholder="{{startTime}}" ng-click="getStartTime()"autocomplete="off">
 						<i class="icon ion-edit icon-accessory"></i>
 					</label>
-				
-				
-				
+
 					<label class="item item-input">
-					 	
-						<input type="text" ng-click="getEndTime()" ng-model="displayEndTime" />
+						<input type="text" placeholder="{{endTime}}" ng-click="getEndTime()"autocomplete="off">
 						<i class="icon ion-edit icon-accessory"></i>
 					</label>
 				

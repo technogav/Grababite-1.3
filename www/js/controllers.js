@@ -15,16 +15,14 @@ function ($scope, $stateParams,$location, $rootScope) {
 						{item: "Logout" , icon:"<i class='icon ion-log-out'>", link:"#/page100"}
 			];
 		}
-		else if((absUrl === "history") || (absUrl === "bookings") || (absUrl === "page102") || (absUrl === "page100") || (absUrl === "myDeals")|| (absUrl === "page101")){
+		else if((absUrl === "history") || (absUrl === "bookings") || (absUrl === "page102") || (absUrl === "page100") || (absUrl === "myDeals")|| (absUrl === "page101")|| (absUrl === "restaurantMapView")){
 			$scope.menuItems = [
-						{item: "Home", icon:"<i class='icon ion-home'></i>", link:"#/login"},
-						{item: "Add Restaurant" , icon:"<i class='icon ion-plus-circled'>", link:"#/page101"},
+						{item: "Home", icon:"<i class='icon ion-home'></i>", link:"#/page201/page100"},
+						{item: "Add Restaurant" , icon:"<i class='icon ion-plus-circled'>", link:"#/page101"},//this will be edit profile
 						{item: "Map" , icon:"<i class='icon ion-map'>", link:"#/page201/restaurantMapView"},
-						{item: "Analytics" , icon:"<i class='icon ion-pie-graph'>", link:"#/page201/analytics"},
 						{item: "History" , icon:"<i class='icon ion-eye'>", link:"#/history"},
-						{item: "History" , icon:"<i class='icon ion-log-out'>", link:"#/page100"}
-			];
-			
+						{item: "Logout" , icon:"<i class='icon ion-log-out'>", link:"#/login"}//this needs a function to clear data
+			];	
 		}
 		else{
 			$scope.menuItems = [];
@@ -34,7 +32,7 @@ function ($scope, $stateParams,$location, $rootScope) {
 
 .controller('restaurantAccountCtrl', ['$scope', '$stateParams', 'RestaurantFactory', '$http', '$location', '$ionicSideMenuDelegate',
 function ($scope, $stateParams, RestaurantFactory, $http, $location, $ionicSideMenuDelegate) {
-	
+	var main = this;
 	$scope.$on("$ionicView.beforeEnter", function(){
 		
 		if($ionicSideMenuDelegate.isOpen()){
@@ -42,12 +40,17 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location, $ionicSideM
 		}
 	});
 	
-	$scope.newRest = [];
-	$scope.currentUser = RestaurantFactory.getCurrentUser();//console.log($scope.currentUser);
+	
+	
+	//$scope.newRest = [];
+	
 	
 	/*make restaurant object and send to another function to send to factory*/
-	$scope.addRestaurant = function(){
-		var url = "http://maps.google.com/maps/api/geocode/json?address=" + $scope.newRest.address;
+	$scope.addRestaurant = function(x){
+		console.log(x);
+		//RestaurantFactory.setCurrentUser(x.name);
+		$scope.currentUser = RestaurantFactory.getCurrentUser();console.log($scope.currentUser);
+		var url = "http://maps.google.com/maps/api/geocode/json?address=" + x.address;
 			$http({
 				method: 'GET',
 				url: url
@@ -57,12 +60,16 @@ function ($scope, $stateParams, RestaurantFactory, $http, $location, $ionicSideM
 				var searchedreleventMapData_lat = releventMapData.geometry.location.lat;
 				var searched_lat = releventMapData.geometry.location.lat;
 				var searched_long = releventMapData.geometry.location.lng;
-				$scope.newRest.account_name = $scope.currentUser.account_name;
-				$scope.newRest.coords = [searched_lat, searched_long];
-				$scope.newRest.id = $scope.newRest.account_name + searched_lat;
-				//$scope.newRest.deals = [{deal_name:"a"}];
+				x.account_name = $scope.currentUser.account_name;
+				console.log(x);
 				
-				$scope.sendToService($scope.newRest);
+				x.coords = [searched_lat, searched_long];
+				x.id = x.account_name + searched_lat;
+				//$scope.newRest.deals = [{deal_name:"a"}];
+				console.log(x);
+				$scope.sendToService(x);
+				
+				
 			});
 	};
 	
@@ -101,7 +108,9 @@ function ($scope, $stateParams, RestaurantFactory, $location, $ionicPopup) {
 		$location.path('/customerSignUpRestEd');//page101
 	};
 	
+	//Add a new customer of the customer type
 	$scope.newCustomer = function(newCust){
+	
 		
 		var account_type = RestaurantFactory.getAccountType();
 		
@@ -114,6 +123,18 @@ function ($scope, $stateParams, RestaurantFactory, $location, $ionicPopup) {
 			RestaurantFactory.setCustomer(newCust);
 		
 			$location.path('/login');
+			var showAlert = function() {
+					var alertPopup = $ionicPopup.alert({
+						title: 'Sign In',
+						template: 'Please login with your new id. <br><br>(note: this login is brittle and if you use a name thats already been used it will mess up the app. i plan on using OAuth for the login).'
+					});
+					alertPopup.then(function(res) {
+
+					});
+
+				};
+				showAlert()
+			
 		}else{
 			//handle login errors
 			newCust.password1 = "";
@@ -132,17 +153,57 @@ function ($scope, $stateParams, RestaurantFactory, $location, $ionicPopup) {
 		
 	};
 	
+	//add a new customer of the restaurant type
 	$scope.newCustomerRest = function(newCust){
 		/*newCust is the object passed back from the view with all the  fields filled in*/
-		
+		console.log(newCust);
 		var account_type = RestaurantFactory.getAccountType();//possibly redundant code as account has been set in this controller
 		
 		/*if passwords match send newCust obj to the factory to get saved to FB and to set the customers signUpCustomer var*/
 		if(newCust.password1 === newCust.password2){
+			RestaurantFactory.setCurrentUser(newCust.name);
 			newCust.account_type = account_type;
+			//console.log(newCust.account_name);
 			RestaurantFactory.setCustomer(newCust);
-			//Change view
-			$location.path('/login');
+			var cu;
+			if(RestaurantFactory.setCurrentUser(newCust)){
+				
+				cu = RestaurantFactory.getCurrentUser();
+				console.log(cu);
+			}//to factory level
+			
+			
+			
+			if(newCust.account_type === "restaurant"){
+				$location.path('/page101');
+				var showAlert = function() {
+					var alertPopup = $ionicPopup.alert({
+						title: 'Sign In',
+						template: 'Please add a restaurant to get started.'
+					});
+					alertPopup.then(function(res) {
+
+					});
+
+				};
+				showAlert();
+				
+				//RestaurantFactory.initVariables(newCust.account_name)//to factory level
+			}else{
+				$location.path('/login');
+				var showAlert = function() {
+					var alertPopup = $ionicPopup.alert({
+						title: 'Sign In',
+						template: 'Please login with your new id. <br><br>(note: this login is brittle and if you use a name thats already been used it will mess up the app. i plan on using OAuth for the login).'
+					});
+					alertPopup.then(function(res) {
+
+					});
+
+				};
+				showAlert()
+			}
+			
 		}else{
 			newCust.password1 = "";
 			newCust.password2 = "";
@@ -319,7 +380,7 @@ function ($scope, $stateParams, RestaurantFactory) {
 	//console.log("reservationCtrl");
 	
 	$scope.reservations = RestaurantFactory.getReservations();
-	
+	$scope.reservations.reservation_date = new Date($scope.reservations.reservation_date);
 	console.log($scope.reservations);
 }])
 

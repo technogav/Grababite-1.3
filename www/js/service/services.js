@@ -4,8 +4,9 @@ angular.module('app.services', ['firebase'])
 							   function($firebaseArray, $firebaseObject, mainFactory, $location, $ionicPopup){
 
 	var rFactory = this;
-	rFactory.setCurrentDeal = function(){
-		mainFactory.setCurrentDeal();
+	
+	rFactory.initVariables = function(){
+		mainFactory.initVariables();
 	}
 	//var ref = mainFactory.getFbRestaurantArr();
 	
@@ -20,7 +21,9 @@ angular.module('app.services', ['firebase'])
 	var today = mainFactory.getToday();
 	var account_type = "";
 	
-								   
+	rFactory.setCurrentUser = function(x){
+		mainFactory.setCurrentUser(x);
+	}							   
 	rFactory.setAccountType = function(acc_type){
 		account_type = acc_type;
 	}
@@ -47,7 +50,7 @@ angular.module('app.services', ['firebase'])
 	
 	rFactory.getReservations = function(){
 		var reservations = mainFactory.getReservations();
-		console.log(reservations);
+		//console.log(reservations);
 		return reservations;
 	}
 	
@@ -85,11 +88,11 @@ angular.module('app.services', ['firebase'])
 			
 			if(value.account_name === restaurant.account_name){
 				console.log("account names match");
-				reserveDeal.uptake = parseInt(reserveDeal.uptake) +1;
+				//reserveDeal.uptake = parseInt(reserveDeal.uptake) +1;
 				//console.log(uptake);
 				angular.forEach(restaurant.deals, function(value){
 					
-					if(value.deal_name == reserveDeal.deal_name){
+					if(value.deal_name === reserveDeal.deal_name){
 						value.uptake = parseInt(value.uptake) + 1;
 						console.log(value.uptake);
 					}
@@ -113,7 +116,7 @@ angular.module('app.services', ['firebase'])
 			
 		});
 		fbArray.$save(index).then(function(){
-						console.log("here");
+						//console.log("here");
 						$location.path('/page1/page3');
 					});
 		
@@ -124,24 +127,25 @@ angular.module('app.services', ['firebase'])
 		//maybe get a global logged in customer index
 		var index = null;
 		angular.forEach(fbCustomerArray, function(value,key){
-			index = key;
+			
 			if(value.account_name === customer.account_name){
 				fbCustomerArray[key] = customer;
-				//console.log(fbCustomerArray[key]);
-				/*if(fbCustomerArray[key].bookings == undefined){
+				/*//console.log(fbCustomerArray[key]);
+				if(fbCustomerArray[key].bookings == undefined){
 					fbCustomerArray[key].bookings = [];
 					fbCustomerArray[key].bookings.push(value);
 					console.log(fbCustomerArray[key].bookings);
 				}else{
 					fbCustomerArray[key].bookings.push(value);
 				}*/
-				
+				index = key;
 				
 				
 			}
 		});
+		console.log(index);
 		fbCustomerArray.$save(index).then(function(){
-			console.log("Deal has been reserved");
+			console.log("Deal has been reserved for the customer");
 			var showAlert = function() {
 					var alertPopup = $ionicPopup.alert({
 						title: 'Reserved',
@@ -252,6 +256,8 @@ angular.module('app.services', ['firebase'])
 	
 	rFactory.setRestaurant = function(restaurant){
 		//create an alert to be fired on successful upload
+		console.log("HERE");
+		console.log(restaurant);
 		var showAlert = function() {
 			var alertPopup = $ionicPopup.alert({
 				title: 'Account edited',
@@ -268,7 +274,7 @@ angular.module('app.services', ['firebase'])
 			showAlert();
 		//create a global loggedInRestaurant variable on the top level	
 			mainFactory.refreshLoggedInrestaurant();
-			$location.path('/page201/page100');
+			$location.path('/login');
 		});
 	};
 	
@@ -292,7 +298,7 @@ angular.module('app.services', ['firebase'])
 		
 		//save to firebase
 		fbCustomerArray.$add(customer).then(function(){
-			showAlert();
+			//showAlert();
 		});
 	}
 	rFactory.getSignUpCustomer = function(){

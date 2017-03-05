@@ -73,19 +73,23 @@ function ($scope, $stateParams, dealsAndEditFactory) {
 	
 }])
 
-.controller('editDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location', 'ionicTimePicker',
-function ($scope, $stateParams, dealsAndEditFactory, $location, ionicTimePicker) {
+.controller('editDealsCtrl', ['$scope', '$stateParams', 'dealsAndEditFactory', '$location', 'ionicTimePicker', 'ionicDatePicker',
+function ($scope, $stateParams, dealsAndEditFactory, $location, ionicTimePicker,ionicDatePicker) {
 	"use strict";
 	//console.log("editDealCtrl");
-	
+
 	/*get some varibales before entering view*/
 	$scope.$on("$ionicView.beforeEnter", function(){
 		$scope.dealToEdit = dealsAndEditFactory.getDealToEdit();
 		$scope.displayStartTime = $scope.dealToEdit;
 		//console.log($scope.dealToEdit[0]);
-		$scope.displayEndTime = $scope.dealToEdit;	
+		$scope.displayEndTime = $scope.dealToEdit;
+		$scope.startTime = $scope.dealToEdit.endTime;
+		$scope.endTime = $scope.dealToEdit.startTime;
+		$scope.startDate = $scope.dealToEdit.startDate;
+		$scope.endDate = $scope.dealToEdit.endDate;
 	});
-	
+		
 /*func: to set the current_deal field in FB; will also delete the field in FB if the edited deal is Out Of Bounds(OOB)*/
 	$scope.saveEdit = function(deal){	
 		dealsAndEditFactory.setSaveDeal(deal);
@@ -100,6 +104,7 @@ function ($scope, $stateParams, dealsAndEditFactory, $location, ionicTimePicker)
       } else {
         var selectedTime = new Date(val * 1000).toTimeString();
        $scope.startTime =selectedTime;
+		  $scope.dealToEdit.startTime = $scope.startTime;
         
         
       }
@@ -107,7 +112,7 @@ function ($scope, $stateParams, dealsAndEditFactory, $location, ionicTimePicker)
     inputTime: 50400,   //Optional
     format: 12,         //Optional
     step: 15,           //Optional
-    setLabel: 'Set2'    //Optional
+    setLabel: 'Set'    //Optional
   };
 	var setEndTime = {
     callback: function (val) {      //Mandatory
@@ -117,13 +122,13 @@ function ($scope, $stateParams, dealsAndEditFactory, $location, ionicTimePicker)
         var selectedTime = new Date(val * 1000).toTimeString();
 		  
 		  $scope.endTime = selectedTime;
-        
+        $scope.dealToEdit.endTime = $scope.endTime;
       }
     },
     inputTime: 50400,   //Optional
     format: 12,         //Optional
     step: 15,           //Optional
-    setLabel: 'Set2'    //Optional
+    setLabel: 'Set'    //Optional
   };
 
 
@@ -133,7 +138,71 @@ function ($scope, $stateParams, dealsAndEditFactory, $location, ionicTimePicker)
 	$scope.getEndTime = function(){
 		ionicTimePicker.openTimePicker(setEndTime);
 	}
-  
+    
+	//IonicDatePicker
+	var setStartDate = {
+      callback: function (val) {  //Mandatory
+		  if (typeof (val) === 'undefined') {
+			  //console.log('Date not selected');
+		  } else {
+			  var selectedDate = new Date(val).toDateString();
+			  $scope.startDate =selectedDate;
+			  $scope.dealToEdit.startDate = $scope.startDate;
+		  }
+      },
+      /*disabledDates: [            //Optional
+        new Date(2016, 2, 16),
+        new Date(2015, 3, 16),
+        new Date(2015, 4, 16),
+        new Date(2015, 5, 16),
+        new Date('Wednesday, August 12, 2015'),
+        new Date("08-16-2016"),
+        new Date(1439676000000)
+      ],*/
+      from: new Date(2012, 1, 1), //Optional
+      to: new Date(2021, 10, 30), //Optional
+      inputDate: new Date(),      //Optional
+      mondayFirst: true,          //Optional
+      disableWeekdays: [0],       //Optional
+      closeOnSelect: false,       //Optional
+      templateType: 'popup'       //Optional
+    };
+	var setEndDate = {
+      callback: function (val) {  //Mandatory
+        if (typeof (val) === 'undefined') {
+			  //console.log('Date not selected');
+		  } else {
+			  var selectedDate = new Date(val).toDateString();
+			  $scope.endDate =selectedDate;
+			  $scope.dealToEdit.endDate = $scope.endDate;
+			  
+		  }
+      },
+      /*disabledDates: [            //Optional
+        new Date(2016, 2, 16),
+        new Date(2015, 3, 16),
+        new Date(2015, 4, 16),
+        new Date(2015, 5, 16),
+        new Date('Wednesday, August 12, 2015'),
+        new Date("08-16-2016"),
+        new Date(1439676000000)
+      ],*/
+      from: new Date(2012, 1, 1), //Optional
+      to: new Date(2021, 10, 30), //Optional
+      inputDate: new Date(),      //Optional
+      mondayFirst: true,          //Optional
+      disableWeekdays: [0],       //Optional
+      closeOnSelect: false,       //Optional
+      templateType: 'popup'       //Optional
+    };
+	
+    $scope.getStartDate = function(){
+      ionicDatePicker.openDatePicker(setStartDate);
+    };
+	$scope.getEndDate = function(){
+      ionicDatePicker.openDatePicker(setEndDate);
+    };
+
 
 }])
 

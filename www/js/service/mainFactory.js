@@ -339,12 +339,21 @@ angular.module('mainFactory', ['firebase'])
 						
 	mainFactory.getReservations = function(){//stick this function one factory down// actually get mainFactory.getCurrentUser will work
 		var reservations = [];
-		//console.log(today);
+		
 		if(currentUser.bookings !== undefined){
+			console.log(currentUser.bookings);
 			angular.forEach(currentUser.bookings, function(value){
 				var resDate  = new Date(value.reservation_date);
-				//console.log(resDate);
-				if(resDate >= today){
+				//resDate = resDate.getDate();
+				var yesterday = new Date();
+				yesterday.setDate(yesterday.getDate() - 1);
+				
+				
+				console.log(yesterday);
+				console.log(resDate);
+				
+				if(resDate > yesterday){
+					console.log(value);
 					reservations.push(value);
 				}
 			})
@@ -394,6 +403,7 @@ angular.module('mainFactory', ['firebase'])
 	}
 	
 	mainFactory.setCurrentUser = function(user){
+		
 		currentUser = user;
 	}
 	
@@ -402,7 +412,7 @@ angular.module('mainFactory', ['firebase'])
 	}
 	
 	mainFactory.getCurrentUser = function(){
-		//console.log(currentUser);
+		console.log(currentUser);
 		return currentUser;
 	}
 	
